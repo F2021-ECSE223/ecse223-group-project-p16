@@ -1,6 +1,6 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
-public class ClimbSafeFeatureSet7Controller {
+class ClimbSafeFeatureSet7Controller {
 
   public static void addHotel(String name, String address, int nrStars)
       throws InvalidInputException {}

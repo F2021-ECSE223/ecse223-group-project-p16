@@ -2,7 +2,7 @@ package ca.mcgill.ecse.climbsafe.controller;
 
 import java.util.List;
 
-public class ClimbSafeFeatureSet6Controller {
+class ClimbSafeController {
 
   public static void deleteEquipment(String name) throws InvalidInputException {}
 

@@ -2,7 +2,7 @@ package ca.mcgill.ecse.climbsafe.controller;
 
 import java.util.List;
 
-public class ClimbSafeFeatureSet5Controller {
+class ClimbSafeFeatureSet5Controller {
 
   public static void addEquipmentBundle(String name, int discount, List<String> equipmentNames,
       List<Integer> equipmentQuantities) throws InvalidInputException {}
