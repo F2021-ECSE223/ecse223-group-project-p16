@@ -1,0 +1,241 @@
+class ClimbSafe {
+ 
+  1 <@>- 1 Administrator admin;
+  1 <@>- * Member members;
+  1 <@>- * MountainGuide mountainGuides;
+  1 <@>- * ClimbingWeek climbingWeeks;
+  1 <@>- 0..1 ClimbingSeason seasonInfo;
+  1 <@>- * Equipment equipments;
+  1 <@>- * Bundle bundles;
+  1 <@>- * ClimbAssignment climbAssignments;
+  1 <@>- * Hotel hotels;
+  1 <@>- 1..* User users;
+}
+
+class AccountType
+{
+  abstract;
+  1 -- 0..1 User;
+}
+
+class Administrator
+{
+  isA AccountType;
+  1 -- * ClimbAssignment assignments;
+  1 -- 0..1 ClimbingSeason seasonInfo;
+}
+
+class Member
+{
+   name;
+  boolean hireClimbGuide;
+  Integer numberOfWeeks;
+  boolean stayBeforeOrAfter;
+  Integer emergencyContact;
+  isA AccountType;
+  }
+
+class MountainGuide
+{
+   name;
+  Integer emergencyContact;
+  isA AccountType;
+}
+
+class ClimbingWeek
+{
+  Integer weekNumber; 
+  // this is a derived attribute from weekNumber
+  Date weekStartDate; 
+  // this is a derived attribute from weekNumber
+  Date weekEndDate; 
+  // this is a derived attribute from weekNumber
+}
+
+class ClimbingSeason
+{
+  Date seasonStartDate;
+  Date seasonEndDate;
+  // this is a derived attribute from seasonStartDate and seas
+  Integer numberOfWeeks;
+  Integer guideWeeklyPrice;
+  1 season -- * ClimbingWeek climbingWeeks;
+  1 season -- * Equipment availableEquipment;
+}
+
+class Equipment
+{
+  toolName;
+  double weight;
+  Integer cost;
+  }
+
+class Bundle
+{
+  Integer percentDiscount;
+  bundleName;
+  * bundles  -- 2..* Equipment equipment;
+  * availableBundles -- 1 ClimbingSeason season;
+}
+
+class ClimbAssignment
+{
+  Integer totalCost; 
+  1 assignment -- 1 Member member;
+  * assignments -- 0..1 MountainGuide guide;
+  * assignments -- * Equipment equipment;
+  * assignments -- 1..* ClimbingWeek climbingWeeks;
+  * assignments -- * Bundle bundles;
+  * assignments -- 0..1 Hotel hotel;
+  * assignments-- 1 ClimbingSeason season;
+}
+
+class Hotel
+{
+   name;
+   address;
+  Integer stars;
+  }
+
+class User
+{
+  unique email;
+  password;
+}
+
+
+
+namespace -;
+
+
+class AccountType
+{
+  position 328 16 109 74.9625;
+  position.association AccountType__User 110,44 0,33;
+}
+
+class Administrator
+{
+  position 813 697 114 41.9625;
+  position.association Administrator__ClimbAssignment 0,33 140,25;
+  position.association Administrator__ClimbingSeason 0,40 197,75;
+  position.association Administrator__ClimbAssignment:assignments 0,10 140,21;
+  position.association Administrator__ClimbingSeason:seasonInfo 0,10 170,18;
+    //needs to be checked (password too)
+}
+
+class Member
+{
+  position 11 163 201.194 126.694;
+  }
+
+class MountainGuide
+{
+  position 316 179 201.194 75.6944;
+}
+
+class ClimbingWeek
+{
+  position 30 404 157.597 92.6944;
+}
+
+class ClimbingSeason
+{
+  position 28 661 169.278 109.694;
+  position.association ClimbingSeason__ClimbingWeek 51,0 134,93;
+  position.association ClimbingSeason:season__ClimbingWeek:climbingWeeks 3,0 64,93;
+  position.association ClimbingSeason__Equipment 197,53 0,40;
+  position.association ClimbingSeason:season__Equipment:availableEquipment 170,27 0,80;
+}
+
+class Equipment
+{
+  position 519 601 131.083 92.6944;
+}
+
+class Bundle
+{
+  position 288 516 152.556 75.6944;
+  position.association Bundle:bundle__Equipment:equipment 161,92 0,6;
+    position.association Bundle__ClimbingSeason 0,40 197,31;
+  position.association Bundle:availableBundles__ClimbingSeason:season 0,69 153,0;
+  position.association Bundle:bundles__Equipment:equipment 161,69 0,10;
+}
+
+class ClimbAssignment
+{
+  position 355 340 109 58.9625;
+  position.association ClimbAssignment:assignment__Member:member 0,26 202,82;
+  position.association ClimbAssignment:assignments__MountainGuide:guide 115,0 150,76;
+  position.association ClimbAssignment:assignment__ClimbingWeek:climbingWeeks 0,43 134,0;
+  position.association ClimbAssignment:assignment__Equipment:equipment 139,52 26,0;
+  position.association ClimbAssignment:assignments__Hotel:hotels 140,5 0,10;
+  position.association Bundle:bundles__ClimbAssignment:assignments 110,59 82,0;
+  position.association ClimbAssignment__ClimbingSeason 26,59 138,0;
+  position.association ClimbAssignment:assignments__ClimbingSeason:season 7,59 77,0;
+  position.association ClimbAssignment:assignments__Member:member 0,0 210,80;
+  position.association ClimbAssignment:assignments__ClimbingWeek:climbingWeeks 0,10 51,0;
+}
+
+class Hotel
+{
+  position 601 137 117.069 92.6944;
+  }
+
+class User
+{
+  position 568 28 111.287 58.9625;
+}
+
+namespace -;
+
+
+class Administrator
+{
+  position 813 697 114 41.9625;
+}
+
+class Member
+{
+  position 11 163 201.194 126.694;
+}
+
+class MountainGuide
+{
+  position 316 179 201.194 75.6944;
+}
+
+class ClimbingWeek
+{
+  position 30 404 157.597 92.6944;
+}
+
+class ClimbingSeason
+{
+  position 28 661 169.278 109.694;
+}
+
+class Equipment
+{
+  position 519 601 131.083 92.6944;
+}
+
+class Bundle
+{
+  position 288 516 152.556 75.6944;
+}
+
+class ClimbAssignment
+{
+  position 355 340 109 58.9625;
+}
+
+class Hotel
+{
+  position 601 137 117.069 92.6944;
+}
+
+class User
+{
+  position 580 9 138.25 75.9625;
+}//$?[End_of_model]$?
