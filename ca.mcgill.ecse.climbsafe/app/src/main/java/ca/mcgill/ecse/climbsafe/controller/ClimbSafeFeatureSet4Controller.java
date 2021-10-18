@@ -6,7 +6,7 @@ import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
 
 public class ClimbSafeFeatureSet4Controller {
-	
+  
   private static ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
 
   public static void addEquipment(String name, int weight, int pricePerWeek)
