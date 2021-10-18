@@ -46,7 +46,6 @@ public class P16StepDefinitions {
     	climbSafe.setNrWeeks((Integer.parseInt(columns.get("nrWeeks"))));
     	climbSafe.setPriceOfGuidePerWeek((Integer.parseInt(columns.get("priceOfGuidePerWeek"))));
     }
-//    climbSafe.setStartDate(null)
     
     // Write code here that turns the phrase above into concrete actions
     // For automatic transformation, change DataTable to one of
@@ -113,7 +112,7 @@ public class P16StepDefinitions {
   }
   
 
-@After
+  @After
   public void tearDown() {
     climbSafe.delete();
   }
