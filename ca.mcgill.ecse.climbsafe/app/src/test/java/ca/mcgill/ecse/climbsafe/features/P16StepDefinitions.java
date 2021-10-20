@@ -34,16 +34,6 @@ public class P16StepDefinitions {
   private ClimbSafe climbSafe;
 
   /**
-   * Stores error messages when calling controller methods.
-   */
-  private String error;
-
-  /**
-   * Error counter.
-   */
-  private int errorCntr;
-
-  /**
    * This method is part of the "given" clause that creates a climbSafe object directly using the
    * model, in order to perform testing.
    * 
@@ -56,9 +46,7 @@ public class P16StepDefinitions {
       io.cucumber.datatable.DataTable dataTable) {
 
     climbSafe = ClimbSafeApplication.getClimbSafe();
-    error = "";
-    errorCntr = 0;
-
+    
     List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
     for (Map<String, String> columns : rows) {
       climbSafe.setStartDate(Date.valueOf(columns.get("startDate")));
@@ -82,7 +70,7 @@ public class P16StepDefinitions {
     List<Map<String, String>> rows = dataTable.asMaps();
     for (Map<String, String> columns : rows) {
       climbSafe.addHotel(columns.get("name"), columns.get("address"),
-          getRating(Integer.parseInt(columns.get("rating"))));
+          getRatingFromInteger(Integer.parseInt(columns.get("rating"))));
     }
   }
 
@@ -119,14 +107,15 @@ public class P16StepDefinitions {
    * hotel via the controller.
    * 
    * @author Samuel Valentine, Onyekachi Ezekwem, Rui Du, Youssof Mohamed Masoud, Yakir Bender.
-   * @param string, string2, string3 : which represents the name, address, and rating of the hotel
+   * @param hotelName, hotelAddress, hotelRating : which represents the name, address, and rating of the hotel
    *        that will no longer exist in the system.
    */
   @Then("the hotel with name {string}, address {string}, and rating {string} shall not exist in the system \\(p16)")
   public void the_hotel_with_name_address_and_rating_shall_not_exist_in_the_system_p16(
-      String string, String string2, String string3) {
-
-    assertNull(Hotel.getWithName(string));
+      String hotelName, String hotelAddress, String hotelRating) {
+    
+    assertNull(Hotel.getWithName(hotelName));
+    
   }
 
   /**
@@ -143,6 +132,8 @@ public class P16StepDefinitions {
     List<Map<String, String>> rows = dataTable.asMaps();
     for (Map<String, String> columns : rows) {
       assertTrue(Hotel.hasWithName(columns.get("name")));
+      assertEquals(Hotel.getWithName(columns.get("name")).getAddress(), columns.get("address"));
+      assertEquals(Hotel.getWithName(columns.get("name")).getRating(), getRatingFromInteger(Integer.parseInt(columns.get("rating"))));
     }
   }
 
@@ -160,9 +151,6 @@ public class P16StepDefinitions {
   private void callController(Executable executable) {
     try {
       executable.execute();
-    } catch (InvalidInputException e) {
-      error += e.getMessage();
-      errorCntr += 1;
     } catch (Throwable t) {
       fail();
     }
@@ -175,7 +163,7 @@ public class P16StepDefinitions {
    * @param nrStars : which represents the hotel rating as an integer number of stars.
    * @return HotelRating : which represents the rating of the hotel.
    */
-  private static Hotel.HotelRating getRating(int nrStars) {
+  private static Hotel.HotelRating getRatingFromInteger(int nrStars) {
     switch (nrStars) {
       case 1:
         return HotelRating.OneStar;
