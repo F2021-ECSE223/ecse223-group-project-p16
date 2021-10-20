@@ -83,9 +83,9 @@ public class P16StepDefinitions {
    */
   @When("the administator attempts to delete the hotel in the system with name {string} \\(p16)")
   public void the_administator_attempts_to_delete_the_hotel_in_the_system_with_name_p16(
-      String string) {
+      String name) {
 
-    callController(() -> ClimbSafeFeatureSet1Controller.deleteHotel(string));
+    ClimbSafeFeatureSet1Controller.deleteHotel(name);
   }
 
   /**
@@ -145,15 +145,6 @@ public class P16StepDefinitions {
   @After
   public void tearDown() {
     climbSafe.delete();
-  }
-
-  /** Calls controller and sets error and counter. */
-  private void callController(Executable executable) {
-    try {
-      executable.execute();
-    } catch (Throwable t) {
-      fail();
-    }
   }
 
   /**
