@@ -13,7 +13,6 @@ import java.util.List;
 public class ClimbSafeFeatureSet2Controller {
 	
 	static char quotation='"'; //Done to make including quotations in the error messages easier.
-	//String password="";
 	static String error; //Initializing the error variable
 	
 	/**
@@ -135,7 +134,7 @@ public class ClimbSafeFeatureSet2Controller {
 		  if(error.startsWith("Cannot create due to invalid newEmergencyContact")) {
 			  error="Please enter a valid emergency contact number.";
 		  }
-		  if(error.startsWith("Cannot create due to newNrWeeks> climbingSeason")) { //Fix climbingSeason to the duration of the season.
+		  if(error.startsWith("Cannot create due to newNrWeeks> climbingSeason")) { 
 			  error="Please ensure that the number of weeks you wish to traverse the himalayas is not "
 			  		+ "greater than the climbing season";
 		  }
@@ -153,7 +152,7 @@ public class ClimbSafeFeatureSet2Controller {
 		  }
 		  if(error.startsWith("Cannot create due to invalid newItemQuantities")) {
 			  error="Please enter a valid quantity, or enter " + quotation + "NA" + quotation + " if you"
-					  + " did not select any equipment."; //include the maximum quantity of the said equipment
+					  + " did not select any equipment."; 
 		  }
 		 
 		  
