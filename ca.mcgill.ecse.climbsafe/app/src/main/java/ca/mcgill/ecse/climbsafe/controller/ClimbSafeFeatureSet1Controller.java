@@ -35,7 +35,7 @@ public class ClimbSafeFeatureSet1Controller {
 		  climbSafe.setPriceOfGuidePerWeek(priceOfGuidePerWeek);
 		  climbSafe.setStartDate(startDate);
 	  } catch (RuntimeException e ){
-		  throw new InvalidInputException(error);
+		  throw new InvalidInputException(e.getMessage());
 	  }
   }
 
