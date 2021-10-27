@@ -1,28 +1,19 @@
 package ca.mcgill.ecse.climbsafe.features;
 
-import io.cucumber.java.After;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-
-import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
-import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
-import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
-import ca.mcgill.ecse.climbsafe.model.Hotel;
-import ca.mcgill.ecse.climbsafe.model.Hotel.HotelRating;
-import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.function.Executable;
+import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
+import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
+import ca.mcgill.ecse.climbsafe.model.Hotel;
+import ca.mcgill.ecse.climbsafe.model.Hotel.HotelRating;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 
 
@@ -46,7 +37,11 @@ public class P16StepDefinitions {
       io.cucumber.datatable.DataTable dataTable) {
 
     climbSafe = ClimbSafeApplication.getClimbSafe();
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 0f0b0eeb4398a349aac85f2a6431326264b41870
     List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
     for (Map<String, String> columns : rows) {
       climbSafe.setStartDate(Date.valueOf(columns.get("startDate")));
@@ -83,9 +78,9 @@ public class P16StepDefinitions {
    */
   @When("the administator attempts to delete the hotel in the system with name {string} \\(p16)")
   public void the_administator_attempts_to_delete_the_hotel_in_the_system_with_name_p16(
-      String string) {
+      String name) {
 
-    callController(() -> ClimbSafeFeatureSet1Controller.deleteHotel(string));
+    ClimbSafeFeatureSet1Controller.deleteHotel(name);
   }
 
   /**
@@ -107,15 +102,26 @@ public class P16StepDefinitions {
    * hotel via the controller.
    * 
    * @author Samuel Valentine, Onyekachi Ezekwem, Rui Du, Youssof Mohamed Masoud, Yakir Bender.
+<<<<<<< HEAD
    * @param hotelName, hotelAddress, hotelRating : which represents the name, address, and rating of the hotel
    *        that will no longer exist in the system.
+=======
+   * @param hotelName, hotelAddress, hotelRating : which represents the name, address, and rating of
+   *        the hotel that will no longer exist in the system.
+>>>>>>> 0f0b0eeb4398a349aac85f2a6431326264b41870
    */
   @Then("the hotel with name {string}, address {string}, and rating {string} shall not exist in the system \\(p16)")
   public void the_hotel_with_name_address_and_rating_shall_not_exist_in_the_system_p16(
       String hotelName, String hotelAddress, String hotelRating) {
+<<<<<<< HEAD
 	
     assertNull(Hotel.getWithName(hotelName));
     
+=======
+
+    assertNull(Hotel.getWithName(hotelName));
+
+>>>>>>> 0f0b0eeb4398a349aac85f2a6431326264b41870
   }
 
   /**
@@ -132,6 +138,7 @@ public class P16StepDefinitions {
     List<Map<String, String>> rows = dataTable.asMaps();
     for (Map<String, String> columns : rows) {
       assertTrue(Hotel.hasWithName(columns.get("name")));
+<<<<<<< HEAD
       assertEquals(Hotel.getWithName(columns.get("name")).getAddress(), columns.get("address"));
       assertEquals(Hotel.getWithName(columns.get("name")).getRating(), getRatingFromInteger(Integer.parseInt(columns.get("rating"))));
     }
@@ -153,6 +160,11 @@ public class P16StepDefinitions {
       executable.execute();
     } catch (Throwable t) {
       fail();
+=======
+      assertEquals(columns.get("address"), Hotel.getWithName(columns.get("name")).getAddress());
+      assertEquals(getRatingFromInteger(Integer.parseInt(columns.get("rating"))),
+          Hotel.getWithName(columns.get("name")).getRating());
+>>>>>>> 0f0b0eeb4398a349aac85f2a6431326264b41870
     }
   }
 
