@@ -17,13 +17,13 @@ public class ClimbSafeFeatureSet1Controller {
       throws InvalidInputException {
 	  String error = "";
 	  if (nrWeeks < 0) {
-		  error = "No. of weeks must be greater than 0";
+		  error += "The number of climbing weeks must be greater than or equal to zero ";
 	  }
 	  if (priceOfGuidePerWeek < 0) {
-		  error = "Price of guider per week must be greater than 0";
+		  error += "The price of guide per week must be greater than or equal to zero ";
 	  }
 	  if (startDate.toLocalDate().isBefore(getTodayDate().toLocalDate())) {
-		  error = "Start Date must be after today's date";
+		  error += "Invalid date ";
 	  }
 	  if (error.length() > 0) {
 		  throw new InvalidInputException(error);
@@ -35,19 +35,19 @@ public class ClimbSafeFeatureSet1Controller {
 		  climbSafe.setPriceOfGuidePerWeek(priceOfGuidePerWeek);
 		  climbSafe.setStartDate(startDate);
 	  } catch (RuntimeException e ){
-		  throw new InvalidInputException(error);
+		  throw new InvalidInputException(e.getMessage());
 	  }
   }
 
   public static void deleteMember(String email) {
-	  Member member = (Member) User.getWithEmail(email);
+	  User member = User.getWithEmail(email);
 	  if (member != null && member instanceof Member) {
 		  member.delete();
 	  }
   }
 
   public static void deleteGuide(String email) {
-	  Guide guide = (Guide) User.getWithEmail(email);
+	  User guide = User.getWithEmail(email);
 	  if(guide != null && guide instanceof Guide) {
 		  guide.delete();
 	  }
