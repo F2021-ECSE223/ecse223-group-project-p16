@@ -5,23 +5,51 @@ import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
 
+/**
+ * Here are the controller features for addEquipment and updateEquipment
+ * as specified by the administrator when defining the set of available equipment.
+ * 
+ * @author Rui Du
+ *
+ */
+
 public class ClimbSafeFeatureSet4Controller {
   
+  /**
+   * The existing ClimbSafe object in the application
+   */
   private static ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
 
+  /**
+   * Controller feature to add an equipment to the list of available equipment.
+   * 
+   * @param name Name of the new equipment to add.
+   * @param weight The weight of the new equipment. This should be larger than zero.
+   * @param pricePerWeek The price per week of renting the equipment.
+   * @throws InvalidInputException
+   */
   public static void addEquipment(String name, int weight, int pricePerWeek)
     throws InvalidInputException {
 	
 	var error = "";
 	  
 	if (name.isEmpty()|| name == null) {
-	  error = "Equipment name cannot be empty or null.";
+	  error = "The name must not be empty";
 	}
 	if (weight <= 0) {
-	  error = "Equipment weight must be larger than 0.";
+	  error = "The weight must be greater than 0";
 	}
 	if (pricePerWeek < 0) {
-	  error = "Equipment price must be greater than or equal to zero.";
+	  error = "The price per week must be greater than or equal to 0";
+	}
+	BookableItem item = BookableItem.getWithName(name);
+	if (item != null) {
+	  if (item instanceof Equipment) {
+	    error = "The piece of equipment already exists";
+	  }
+	  else {
+	    error = "The equipment bundle already exists";
+	  }
 	}
 	  
 	if (!error.isEmpty()) {
@@ -40,39 +68,57 @@ public class ClimbSafeFeatureSet4Controller {
 	  
   }
 
+  /**
+   * Controller feature to update the name, weight, or price per week
+   * of an existing bookable equipment.
+   * 
+   * @param oldName The old name of the existing equipment. This is used to identify the equipment to update.
+   * @param newName The new name to set the equipment to.
+   * @param newWeight The new weight to set the equipment to.
+   * @param newPricePerWeek The new price per week to set the equipment to.
+   * @throws InvalidInputException
+   */
   public static void updateEquipment(String oldName, String newName, int newWeight,
     int newPricePerWeek) throws InvalidInputException {
 	  
 	var error = "";
       
 	if (newName.isEmpty()|| newName == null) {
-	  error = "New equipment name cannot be empty or null.";
+	  error = "The name must not be empty";
 	}
 	if (oldName.isEmpty()|| oldName == null) {
 	  error = "Old equipment name cannot be empty or null.";
 	}
 	if (newWeight <= 0) {
-	  error = "Equipment weight must be larger than 0.";
+	  error = "The weight must be greater than 0";
 	}
 	if (newPricePerWeek < 0) {
-	  error = "Equipment price must be greater than or equal to zero.";
+	  error = "The price per week must be greater than or equal to 0";
 	}
-	  
+	 
 	BookableItem existingBookableItem = BookableItem.getWithName(oldName);
-	Equipment existingEquipment = null;
-	
-	if (existingBookableItem != null && existingBookableItem instanceof Equipment) {
-	  existingBookableItem.setName(newName);
-	  existingEquipment = (Equipment) existingBookableItem;
-	} else {
-	  error = "No existing equipment with name " + oldName + " found.";
+	if (existingBookableItem == null || !(existingBookableItem instanceof Equipment)) {
+	  error = "The piece of equipment does not exist";
 	}
 	
+	if (!newName.equals(oldName)) {
+	  BookableItem takenName = BookableItem.getWithName(newName);
+	  if (takenName != null) { // should be null if the name does not exist in the system
+        if (takenName instanceof Equipment) {
+          error = "The piece of equipment already exists";
+        } else {
+          error = "An equipment bundle with the same name already exists";
+        }
+      }
+	}
+  	
 	if (!error.isEmpty()) {
 	  throw new InvalidInputException(error.trim());
 	}
 	
 	try {
+	  existingBookableItem.setName(newName);
+	  Equipment existingEquipment = (Equipment) existingBookableItem;
       existingEquipment.setWeight(newWeight);
       existingEquipment.setPricePerWeek(newPricePerWeek);
     } catch (RuntimeException e) {
