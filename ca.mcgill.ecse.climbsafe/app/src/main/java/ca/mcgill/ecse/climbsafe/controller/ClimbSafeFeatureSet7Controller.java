@@ -5,6 +5,11 @@ import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Hotel;
 import ca.mcgill.ecse.climbsafe.model.Hotel.HotelRating;
 
+
+/**
+	 * Add/Update Hotel Feature
+	 * @author Youssof Mohamed
+	 */
 public class ClimbSafeFeatureSet7Controller {
 	
 	private static ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
