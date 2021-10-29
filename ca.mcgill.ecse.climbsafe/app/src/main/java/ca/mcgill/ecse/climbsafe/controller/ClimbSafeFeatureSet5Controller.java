@@ -197,7 +197,7 @@ public class ClimbSafeFeatureSet5Controller {
       
     }
     catch (RuntimeException e) {
-      throw new InvalidInputException(error);
+      throw new InvalidInputException(e.getMessage());
     }
   }
 }
