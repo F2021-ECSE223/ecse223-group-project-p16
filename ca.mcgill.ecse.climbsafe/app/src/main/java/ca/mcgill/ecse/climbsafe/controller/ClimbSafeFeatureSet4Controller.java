@@ -21,7 +21,11 @@ public class ClimbSafeFeatureSet4Controller {
   private static ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
 
   /**
+   * addEquipment:
+   * 
    * Controller feature to add an equipment to the list of available equipment.
+   * 
+   * @author Rui Du
    * 
    * @param name Name of the new equipment to add.
    * @param weight The weight of the new equipment. This should be larger than zero.
@@ -69,8 +73,12 @@ public class ClimbSafeFeatureSet4Controller {
   }
 
   /**
+   * updateEquipment:
+   * 
    * Controller feature to update the name, weight, or price per week
    * of an existing bookable equipment.
+   * 
+   * @author Rui Du
    * 
    * @param oldName The old name of the existing equipment. This is used to identify the equipment to update.
    * @param newName The new name to set the equipment to.
