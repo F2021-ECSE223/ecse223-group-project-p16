@@ -5,6 +5,11 @@ import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Hotel;
 import ca.mcgill.ecse.climbsafe.model.Hotel.HotelRating;
 
+
+/**
+	 * Add/Update Hotel Feature
+	 * @author Youssof Mohamed
+	 */
 public class ClimbSafeFeatureSet7Controller {
 	
 	private static ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
@@ -21,16 +26,16 @@ public class ClimbSafeFeatureSet7Controller {
 	public static void addHotel(String name, String address, int nrStars) throws InvalidInputException {
 		var error = "";
 		if(name=="") {
-			error+="Name cannot be empty";
+			error="Name cannot be empty";
 		}
 		if(address=="") {
-			error+="Address cannot be empty";
+			error="Address cannot be empty";
 		}
 		if(nrStars>5 || nrStars<1) {
-			error+="Number of stars must be between 1 and 5";
+			error="Number of stars must be between 1 and 5";
 		}
 		if(Hotel.getWithName(name)!=null) {
-			error += "Hotel already exists in the system";
+			error = "Hotel already exists in the system";
 		}
 		if(!error.isEmpty()) {
 			throw new InvalidInputException(error.trim());
@@ -54,22 +59,20 @@ public class ClimbSafeFeatureSet7Controller {
 	public static void updateHotel(String oldName, String newName, String newAddress, int NewNrStars) throws InvalidInputException {
 		var error = "";
 		if(oldName=="") {
-			error+="oldName cannot be empty";
+			error="oldName cannot be empty";
+		} else if(Hotel.getWithName(oldName)==null) {
+			error = "Hotel does not exist in the system";
 		}
 		if(newName=="") {
-			error+="Name cannot be empty";
+			error="Name cannot be empty ";
+		} else if(Hotel.getWithName(newName)!=null) {
+			error="New name already linked to another hotel";
 		}
 		if(newAddress=="") {
-			error+="Address cannot be empty";
+			error="Address cannot be empty ";
 		}
 		if(NewNrStars<1 || NewNrStars>5) {
-			error+="Number of stars must be between 1 and 5";
-		}
-		if(Hotel.getWithName(newName)!=null) {
-			error+="New name already linked to another hotel";
-		}
-		if(Hotel.getWithName(oldName)==null) {
-			error += "Hotel does not exist in the system";
+			error="Number of stars must be between 1 and 5";
 		}
 		if(!error.isEmpty()) {
 			throw new InvalidInputException(error.trim());

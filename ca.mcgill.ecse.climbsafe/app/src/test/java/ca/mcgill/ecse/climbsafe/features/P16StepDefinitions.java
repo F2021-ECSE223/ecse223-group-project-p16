@@ -37,11 +37,7 @@ public class P16StepDefinitions {
       io.cucumber.datatable.DataTable dataTable) {
 
     climbSafe = ClimbSafeApplication.getClimbSafe();
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 0f0b0eeb4398a349aac85f2a6431326264b41870
     List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
     for (Map<String, String> columns : rows) {
       climbSafe.setStartDate(Date.valueOf(columns.get("startDate")));
@@ -102,26 +98,16 @@ public class P16StepDefinitions {
    * hotel via the controller.
    * 
    * @author Samuel Valentine, Onyekachi Ezekwem, Rui Du, Youssof Mohamed Masoud, Yakir Bender.
-<<<<<<< HEAD
-   * @param hotelName, hotelAddress, hotelRating : which represents the name, address, and rating of the hotel
-   *        that will no longer exist in the system.
-=======
    * @param hotelName, hotelAddress, hotelRating : which represents the name, address, and rating of
    *        the hotel that will no longer exist in the system.
->>>>>>> 0f0b0eeb4398a349aac85f2a6431326264b41870
    */
   @Then("the hotel with name {string}, address {string}, and rating {string} shall not exist in the system \\(p16)")
   public void the_hotel_with_name_address_and_rating_shall_not_exist_in_the_system_p16(
       String hotelName, String hotelAddress, String hotelRating) {
-<<<<<<< HEAD
-	
-    assertNull(Hotel.getWithName(hotelName));
-    
-=======
 
     assertNull(Hotel.getWithName(hotelName));
 
->>>>>>> 0f0b0eeb4398a349aac85f2a6431326264b41870
+
   }
 
   /**
@@ -138,33 +124,12 @@ public class P16StepDefinitions {
     List<Map<String, String>> rows = dataTable.asMaps();
     for (Map<String, String> columns : rows) {
       assertTrue(Hotel.hasWithName(columns.get("name")));
-<<<<<<< HEAD
-      assertEquals(Hotel.getWithName(columns.get("name")).getAddress(), columns.get("address"));
-      assertEquals(Hotel.getWithName(columns.get("name")).getRating(), getRatingFromInteger(Integer.parseInt(columns.get("rating"))));
-    }
-  }
 
-  /**
-   * This After method scraps the existing ClimbSafe system after testing each scenario.
-   * 
-   * @author Samuel Valentine, Onyekachi Ezekwem, Rui Du, Youssof Mohamed Masoud.
-   */
-  @After
-  public void tearDown() {
-    climbSafe.delete();
-  }
-
-  /** Calls controller and sets error and counter. */
-  private void callController(Executable executable) {
-    try {
-      executable.execute();
-    } catch (Throwable t) {
-      fail();
-=======
       assertEquals(columns.get("address"), Hotel.getWithName(columns.get("name")).getAddress());
       assertEquals(getRatingFromInteger(Integer.parseInt(columns.get("rating"))),
           Hotel.getWithName(columns.get("name")).getRating());
->>>>>>> 0f0b0eeb4398a349aac85f2a6431326264b41870
+
+
     }
   }
 

@@ -5,7 +5,6 @@ import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.User;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Member;
-import ca.mcgill.ecse.climbsafe.model.Administrator;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 
 
@@ -13,11 +12,20 @@ public class ClimbSafeFeatureSet3Controller {
 	
   private static ClimbSafe climbsafe = ClimbSafeApplication.getClimbSafe();
 
+  /** Attempts to register a guide in the ClimbSafe system.
+   * @author Yakir Bender
+   * @param email
+   * @param password
+   * @param name
+   * @param emergencyContact
+   * @throws InvalidInputException
+  */
   public static void registerGuide(String email, String password, String name,
       String emergencyContact) throws InvalidInputException {
 	  
 	  var error = "";
 	  
+	  //Input Validation
 	  if (password.isEmpty() || password == null) {
 		  error += "Password cannot be empty or null.";
 		  }
@@ -31,12 +39,11 @@ public class ClimbSafeFeatureSet3Controller {
 		  error += "Emergency contact cannot be empty or null.";
 		  }
 	  if (email.isEmpty() || email == null) {
-		  error += "Email address cannot be empty or null.";
+		  error += "Email cannot be empty or null.";
 		  }
 	  if (email.contains(" ")) {
-		  error += "Email address cannot contain spaces";
+		  error += "Email must not contain any spaces";
 		  }
-	  
 	  if (email.indexOf("@") == 0) {
 		  error += "Invalid email";
 		  }
@@ -49,33 +56,42 @@ public class ClimbSafeFeatureSet3Controller {
 	  if (email.lastIndexOf(".") == email.length() - 1) {
 		  error += "Invalid email";
 		  }
-	  
-	  if (Guide.getWithEmail(email) != null) {
-		  error += "Email already linked to a guide account";
-		  }
-	  if (Member.getWithEmail(email) != null) {
-		  error += "Email already linked to a member account";
-		  }
-	  if (email.equals("admin@nmc.nt") && Administrator.hasWithEmail(email)) {
+	  if (email.equals("admin@nmc.nt")) {
 		  error += "Email cannot be admin@nmc.nt";
 		  }
-	  
+	  if (User.getWithEmail(email) instanceof Guide) {
+		  error += "Email already linked to a guide account";
+		  }
+	  if (User.getWithEmail(email) instanceof Member) {
+		  error += "Email already linked to a member account";
+		  }
+
 	  if (!error.isEmpty()) {
 		  throw new InvalidInputException(error.trim());
 		  }
 
-		try {
+	  //Attempts to add a guide to the system
+	  try {
 			climbsafe.addGuide(email, password, name, emergencyContact);
 		} catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
 				}
   }
 
+  /** Attempts to update a guide in the ClimbSafe system.
+   * @author Yakir Bender
+   * @param email
+   * @param newPassword
+   * @param newName
+   * @param newEmergencyContact
+   * @throws InvalidInputException
+  */
   public static void updateGuide(String email, String newPassword, String newName,
       String newEmergencyContact) throws InvalidInputException {
 	  
 	  var error = "";
 	  
+	  //Input Validation
 	  if (newPassword.isEmpty() || newPassword == null) {
 		  error += "Password cannot be empty or null.";
 		  }
@@ -92,16 +108,17 @@ public class ClimbSafeFeatureSet3Controller {
 	  if (!error.isEmpty()) {
 		  throw new InvalidInputException(error.trim());
 		  }
-
-		try {
-			Guide testGuide = (Guide) User.getWithEmail(email);
-			testGuide.setPassword(newPassword);
-			testGuide.setName(newName);
-			testGuide.setEmergencyContact(newEmergencyContact);
+	  
+	  //Attempts to update guide parameters
+	  try {
+		  Guide testGuide = (Guide) User.getWithEmail(email);
+		  testGuide.setPassword(newPassword);
+		  testGuide.setName(newName);
+		  testGuide.setEmergencyContact(newEmergencyContact);
 		} catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
 				}
   }
 
-  
+
 }
