@@ -172,7 +172,7 @@ public class ClimbSafeFeatureSet2Controller {
             error = "The name cannot be empty";
         }
         if (newEmergencyContact.isEmpty() || newEmergencyContact == null) {
-            error = "The emergence contact cannot be empty";
+            error = "The emergency contact cannot be empty";
         }
         if (newNrWeeks > climbsafe.getNrWeeks() | newNrWeeks == 0) {
             error = "The number of weeks must be greater than zero and less than or equal to the number of climbing weeks in the climbing season";
