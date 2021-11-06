@@ -4,7 +4,8 @@
 package ca.mcgill.ecse.climbsafe.model;
 import java.util.*;
 
-// line 39 "../../../../../ClimbSafe.ump"
+// line 124 "../../../../../ClimbSafeStates.ump"
+// line 41 "../../../../../ClimbSafe.ump"
 public class Member extends NamedUser
 {
 
@@ -16,6 +17,10 @@ public class Member extends NamedUser
   private int nrWeeks;
   private boolean guideRequired;
   private boolean hotelRequired;
+
+  //Member State Machines
+  public enum MemberStatus { NotBanned, Banned }
+  private MemberStatus memberStatus;
 
   //Member Associations
   private ClimbSafe climbSafe;
@@ -38,6 +43,7 @@ public class Member extends NamedUser
       throw new RuntimeException("Unable to create member due to climbSafe. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
     bookedItems = new ArrayList<BookedItem>();
+    setMemberStatus(MemberStatus.NotBanned);
   }
 
   //------------------------
@@ -91,6 +97,120 @@ public class Member extends NamedUser
   public boolean isHotelRequired()
   {
     return hotelRequired;
+  }
+
+  public String getMemberStatusFullName()
+  {
+    String answer = memberStatus.toString();
+    return answer;
+  }
+
+  public MemberStatus getMemberStatus()
+  {
+    return memberStatus;
+  }
+
+  public boolean ban()
+  {
+    boolean wasEventProcessed = false;
+    
+    MemberStatus aMemberStatus = memberStatus;
+    switch (aMemberStatus)
+    {
+      case NotBanned:
+        setMemberStatus(MemberStatus.Banned);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean pay()
+  {
+    boolean wasEventProcessed = false;
+    
+    MemberStatus aMemberStatus = memberStatus;
+    switch (aMemberStatus)
+    {
+      case Banned:
+        // line 131 "../../../../../ClimbSafeStates.ump"
+        rejectPayment();
+        setMemberStatus(MemberStatus.Banned);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean cancel()
+  {
+    boolean wasEventProcessed = false;
+    
+    MemberStatus aMemberStatus = memberStatus;
+    switch (aMemberStatus)
+    {
+      case Banned:
+        // line 135 "../../../../../ClimbSafeStates.ump"
+        rejectCancel();
+        setMemberStatus(MemberStatus.Banned);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean start()
+  {
+    boolean wasEventProcessed = false;
+    
+    MemberStatus aMemberStatus = memberStatus;
+    switch (aMemberStatus)
+    {
+      case Banned:
+        // line 139 "../../../../../ClimbSafeStates.ump"
+        rejectStart();
+        setMemberStatus(MemberStatus.Banned);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean finish()
+  {
+    boolean wasEventProcessed = false;
+    
+    MemberStatus aMemberStatus = memberStatus;
+    switch (aMemberStatus)
+    {
+      case Banned:
+        // line 143 "../../../../../ClimbSafeStates.ump"
+        rejectFinish();
+        setMemberStatus(MemberStatus.Banned);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  private void setMemberStatus(MemberStatus aMemberStatus)
+  {
+    memberStatus = aMemberStatus;
   }
   /* Code from template association_GetOne */
   public ClimbSafe getClimbSafe()
@@ -277,6 +397,26 @@ public class Member extends NamedUser
       aBookedItem.delete();
     }
     super.delete();
+  }
+
+  // line 149 "../../../../../ClimbSafeStates.ump"
+   private void rejectPayment(){
+    throw new RuntimeException("Cannot pay for the trip due to a Ban");
+  }
+
+  // line 154 "../../../../../ClimbSafeStates.ump"
+   private void rejectCancel(){
+    throw new RuntimeException("Cannot cancel the trip due to a ban");
+  }
+
+  // line 158 "../../../../../ClimbSafeStates.ump"
+   private void rejectStart(){
+    throw new RuntimeException("Cannot start the trip due to a ban");
+  }
+
+  // line 162 "../../../../../ClimbSafeStates.ump"
+   private void rejectFinish(){
+    throw new RuntimeException("Cannot finish the trip due to a ban");
   }
 
 
