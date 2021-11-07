@@ -1,8 +1,5 @@
 class Assignment {
-
   lazy authCode;
-  
-  
   assigmentStatus {
     
     AssignmentProgress {
@@ -10,8 +7,9 @@ class Assignment {
       Assigned {
         
         pay(Member member, String aAuthCode) [isAuthCodeValid(aAuthCode)] / {
-          makePayment(member, aAuthCode); 
+          makePayment(member); 
         } -> Paid;
+      //how are we going to save the authCode?
 
         start(Member member) / {
           banMember(member);
@@ -47,7 +45,7 @@ class Assignment {
       }
       
       
-      // transitions out of AssignmentProgress composite state
+      // transitions out of AssignmentProgress
       cancel() / {
         cancelTrip(member); 
       } -> Cancelled;
@@ -98,8 +96,7 @@ class Assignment {
     return aAuthCode != null;
   }
 
-  private void makePayment(Member member, String aAuthCode){
-  	this.setAuthCode(aAuthCode);
+  private void makePayment(Member member){
     member.pay();
   }
 
