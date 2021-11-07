@@ -95,24 +95,36 @@ class Assignment {
   private boolean isAuthCodeValid(String aAuthCode){
     return aAuthCode != null;
   }
-
-  private void makePayment(Member member){
-    member.pay();
+  
+  private boolean isMemberValid(Member member){
+    return member.getMemberStatus() == MemberStatus.NotBanned;
   }
 
-  private void banMember(Member member){
-    member.ban();
+  private void makePayment(Member member){
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot pay for the trip due to a Ban");
+    }
   }
 
   private void startTrip(Member member){
-    member.start();
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot start the trip due to a ban");
+    }
   }
   private void cancelTrip(Member member){
-    member.cancel();
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot cancel the trip due to a ban");
+    }
   }
 
   private void finishTrip(Member member){
-    member.finish();
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot finish the trip due to a ban");
+    }
+  }
+  
+  private void banMember(Member member){
+    member.ban();
   }
 
   private void rejectPayment(String error){
@@ -140,40 +152,9 @@ class Member{
       ban() -> Banned;
 
     }
-    Banned{
-      pay()/{
-        rejectPayment();
-      } -> Banned;
-
-      cancel() /{
-        rejectCancel();
-      } -> Banned;
-
-      start() /{
-        rejectStart();
-      } -> Banned;
-
-      finish() /{
-        rejectFinish();
-      } -> Banned;
-    }
+    Banned{}
   }
   
-  private void rejectPayment(){
-    throw new RuntimeException("Cannot pay for the trip due to a Ban");
-  }
-
-  private void rejectCancel(){
-    throw new RuntimeException("Cannot cancel the trip due to a ban");
-  }
-
-  private void rejectStart(){
-    throw new RuntimeException("Cannot start the trip due to a ban");
-  }
-
-  private void rejectFinish(){
-    throw new RuntimeException("Cannot finish the trip due to a ban");
-  }
 }
 
 

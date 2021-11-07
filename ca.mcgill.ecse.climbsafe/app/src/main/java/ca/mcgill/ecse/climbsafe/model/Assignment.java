@@ -3,6 +3,8 @@
 
 package ca.mcgill.ecse.climbsafe.model;
 
+import ca.mcgill.ecse.climbsafe.model.Member.MemberStatus;
+
 // line 1 "../../../../../ClimbSafeStates.ump"
 // line 83 "../../../../../ClimbSafe.ump"
 public class Assignment
@@ -478,46 +480,59 @@ public class Assignment
   }
 
   // line 100 "../../../../../ClimbSafeStates.ump"
-   private void makePayment(Member member){
-    member.pay();
+   private boolean isMemberValid(Member member){
+    return member.getMemberStatus() == MemberStatus.NotBanned;
   }
 
   // line 104 "../../../../../ClimbSafeStates.ump"
+   private void makePayment(Member member){
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot pay for the trip due to a Ban");
+    }
+  }
+
+  // line 110 "../../../../../ClimbSafeStates.ump"
+   private void startTrip(Member member){
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot start the trip due to a ban");
+    }
+  }
+
+  // line 115 "../../../../../ClimbSafeStates.ump"
+   private void cancelTrip(Member member){
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot cancel the trip due to a ban");
+    }
+  }
+
+  // line 121 "../../../../../ClimbSafeStates.ump"
+   private void finishTrip(Member member){
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot finish the trip due to a ban");
+    }
+  }
+
+  // line 127 "../../../../../ClimbSafeStates.ump"
    private void banMember(Member member){
     member.ban();
   }
 
-  // line 108 "../../../../../ClimbSafeStates.ump"
-   private void startTrip(Member member){
-    member.start();
-  }
-
-  // line 111 "../../../../../ClimbSafeStates.ump"
-   private void cancelTrip(Member member){
-    member.cancel();
-  }
-
-  // line 115 "../../../../../ClimbSafeStates.ump"
-   private void finishTrip(Member member){
-    member.finish();
-  }
-
-  // line 120 "../../../../../ClimbSafeStates.ump"
+  // line 132 "../../../../../ClimbSafeStates.ump"
    private void rejectPayment(String error){
     throw new RuntimeException(error);
   }
 
-  // line 124 "../../../../../ClimbSafeStates.ump"
+  // line 136 "../../../../../ClimbSafeStates.ump"
    private void rejectFinishRequest(String error){
     throw new RuntimeException(error);
   }
 
-  // line 128 "../../../../../ClimbSafeStates.ump"
+  // line 140 "../../../../../ClimbSafeStates.ump"
    private void rejectStartRequest(String error){
     throw new RuntimeException(error);
   }
 
-  // line 132 "../../../../../ClimbSafeStates.ump"
+  // line 144 "../../../../../ClimbSafeStates.ump"
    private void rejectCancelRequest(String error){
     throw new RuntimeException(error);
   }

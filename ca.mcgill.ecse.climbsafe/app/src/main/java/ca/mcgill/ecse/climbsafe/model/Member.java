@@ -4,7 +4,7 @@
 package ca.mcgill.ecse.climbsafe.model;
 import java.util.*;
 
-// line 137 "../../../../../ClimbSafeStates.ump"
+// line 149 "../../../../../ClimbSafeStates.ump"
 // line 41 "../../../../../ClimbSafe.ump"
 public class Member extends NamedUser
 {
@@ -118,86 +118,6 @@ public class Member extends NamedUser
     switch (aMemberStatus)
     {
       case NotBanned:
-        setMemberStatus(MemberStatus.Banned);
-        wasEventProcessed = true;
-        break;
-      default:
-        // Other states do respond to this event
-    }
-
-    return wasEventProcessed;
-  }
-
-  public boolean pay()
-  {
-    boolean wasEventProcessed = false;
-    
-    MemberStatus aMemberStatus = memberStatus;
-    switch (aMemberStatus)
-    {
-      case Banned:
-        // line 144 "../../../../../ClimbSafeStates.ump"
-        rejectPayment();
-        setMemberStatus(MemberStatus.Banned);
-        wasEventProcessed = true;
-        break;
-      default:
-        // Other states do respond to this event
-    }
-
-    return wasEventProcessed;
-  }
-
-  public boolean cancel()
-  {
-    boolean wasEventProcessed = false;
-    
-    MemberStatus aMemberStatus = memberStatus;
-    switch (aMemberStatus)
-    {
-      case Banned:
-        // line 148 "../../../../../ClimbSafeStates.ump"
-        rejectCancel();
-        setMemberStatus(MemberStatus.Banned);
-        wasEventProcessed = true;
-        break;
-      default:
-        // Other states do respond to this event
-    }
-
-    return wasEventProcessed;
-  }
-
-  public boolean start()
-  {
-    boolean wasEventProcessed = false;
-    
-    MemberStatus aMemberStatus = memberStatus;
-    switch (aMemberStatus)
-    {
-      case Banned:
-        // line 152 "../../../../../ClimbSafeStates.ump"
-        rejectStart();
-        setMemberStatus(MemberStatus.Banned);
-        wasEventProcessed = true;
-        break;
-      default:
-        // Other states do respond to this event
-    }
-
-    return wasEventProcessed;
-  }
-
-  public boolean finish()
-  {
-    boolean wasEventProcessed = false;
-    
-    MemberStatus aMemberStatus = memberStatus;
-    switch (aMemberStatus)
-    {
-      case Banned:
-        // line 156 "../../../../../ClimbSafeStates.ump"
-        rejectFinish();
         setMemberStatus(MemberStatus.Banned);
         wasEventProcessed = true;
         break;
@@ -397,26 +317,6 @@ public class Member extends NamedUser
       aBookedItem.delete();
     }
     super.delete();
-  }
-
-  // line 163 "../../../../../ClimbSafeStates.ump"
-   private void rejectPayment(){
-    throw new RuntimeException("Cannot pay for the trip due to a Ban");
-  }
-
-  // line 167 "../../../../../ClimbSafeStates.ump"
-   private void rejectCancel(){
-    throw new RuntimeException("Cannot cancel the trip due to a ban");
-  }
-
-  // line 171 "../../../../../ClimbSafeStates.ump"
-   private void rejectStart(){
-    throw new RuntimeException("Cannot start the trip due to a ban");
-  }
-
-  // line 175 "../../../../../ClimbSafeStates.ump"
-   private void rejectFinish(){
-    throw new RuntimeException("Cannot finish the trip due to a ban");
   }
 
 
