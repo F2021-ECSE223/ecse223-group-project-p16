@@ -4,7 +4,7 @@
 package ca.mcgill.ecse.climbsafe.model;
 import java.util.*;
 
-// line 124 "../../../../../ClimbSafeStates.ump"
+// line 137 "../../../../../ClimbSafeStates.ump"
 // line 41 "../../../../../ClimbSafe.ump"
 public class Member extends NamedUser
 {
@@ -136,7 +136,7 @@ public class Member extends NamedUser
     switch (aMemberStatus)
     {
       case Banned:
-        // line 131 "../../../../../ClimbSafeStates.ump"
+        // line 144 "../../../../../ClimbSafeStates.ump"
         rejectPayment();
         setMemberStatus(MemberStatus.Banned);
         wasEventProcessed = true;
@@ -156,7 +156,7 @@ public class Member extends NamedUser
     switch (aMemberStatus)
     {
       case Banned:
-        // line 135 "../../../../../ClimbSafeStates.ump"
+        // line 148 "../../../../../ClimbSafeStates.ump"
         rejectCancel();
         setMemberStatus(MemberStatus.Banned);
         wasEventProcessed = true;
@@ -176,7 +176,7 @@ public class Member extends NamedUser
     switch (aMemberStatus)
     {
       case Banned:
-        // line 139 "../../../../../ClimbSafeStates.ump"
+        // line 152 "../../../../../ClimbSafeStates.ump"
         rejectStart();
         setMemberStatus(MemberStatus.Banned);
         wasEventProcessed = true;
@@ -196,7 +196,7 @@ public class Member extends NamedUser
     switch (aMemberStatus)
     {
       case Banned:
-        // line 143 "../../../../../ClimbSafeStates.ump"
+        // line 156 "../../../../../ClimbSafeStates.ump"
         rejectFinish();
         setMemberStatus(MemberStatus.Banned);
         wasEventProcessed = true;
@@ -399,22 +399,22 @@ public class Member extends NamedUser
     super.delete();
   }
 
-  // line 149 "../../../../../ClimbSafeStates.ump"
+  // line 163 "../../../../../ClimbSafeStates.ump"
    private void rejectPayment(){
     throw new RuntimeException("Cannot pay for the trip due to a Ban");
   }
 
-  // line 154 "../../../../../ClimbSafeStates.ump"
+  // line 167 "../../../../../ClimbSafeStates.ump"
    private void rejectCancel(){
     throw new RuntimeException("Cannot cancel the trip due to a ban");
   }
 
-  // line 158 "../../../../../ClimbSafeStates.ump"
+  // line 171 "../../../../../ClimbSafeStates.ump"
    private void rejectStart(){
     throw new RuntimeException("Cannot start the trip due to a ban");
   }
 
-  // line 162 "../../../../../ClimbSafeStates.ump"
+  // line 175 "../../../../../ClimbSafeStates.ump"
    private void rejectFinish(){
     throw new RuntimeException("Cannot finish the trip due to a ban");
   }
