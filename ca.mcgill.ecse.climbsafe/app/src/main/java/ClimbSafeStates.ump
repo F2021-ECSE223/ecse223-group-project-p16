@@ -4,9 +4,9 @@ class Assignment {
   lazy Integer refundPercent;
   
   
-  assigmentStatus {
+  assignmentStatus {
     
-    AssignmentProgress {
+    Active {
       
       Assigned {
         
@@ -48,7 +48,7 @@ class Assignment {
       }
       
       
-      // transitions out of AssignmentProgress composite state
+      // transitions out of Active composite state
       cancel() / {
         cancelTrip(member); 
       } -> Cancelled;
@@ -113,7 +113,7 @@ class Assignment {
   }
   private void cancelTrip(Member member){
   	
-  	switch(this.assigmentStatusAssignmentProgress) {
+  	switch(this.assignmentStatusActive) {
   	  case Paid:
   	  	this.refundPercent = 50;
   	  	break;
