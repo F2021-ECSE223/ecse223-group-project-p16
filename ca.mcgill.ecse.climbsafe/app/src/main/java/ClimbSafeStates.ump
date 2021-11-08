@@ -1,0 +1,179 @@
+class Assignment {
+  lazy authCode;
+
+  lazy Integer refundPercent;
+  
+  
+  assignmentStatus {
+
+    
+    Active {
+      
+      Assigned {
+        
+        pay(Member member, String aAuthCode) [isAuthCodeValid(aAuthCode)] / {
+          makePayment(member); 
+        } -> Paid;
+      //how are we going to save the authCode?
+
+        start(Member member) / {
+          banMember(member);
+        } -> Assigned;
+
+      }
+
+      
+      Paid {
+        
+        start(Member member) / {
+          startTrip(member);
+        } -> Started;
+
+        pay(Member member, String aAuthCode) / {
+          String error = "Trip has already been paid for";
+          rejectPayment(error); 
+        } -> Paid;
+
+        finish(Member member) / {
+          String error = "Cannot finish a trip which has not started";
+          rejectFinishRequest(error);
+        } -> Paid;
+        
+      }
+
+      
+      Started {
+        
+        finish(Member member) / {
+          finishTrip(member); 
+        }-> Finished;
+      }
+      
+
+      // transitions out of Active composite state
+      cancel() / {
+        cancelTrip(member); 
+      } -> Cancelled;
+      
+    }
+
+
+    Finished {
+
+      pay(Member member, String aAuthCode) / {
+        String error = "Cannot pay for a trip which has finished";
+        rejectPayment(error); 
+      } -> Finished;
+
+      start(Member member) / {
+        String error = "Cannot start a trip which has finished";
+        rejectStartRequest(error);
+      } -> Finished;
+
+      cancel() / {
+        String error = "Cannot cancel a trip which has finished";
+        rejectCancelRequest(error);
+      } -> Finished;
+
+    }
+
+    
+    Cancelled {
+      
+      pay(Member member, String aAuthCode) / {
+        error = "Cannot pay for a trip which has been cancelled";
+        rejectPayment(error); 
+      } -> Cancelled;
+
+      start(Member member) / {
+        error = "Cannot start a trip which has been Cancelled";
+        rejectStartRequest(error);
+      } -> Cancelled;
+
+      finish(Member member) / {
+        String error = "Cannot finish a trip which has been Cancelled";
+        rejectFinishRequest(error);
+      } -> Cancelled;
+    }
+  }
+
+  private boolean isAuthCodeValid(String aAuthCode){
+    return aAuthCode != null;
+  }
+  
+  private boolean isMemberValid(Member member){
+    return member.getMemberStatus() == MemberStatus.NotBanned;
+  }
+
+  private void makePayment(Member member){
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot pay for the trip due to a Ban");
+    }
+  }
+
+  private void startTrip(Member member){
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot start the trip due to a ban");
+    }
+  }
+  private void cancelTrip(Member member){
+	
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot cancel the trip due to a ban");
+    }
+  
+  	switch(this.assignmentStatusActive) {
+  	  case Paid:
+  	  	this.refundPercent = 50;
+  	  	break;
+  	  case Started:
+  	  	this.refundPercent = 10;
+  	  	break;
+  	  default:
+  	  	this.refundPercent = null;
+  	
+    member.cancel();
+
+  }
+
+  private void finishTrip(Member member){
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot finish the trip due to a ban");
+    }
+  }
+  
+  private void banMember(Member member){
+    member.ban();
+  }
+
+  private void rejectPayment(String error){
+
+    throw new RuntimeException(error);
+  }
+
+  private void rejectFinishRequest(String error){
+    throw new RuntimeException(error);
+  }
+
+  private void rejectStartRequest(String error){
+    throw new RuntimeException(error);
+  }
+
+  private void rejectCancelRequest(String error){
+    throw new RuntimeException(error);
+  }
+
+}
+
+class Member{
+  memberStatus{
+    NotBanned{
+      ban() -> Banned;
+
+    }
+    Banned{}
+  }
+  
+}
+
+
