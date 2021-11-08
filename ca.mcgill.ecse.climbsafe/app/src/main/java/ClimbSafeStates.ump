@@ -1,6 +1,7 @@
 class Assignment {
 
   lazy authCode;
+  lazy Integer refundPercent;
   
   
   assigmentStatus {
@@ -111,6 +112,17 @@ class Assignment {
     member.start();
   }
   private void cancelTrip(Member member){
+  	
+  	switch(this.assigmentStatusAssignmentProgress) {
+  	  case Paid:
+  	  	this.refundPercent = 50;
+  	  	break;
+  	  case Started:
+  	  	this.refundPercent = 10;
+  	  	break;
+  	  default:
+  	  	this.refundPercent = null;
+  	
     member.cancel();
   }
 
