@@ -1,8 +1,13 @@
 class Assignment {
   lazy authCode;
-  assigmentStatus {
+
+  lazy Integer refundPercent;
+  
+  
+  assignmentStatus {
+
     
-    AssignmentProgress {
+    Active {
       
       Assigned {
         
@@ -44,8 +49,8 @@ class Assignment {
         }-> Finished;
       }
       
-      
-      // transitions out of AssignmentProgress
+
+      // transitions out of Active composite state
       cancel() / {
         cancelTrip(member); 
       } -> Cancelled;
@@ -112,9 +117,23 @@ class Assignment {
     }
   }
   private void cancelTrip(Member member){
+	
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot cancel the trip due to a ban");
     }
+  
+  	switch(this.assignmentStatusActive) {
+  	  case Paid:
+  	  	this.refundPercent = 50;
+  	  	break;
+  	  case Started:
+  	  	this.refundPercent = 10;
+  	  	break;
+  	  default:
+  	  	this.refundPercent = null;
+  	
+    member.cancel();
+
   }
 
   private void finishTrip(Member member){
