@@ -1,18 +1,20 @@
 class Assignment {
-
   lazy authCode;
+
   lazy Integer refundPercent;
   
   
   assignmentStatus {
+
     
     Active {
       
       Assigned {
         
         pay(Member member, String aAuthCode) [isAuthCodeValid(aAuthCode)] / {
-          makePayment(member, aAuthCode); 
+          makePayment(member); 
         } -> Paid;
+      //how are we going to save the authCode?
 
         start(Member member) / {
           banMember(member);
@@ -47,7 +49,7 @@ class Assignment {
         }-> Finished;
       }
       
-      
+
       // transitions out of Active composite state
       cancel() / {
         cancelTrip(member); 
@@ -98,21 +100,28 @@ class Assignment {
   private boolean isAuthCodeValid(String aAuthCode){
     return aAuthCode != null;
   }
-
-  private void makePayment(Member member, String aAuthCode){
-  	this.setAuthCode(aAuthCode);
-    member.pay();
+  
+  private boolean isMemberValid(Member member){
+    return member.getMemberStatus() == MemberStatus.NotBanned;
   }
 
-  private void banMember(Member member){
-    member.ban();
+  private void makePayment(Member member){
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot pay for the trip due to a Ban");
+    }
   }
 
   private void startTrip(Member member){
-    member.start();
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot start the trip due to a ban");
+    }
   }
   private void cancelTrip(Member member){
-  	
+	
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot cancel the trip due to a ban");
+    }
+  
   	switch(this.assignmentStatusActive) {
   	  case Paid:
   	  	this.refundPercent = 50;
@@ -124,10 +133,17 @@ class Assignment {
   	  	this.refundPercent = null;
   	
     member.cancel();
+
   }
 
   private void finishTrip(Member member){
-    member.finish();
+    if (!isMemberValid(member)){
+      throw new RuntimeException("Cannot finish the trip due to a ban");
+    }
+  }
+  
+  private void banMember(Member member){
+    member.ban();
   }
 
   private void rejectPayment(String error){
@@ -155,40 +171,9 @@ class Member{
       ban() -> Banned;
 
     }
-    Banned{
-      pay()/{
-        rejectPayment();
-      } -> Banned;
-
-      cancel() /{
-        rejectCancel();
-      } -> Banned;
-
-      start() /{
-        rejectStart();
-      } -> Banned;
-
-      finish() /{
-        rejectFinish();
-      } -> Banned;
-    }
+    Banned{}
   }
   
-  private void rejectPayment(){
-    throw new RuntimeException("Cannot pay for the trip due to a Ban");
-  }
-
-  private void rejectCancel(){
-    throw new RuntimeException("Cannot cancel the trip due to a ban");
-  }
-
-  private void rejectStart(){
-    throw new RuntimeException("Cannot start the trip due to a ban");
-  }
-
-  private void rejectFinish(){
-    throw new RuntimeException("Cannot finish the trip due to a ban");
-  }
 }
 
 
