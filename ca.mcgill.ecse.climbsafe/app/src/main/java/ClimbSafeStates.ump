@@ -1,20 +1,16 @@
 class Assignment {
   lazy authCode;
-
   lazy Integer refundPercent;
-  
   
   assignmentStatus {
 
-    
     Active {
       
       Assigned {
         
         pay(Member member, String aAuthCode) [isAuthCodeValid(aAuthCode)] / {
-          makePayment(member); 
+          makePayment(member, aAuthCode); 
         } -> Paid;
-      //how are we going to save the authCode?
 
         start(Member member) / {
           banMember(member);
@@ -94,6 +90,7 @@ class Assignment {
         String error = "Cannot finish a trip which has been Cancelled";
         rejectFinishRequest(error);
       } -> Cancelled;
+      
     }
   }
 
@@ -102,13 +99,14 @@ class Assignment {
   }
   
   private boolean isMemberValid(Member member){
-    return member.getMemberStatus() == MemberStatus.NotBanned;
+    return member.getMemberStatusFullName().equals("NotBanned");
   }
 
-  private void makePayment(Member member){
+  private void makePayment(Member member, String aAuthCode){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot pay for the trip due to a Ban");
     }
+    setAuthCode(aAuthCode);
   }
 
   private void startTrip(Member member){
@@ -124,15 +122,14 @@ class Assignment {
   
   	switch(this.assignmentStatusActive) {
   	  case Paid:
-  	  	this.refundPercent = 50;
+  	  	setRefundPercent(50);
   	  	break;
   	  case Started:
-  	  	this.refundPercent = 10;
+  	  	setRefundPercent(50);
   	  	break;
   	  default:
-  	  	this.refundPercent = null;
-  	
-    member.cancel();
+  	  	setRefundPercent(0);	
+  	  }
 
   }
 

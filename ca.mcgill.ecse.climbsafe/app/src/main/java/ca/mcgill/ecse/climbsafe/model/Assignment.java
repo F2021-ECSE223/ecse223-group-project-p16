@@ -3,8 +3,6 @@
 
 package ca.mcgill.ecse.climbsafe.model;
 
-import ca.mcgill.ecse.climbsafe.model.Member.MemberStatus;
-
 // line 1 "../../../../../ClimbSafeStates.ump"
 // line 83 "../../../../../ClimbSafe.ump"
 public class Assignment
@@ -16,14 +14,15 @@ public class Assignment
 
   //Assignment Attributes
   private String authCode;
+  private int refundPercent;
   private int startWeek;
   private int endWeek;
 
   //Assignment State Machines
-  public enum AssigmentStatus { AssignmentProgress, Finished, Cancelled }
-  public enum AssigmentStatusAssignmentProgress { Null, Assigned, Paid, Started }
-  private AssigmentStatus assigmentStatus;
-  private AssigmentStatusAssignmentProgress assigmentStatusAssignmentProgress;
+  public enum AssignmentStatus { Active, Finished, Cancelled }
+  public enum AssignmentStatusActive { Null, Assigned, Paid, Started }
+  private AssignmentStatus assignmentStatus;
+  private AssignmentStatusActive assignmentStatusActive;
 
   //Assignment Associations
   private Member member;
@@ -38,6 +37,7 @@ public class Assignment
   public Assignment(int aStartWeek, int aEndWeek, Member aMember, ClimbSafe aClimbSafe)
   {
     authCode = null;
+    refundPercent = 0;
     startWeek = aStartWeek;
     endWeek = aEndWeek;
     boolean didAddMember = setMember(aMember);
@@ -50,8 +50,8 @@ public class Assignment
     {
       throw new RuntimeException("Unable to create assignment due to climbSafe. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
-    setAssigmentStatusAssignmentProgress(AssigmentStatusAssignmentProgress.Null);
-    setAssigmentStatus(AssigmentStatus.AssignmentProgress);
+    setAssignmentStatusActive(AssignmentStatusActive.Null);
+    setAssignmentStatus(AssignmentStatus.Active);
   }
 
   //------------------------
@@ -62,6 +62,14 @@ public class Assignment
   {
     boolean wasSet = false;
     authCode = aAuthCode;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setRefundPercent(int aRefundPercent)
+  {
+    boolean wasSet = false;
+    refundPercent = aRefundPercent;
     wasSet = true;
     return wasSet;
   }
@@ -87,6 +95,11 @@ public class Assignment
     return authCode;
   }
 
+  public int getRefundPercent()
+  {
+    return refundPercent;
+  }
+
   public int getStartWeek()
   {
     return startWeek;
@@ -97,42 +110,42 @@ public class Assignment
     return endWeek;
   }
 
-  public String getAssigmentStatusFullName()
+  public String getAssignmentStatusFullName()
   {
-    String answer = assigmentStatus.toString();
-    if (assigmentStatusAssignmentProgress != AssigmentStatusAssignmentProgress.Null) { answer += "." + assigmentStatusAssignmentProgress.toString(); }
+    String answer = assignmentStatus.toString();
+    if (assignmentStatusActive != AssignmentStatusActive.Null) { answer += "." + assignmentStatusActive.toString(); }
     return answer;
   }
 
-  public AssigmentStatus getAssigmentStatus()
+  public AssignmentStatus getAssignmentStatus()
   {
-    return assigmentStatus;
+    return assignmentStatus;
   }
 
-  public AssigmentStatusAssignmentProgress getAssigmentStatusAssignmentProgress()
+  public AssignmentStatusActive getAssignmentStatusActive()
   {
-    return assigmentStatusAssignmentProgress;
+    return assignmentStatusActive;
   }
 
   public boolean cancel()
   {
     boolean wasEventProcessed = false;
     
-    AssigmentStatus aAssigmentStatus = assigmentStatus;
-    switch (aAssigmentStatus)
+    AssignmentStatus aAssignmentStatus = assignmentStatus;
+    switch (aAssignmentStatus)
     {
-      case AssignmentProgress:
-        exitAssigmentStatus();
-        // line 49 "../../../../../ClimbSafeStates.ump"
+      case Active:
+        exitAssignmentStatus();
+        // line 50 "../../../../../ClimbSafeStates.ump"
         cancelTrip(member);
-        setAssigmentStatus(AssigmentStatus.Cancelled);
+        setAssignmentStatus(AssignmentStatus.Cancelled);
         wasEventProcessed = true;
         break;
       case Finished:
-        // line 68 "../../../../../ClimbSafeStates.ump"
+        // line 69 "../../../../../ClimbSafeStates.ump"
         String error = "Cannot cancel a trip which has finished";
         rejectCancelRequest(error);
-        setAssigmentStatus(AssigmentStatus.Finished);
+        setAssignmentStatus(AssignmentStatus.Finished);
         wasEventProcessed = true;
         break;
       default:
@@ -146,47 +159,47 @@ public class Assignment
   {
     boolean wasEventProcessed = false;
     
-    AssigmentStatus aAssigmentStatus = assigmentStatus;
-    AssigmentStatusAssignmentProgress aAssigmentStatusAssignmentProgress = assigmentStatusAssignmentProgress;
-    switch (aAssigmentStatus)
+    AssignmentStatus aAssignmentStatus = assignmentStatus;
+    AssignmentStatusActive aAssignmentStatusActive = assignmentStatusActive;
+    switch (aAssignmentStatus)
     {
       case Finished:
-        // line 58 "../../../../../ClimbSafeStates.ump"
+        // line 59 "../../../../../ClimbSafeStates.ump"
         String error = "Cannot pay for a trip which has finished";
         rejectPayment(error);
-        setAssigmentStatus(AssigmentStatus.Finished);
+        setAssignmentStatus(AssignmentStatus.Finished);
         wasEventProcessed = true;
         break;
       case Cancelled:
-        // line 78 "../../../../../ClimbSafeStates.ump"
+        // line 79 "../../../../../ClimbSafeStates.ump"
         error = "Cannot pay for a trip which has been cancelled";
         rejectPayment(error);
-        setAssigmentStatus(AssigmentStatus.Cancelled);
+        setAssignmentStatus(AssignmentStatus.Cancelled);
         wasEventProcessed = true;
         break;
       default:
         // Other states do respond to this event
     }
 
-    switch (aAssigmentStatusAssignmentProgress)
+    switch (aAssignmentStatusActive)
     {
       case Assigned:
         if (isAuthCodeValid(aAuthCode))
         {
-          exitAssigmentStatusAssignmentProgress();
-        // line 9 "../../../../../ClimbSafeStates.ump"
-          makePayment(member);
-          setAssigmentStatusAssignmentProgress(AssigmentStatusAssignmentProgress.Paid);
+          exitAssignmentStatusActive();
+        // line 11 "../../../../../ClimbSafeStates.ump"
+          makePayment(member, aAuthCode);
+          setAssignmentStatusActive(AssignmentStatusActive.Paid);
           wasEventProcessed = true;
           break;
         }
         break;
       case Paid:
-        exitAssigmentStatusAssignmentProgress();
-        // line 27 "../../../../../ClimbSafeStates.ump"
+        exitAssignmentStatusActive();
+        // line 28 "../../../../../ClimbSafeStates.ump"
         String error = "Trip has already been paid for";
           rejectPayment(error);
-        setAssigmentStatusAssignmentProgress(AssigmentStatusAssignmentProgress.Paid);
+        setAssignmentStatusActive(AssignmentStatusActive.Paid);
         wasEventProcessed = true;
         break;
       default:
@@ -200,42 +213,42 @@ public class Assignment
   {
     boolean wasEventProcessed = false;
     
-    AssigmentStatus aAssigmentStatus = assigmentStatus;
-    AssigmentStatusAssignmentProgress aAssigmentStatusAssignmentProgress = assigmentStatusAssignmentProgress;
-    switch (aAssigmentStatus)
+    AssignmentStatus aAssignmentStatus = assignmentStatus;
+    AssignmentStatusActive aAssignmentStatusActive = assignmentStatusActive;
+    switch (aAssignmentStatus)
     {
       case Finished:
-        // line 63 "../../../../../ClimbSafeStates.ump"
+        // line 64 "../../../../../ClimbSafeStates.ump"
         String error = "Cannot start a trip which has finished";
         rejectStartRequest(error);
-        setAssigmentStatus(AssigmentStatus.Finished);
+        setAssignmentStatus(AssignmentStatus.Finished);
         wasEventProcessed = true;
         break;
       case Cancelled:
-        // line 83 "../../../../../ClimbSafeStates.ump"
+        // line 84 "../../../../../ClimbSafeStates.ump"
         error = "Cannot start a trip which has been Cancelled";
         rejectStartRequest(error);
-        setAssigmentStatus(AssigmentStatus.Cancelled);
+        setAssignmentStatus(AssignmentStatus.Cancelled);
         wasEventProcessed = true;
         break;
       default:
         // Other states do respond to this event
     }
 
-    switch (aAssigmentStatusAssignmentProgress)
+    switch (aAssignmentStatusActive)
     {
       case Assigned:
-        exitAssigmentStatusAssignmentProgress();
-        // line 14 "../../../../../ClimbSafeStates.ump"
+        exitAssignmentStatusActive();
+        // line 15 "../../../../../ClimbSafeStates.ump"
         banMember(member);
-        setAssigmentStatusAssignmentProgress(AssigmentStatusAssignmentProgress.Assigned);
+        setAssignmentStatusActive(AssignmentStatusActive.Assigned);
         wasEventProcessed = true;
         break;
       case Paid:
-        exitAssigmentStatusAssignmentProgress();
-        // line 23 "../../../../../ClimbSafeStates.ump"
+        exitAssignmentStatusActive();
+        // line 24 "../../../../../ClimbSafeStates.ump"
         startTrip(member);
-        setAssigmentStatusAssignmentProgress(AssigmentStatusAssignmentProgress.Started);
+        setAssignmentStatusActive(AssignmentStatusActive.Started);
         wasEventProcessed = true;
         break;
       default:
@@ -249,36 +262,36 @@ public class Assignment
   {
     boolean wasEventProcessed = false;
     
-    AssigmentStatus aAssigmentStatus = assigmentStatus;
-    AssigmentStatusAssignmentProgress aAssigmentStatusAssignmentProgress = assigmentStatusAssignmentProgress;
-    switch (aAssigmentStatus)
+    AssignmentStatus aAssignmentStatus = assignmentStatus;
+    AssignmentStatusActive aAssignmentStatusActive = assignmentStatusActive;
+    switch (aAssignmentStatus)
     {
       case Cancelled:
-        // line 88 "../../../../../ClimbSafeStates.ump"
+        // line 89 "../../../../../ClimbSafeStates.ump"
         String error = "Cannot finish a trip which has been Cancelled";
         rejectFinishRequest(error);
-        setAssigmentStatus(AssigmentStatus.Cancelled);
+        setAssignmentStatus(AssignmentStatus.Cancelled);
         wasEventProcessed = true;
         break;
       default:
         // Other states do respond to this event
     }
 
-    switch (aAssigmentStatusAssignmentProgress)
+    switch (aAssignmentStatusActive)
     {
       case Paid:
-        exitAssigmentStatusAssignmentProgress();
-        // line 32 "../../../../../ClimbSafeStates.ump"
+        exitAssignmentStatusActive();
+        // line 33 "../../../../../ClimbSafeStates.ump"
         String error = "Cannot finish a trip which has not started";
           rejectFinishRequest(error);
-        setAssigmentStatusAssignmentProgress(AssigmentStatusAssignmentProgress.Paid);
+        setAssignmentStatusActive(AssignmentStatusActive.Paid);
         wasEventProcessed = true;
         break;
       case Started:
-        exitAssigmentStatus();
-        // line 42 "../../../../../ClimbSafeStates.ump"
+        exitAssignmentStatus();
+        // line 43 "../../../../../ClimbSafeStates.ump"
         finishTrip(member);
-        setAssigmentStatus(AssigmentStatus.Finished);
+        setAssignmentStatus(AssignmentStatus.Finished);
         wasEventProcessed = true;
         break;
       default:
@@ -288,49 +301,49 @@ public class Assignment
     return wasEventProcessed;
   }
 
-  private void exitAssigmentStatus()
+  private void exitAssignmentStatus()
   {
-    switch(assigmentStatus)
+    switch(assignmentStatus)
     {
-      case AssignmentProgress:
-        exitAssigmentStatusAssignmentProgress();
+      case Active:
+        exitAssignmentStatusActive();
         break;
     }
   }
 
-  private void setAssigmentStatus(AssigmentStatus aAssigmentStatus)
+  private void setAssignmentStatus(AssignmentStatus aAssignmentStatus)
   {
-    assigmentStatus = aAssigmentStatus;
+    assignmentStatus = aAssignmentStatus;
 
     // entry actions and do activities
-    switch(assigmentStatus)
+    switch(assignmentStatus)
     {
-      case AssignmentProgress:
-        if (assigmentStatusAssignmentProgress == AssigmentStatusAssignmentProgress.Null) { setAssigmentStatusAssignmentProgress(AssigmentStatusAssignmentProgress.Assigned); }
+      case Active:
+        if (assignmentStatusActive == AssignmentStatusActive.Null) { setAssignmentStatusActive(AssignmentStatusActive.Assigned); }
         break;
     }
   }
 
-  private void exitAssigmentStatusAssignmentProgress()
+  private void exitAssignmentStatusActive()
   {
-    switch(assigmentStatusAssignmentProgress)
+    switch(assignmentStatusActive)
     {
       case Assigned:
-        setAssigmentStatusAssignmentProgress(AssigmentStatusAssignmentProgress.Null);
+        setAssignmentStatusActive(AssignmentStatusActive.Null);
         break;
       case Paid:
-        setAssigmentStatusAssignmentProgress(AssigmentStatusAssignmentProgress.Null);
+        setAssignmentStatusActive(AssignmentStatusActive.Null);
         break;
       case Started:
-        setAssigmentStatusAssignmentProgress(AssigmentStatusAssignmentProgress.Null);
+        setAssignmentStatusActive(AssignmentStatusActive.Null);
         break;
     }
   }
 
-  private void setAssigmentStatusAssignmentProgress(AssigmentStatusAssignmentProgress aAssigmentStatusAssignmentProgress)
+  private void setAssignmentStatusActive(AssignmentStatusActive aAssignmentStatusActive)
   {
-    assigmentStatusAssignmentProgress = aAssigmentStatusAssignmentProgress;
-    if (assigmentStatus != AssigmentStatus.AssignmentProgress && aAssigmentStatusAssignmentProgress != AssigmentStatusAssignmentProgress.Null) { setAssigmentStatus(AssigmentStatus.AssignmentProgress); }
+    assignmentStatusActive = aAssignmentStatusActive;
+    if (assignmentStatus != AssignmentStatus.Active && aAssignmentStatusActive != AssignmentStatusActive.Null) { setAssignmentStatus(AssignmentStatus.Active); }
   }
   /* Code from template association_GetOne */
   public Member getMember()
@@ -474,65 +487,77 @@ public class Assignment
     }
   }
 
-  // line 96 "../../../../../ClimbSafeStates.ump"
+  // line 98 "../../../../../ClimbSafeStates.ump"
    private boolean isAuthCodeValid(String aAuthCode){
     return aAuthCode != null;
   }
 
-  // line 100 "../../../../../ClimbSafeStates.ump"
+  // line 102 "../../../../../ClimbSafeStates.ump"
    private boolean isMemberValid(Member member){
-    return member.getMemberStatus() == MemberStatus.NotBanned;
+    return member.getMemberStatusFullName().equals("NotBanned");
   }
 
-  // line 104 "../../../../../ClimbSafeStates.ump"
-   private void makePayment(Member member){
+  // line 106 "../../../../../ClimbSafeStates.ump"
+   private void makePayment(Member member, String aAuthCode){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot pay for the trip due to a Ban");
     }
+    setAuthCode(aAuthCode);
   }
 
-  // line 110 "../../../../../ClimbSafeStates.ump"
+  // line 113 "../../../../../ClimbSafeStates.ump"
    private void startTrip(Member member){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot start the trip due to a ban");
     }
   }
 
-  // line 115 "../../../../../ClimbSafeStates.ump"
+  // line 119 "../../../../../ClimbSafeStates.ump"
    private void cancelTrip(Member member){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot cancel the trip due to a ban");
     }
+  
+  	switch(this.assignmentStatusActive) {
+  	  case Paid:
+  	  	setRefundPercent(50);
+  	  	break;
+  	  case Started:
+  	  	setRefundPercent(50);
+  	  	break;
+  	  default:
+  	  	setRefundPercent(0);	
+  	  }
   }
 
-  // line 121 "../../../../../ClimbSafeStates.ump"
+  // line 137 "../../../../../ClimbSafeStates.ump"
    private void finishTrip(Member member){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot finish the trip due to a ban");
     }
   }
 
-  // line 127 "../../../../../ClimbSafeStates.ump"
+  // line 143 "../../../../../ClimbSafeStates.ump"
    private void banMember(Member member){
     member.ban();
   }
 
-  // line 132 "../../../../../ClimbSafeStates.ump"
+  // line 148 "../../../../../ClimbSafeStates.ump"
    private void rejectPayment(String error){
     throw new RuntimeException(error);
   }
 
-  // line 136 "../../../../../ClimbSafeStates.ump"
+  // line 152 "../../../../../ClimbSafeStates.ump"
    private void rejectFinishRequest(String error){
     throw new RuntimeException(error);
   }
 
-  // line 140 "../../../../../ClimbSafeStates.ump"
+  // line 156 "../../../../../ClimbSafeStates.ump"
    private void rejectStartRequest(String error){
     throw new RuntimeException(error);
   }
 
-  // line 144 "../../../../../ClimbSafeStates.ump"
+  // line 160 "../../../../../ClimbSafeStates.ump"
    private void rejectCancelRequest(String error){
     throw new RuntimeException(error);
   }
@@ -542,6 +567,7 @@ public class Assignment
   {
     return super.toString() + "["+
             "authCode" + ":" + getAuthCode()+ "," +
+            "refundPercent" + ":" + getRefundPercent()+ "," +
             "startWeek" + ":" + getStartWeek()+ "," +
             "endWeek" + ":" + getEndWeek()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "member = "+(getMember()!=null?Integer.toHexString(System.identityHashCode(getMember())):"null") + System.getProperties().getProperty("line.separator") +
