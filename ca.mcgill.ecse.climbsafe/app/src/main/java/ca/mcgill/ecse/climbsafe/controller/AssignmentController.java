@@ -95,10 +95,9 @@ public class AssignmentController {
       // Input validation 
       String error = "";
       
+      // Get the member associated with the passed email
       User user = Member.getWithEmail(email);
-      
       Member member = null;
-      
       if (user instanceof Member) {
         member = (Member) user;
       }
@@ -131,10 +130,15 @@ public class AssignmentController {
     public static void cancel(String email) throws InvalidInputException{
       
       // Input Validation  
-   // Input validation 
+      
       String error = "";
       
-      Member member = (Member) Member.getWithEmail(email); //TODO: casting?
+      // Get the member associated with the passed email
+      User user = Member.getWithEmail(email);
+      Member member = null;
+      if (user instanceof Member) {
+        member = (Member) user;
+      }
       
       if (member == null) {
           error = "Member with email address " + email + " does not exist";
@@ -160,13 +164,17 @@ public class AssignmentController {
     
     public static void finish(String email) throws InvalidInputException{
       
-      // Input Validation
       String error = "";
       
-      Member member = (Member) Member.getWithEmail(email); //TODO: casting?
+      // Get the member associated with the passed email
+      User user = Member.getWithEmail(email);
+      Member member = null;
+      if (user instanceof Member) {
+        member = (Member) user;
+      }
       
       if (member == null) {
-        error = "Member with email address " + email + " does not exist";
+          error = "Member with email address " + email + " does not exist";
       }
       
       if(!error.isEmpty()) {
@@ -195,12 +203,20 @@ public class AssignmentController {
       
       String error = "";
       
+      // Get the member associated with the passed email
+      User user = Member.getWithEmail(email);
+      Member member = null;
+      if (user instanceof Member) {
+        member = (Member) user;
+      }
+      
+      if (member == null) {
+          error = "Member with email address " + email + " does not exist";
+      }
+      
       if(!error.isEmpty()) {
         throw new InvalidInputException(error.trim());
       }
-      
-      Member member = (Member) Member.getWithEmail(email); //TODO: casting?
-      
       
       // Operation
       try {
