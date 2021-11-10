@@ -1,61 +1,94 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
+import java.util.List;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.Assignment;
-import ca.mcgill.ecse.climbsafe.model.Assignment.AssignmentStatusActive;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Member;
 import ca.mcgill.ecse.climbsafe.model.User;
 
 public class AssignmentController {
+  
     private static ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
     
-    public static void initiateAssignment() {
+    public static void initiateAssignment() throws InvalidInputException {
       
-    }
-    
-    public static void initiateAssignment2(int aStartWeek, int aEndWeek, Member aMember, boolean guideRequired) throws InvalidInputException{
+      String error = "";
+     
+      List<Member> members = climbSafe.getMembers();
+      List<Guide> guides = climbSafe.getGuides();
       
-      
-        String error = "";
-        if(guideRequired) {
-            boolean isAvailable = false;
-            for(Guide guide: climbSafe.getGuides()) {
-                int nrWeeks = aMember.getNrWeeks();
-                if(nrWeeks<=getAvailableWeeks(guide)) {
-                    isAvailable = true;
-                    break;
+      try {
+        
+        for (Guide guide: guides) {
+          
+          int seasonWeeks = climbSafe.getNrWeeks();
+          
+          int guideWeeks = seasonWeeks;
+          
+          int currentWeek = 1;
+          
+          for (Member member: members) {
+            
+            // if we have not assigned it yet
+            if (member.getAssignment() == null) {
+              
+              int memberWeeksNumber = member.getNrWeeks();
+              
+              if (member.getGuideRequired()) {             
+               
+                if (memberWeeksNumber <= guideWeeks) {
+                  
+                  Assignment assignment = climbSafe.addAssignment(currentWeek, currentWeek+memberWeeksNumber-1, member);
+                  
+                  guide.addAssignment(assignment);
+                  
+                  currentWeek += memberWeeksNumber;
+                  
+                  guideWeeks -= memberWeeksNumber;
+                  
                 }
                 
-            }
-            if(!isAvailable) {
-                error = "Assignments could not be completed for all members";
+              }
+              
+              else {
+                
+                Assignment assignment = climbSafe.addAssignment(1, memberWeeksNumber, member);
+               
+              }
+              
             }
             
+          }
+        
         }
         
-        if(!error.isEmpty()) {
-            throw new InvalidInputException(error.trim());
+      }
+      
+      catch(RuntimeException e) {
+         throw new InvalidInputException(e.getMessage());
+      }
+        
+      
+      for (Member member : members) {
+        
+        if (member.getAssignment() == null) {
+        
+          error = "Assignments could not be completed for all members";
+          break;
+          
         }
         
+      }
+      
+      if(!error.isEmpty()) {
         
-        try {
-            climbSafe.addAssignment(aStartWeek,aEndWeek,aMember);
-        } catch(RuntimeException e) {
-            throw new InvalidInputException(e.getMessage());
-        }
+        throw new InvalidInputException(error.trim());
+        
+      }      
+      
     }
-    
-    private static int getAvailableWeeks(Guide guide) {
-        int assignedWeeks = 0;
-        for(Assignment assignment: guide.getAssignments()) {
-            assignedWeeks+=assignment.getEndWeek()-assignment.getStartWeek()+1;
-        }
-        return climbSafe.getNrWeeks()-assignedWeeks;
-    }
-    
-    
     
     public static void pay(String email, String aAuthCode) throws InvalidInputException{
       
