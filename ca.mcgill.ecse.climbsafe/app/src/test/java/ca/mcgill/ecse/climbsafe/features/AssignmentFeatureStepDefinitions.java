@@ -1,102 +1,114 @@
 package ca.mcgill.ecse.climbsafe.features;
 
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
+import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
+import ca.mcgill.ecse.climbsafe.model.Equipment;
+import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
+import ca.mcgill.ecse.climbsafe.model.Member;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class AssignmentFeatureStepDefinitions {
-  
+
   /**
    * The existing ClimbSafe system.
    */
   private ClimbSafe climbSafe;
-  
+
   @Given("the following ClimbSafe system exists:")
-  public void the_following_climb_safe_system_exists(io.cucumber.datatable.DataTable climbSafeSystem) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    
+  public void the_following_climb_safe_system_exists(
+      io.cucumber.datatable.DataTable climbSafeSystem) {
+
     climbSafe = ClimbSafeApplication.getClimbSafe();
-    
-    List<Map<String,String>> rows = climbSafeSystem.asMaps(String.class, String.class);
-    
+
+    List<Map<String, String>> rows = climbSafeSystem.asMaps(String.class, String.class);
+
     for (Map<String, String> row: rows) {
       climbSafe.setStartDate(Date.valueOf(row.get("startDate")));
       climbSafe.setNrWeeks(Integer.parseInt(row.get("nrWeeks")));
       climbSafe.setPriceOfGuidePerWeek(Integer.parseInt(row.get("priceOfGuidePerWeek")));
     }
-    
-    throw new io.cucumber.java.PendingException();
   }
 
-  
   @Given("the following pieces of equipment exist in the system:")
   public void the_following_pieces_of_equipment_exist_in_the_system(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    
-    
-    
-    
-    throw new io.cucumber.java.PendingException();
+      io.cucumber.datatable.DataTable equipmentTable) {
+
+    List<Map<String, String>> rows = equipmentTable.asMaps(String.class, String.class);
+
+    for (Map<String, String> row : rows) {
+      climbSafe.addEquipment(row.get("name"), Integer.parseInt(row.get("weight")),
+          Integer.parseInt(row.get("pricePerWeek")));
+    }
   }
 
   @Given("the following equipment bundles exist in the system:")
   public void the_following_equipment_bundles_exist_in_the_system(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+      io.cucumber.datatable.DataTable bundleTable) {
+
+    List<Map<String, String>> rows = bundleTable.asMaps(String.class, String.class);
+
+    for (Map<String, String> row : rows) {
+      EquipmentBundle bundle =
+          climbSafe.addBundle(row.get("name"), Integer.parseInt(row.get("discount")));
+
+      List<String> bundleItems = Arrays.asList(row.get("items").split(","));
+      List<String> bundleItemQuantities = Arrays.asList(row.get("quantity").split(","));
+
+      for (int i = 0; i < bundleItems.size(); i++) {
+
+        bundle.addBundleItem(Integer.parseInt(bundleItemQuantities.get(i)), climbSafe,
+            (Equipment) Equipment.getWithName(bundleItems.get(i)));
+
+      }
+    }
   }
 
   @Given("the following guides exist in the system:")
-  public void the_following_guides_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+  public void the_following_guides_exist_in_the_system(io.cucumber.datatable.DataTable guideTable) {
+
+    List<Map<String, String>> rows = guideTable.asMaps();
+
+    for (Map<String, String> row : rows) {
+      climbSafe.addGuide(row.get("email"), row.get("password"), row.get("name"),
+          row.get("emergencyContact"));
+    }
   }
 
   @Given("the following members exist in the system:")
-  public void the_following_members_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+  public void the_following_members_exist_in_the_system(
+      io.cucumber.datatable.DataTable memberTable) {
+
+    List<Map<String, String>> rows = memberTable.asMaps();
+
+    for (Map<String, String> row : rows) {
+      Member member = climbSafe.addMember(row.get("email"), row.get("password"), row.get("name"),
+          row.get("emergencyContact"), Integer.parseInt(row.get("nrWeeks")),
+          Boolean.parseBoolean(row.get("guideRequired")),
+          Boolean.parseBoolean(row.get("hotelRequired")));
+      
+      List<String> bookedItems = Arrays.asList(row.get("bookedItems").split(","));
+      List<String> bookedItemQuantities = Arrays.asList(row.get("bookedItemQuantities").split(","));
+      
+      for (int i = 0; i < bookedItems.size(); i++) {
+        member.addBookedItem(Integer.parseInt(bookedItemQuantities.get(i)), climbSafe, BookableItem.getWithName(bookedItems.get(i)));
+      }
+    }
   }
 
   @When("the administrator attempts to initiate the assignment process")
   public void the_administrator_attempts_to_initiate_the_assignment_process() {
     // Write code here that turns the phrase above into concrete actions
+    
+    
+    
+    
     throw new io.cucumber.java.PendingException();
   }
 
