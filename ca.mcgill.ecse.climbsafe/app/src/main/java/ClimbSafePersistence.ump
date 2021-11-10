@@ -16,7 +16,6 @@ class Administrator{
 	depend java.io.Serializable;
 	isA Serializable;
 	private static final long serialVersionUID = 4235072607922320501L;
-
 }
 
 class Guide{
