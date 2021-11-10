@@ -1,12 +1,23 @@
 package ca.mcgill.ecse.climbsafe.features;
 
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
+import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
+import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class AssignmentFeatureStepDefinitions {
+  
+  /**
+   * The existing ClimbSafe system.
+   */
+  private ClimbSafe climbSafe;
+  
   @Given("the following ClimbSafe system exists:")
-  public void the_following_climb_safe_system_exists(io.cucumber.datatable.DataTable dataTable) {
+  public void the_following_climb_safe_system_exists(io.cucumber.datatable.DataTable climbSafeSystem) {
     // Write code here that turns the phrase above into concrete actions
     // For automatic transformation, change DataTable to one of
     // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
@@ -14,9 +25,21 @@ public class AssignmentFeatureStepDefinitions {
     // Double, Byte, Short, Long, BigInteger or BigDecimal.
     //
     // For other transformations you can register a DataTableType.
+    
+    climbSafe = ClimbSafeApplication.getClimbSafe();
+    
+    List<Map<String,String>> rows = climbSafeSystem.asMaps(String.class, String.class);
+    
+    for (Map<String, String> row: rows) {
+      climbSafe.setStartDate(Date.valueOf(row.get("startDate")));
+      climbSafe.setNrWeeks(Integer.parseInt(row.get("nrWeeks")));
+      climbSafe.setPriceOfGuidePerWeek(Integer.parseInt(row.get("priceOfGuidePerWeek")));
+    }
+    
     throw new io.cucumber.java.PendingException();
   }
 
+  
   @Given("the following pieces of equipment exist in the system:")
   public void the_following_pieces_of_equipment_exist_in_the_system(
       io.cucumber.datatable.DataTable dataTable) {
@@ -27,6 +50,10 @@ public class AssignmentFeatureStepDefinitions {
     // Double, Byte, Short, Long, BigInteger or BigDecimal.
     //
     // For other transformations you can register a DataTableType.
+    
+    
+    
+    
     throw new io.cucumber.java.PendingException();
   }
 
