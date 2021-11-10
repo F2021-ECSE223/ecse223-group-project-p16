@@ -53,3 +53,33 @@ class Hotel {
 	
 	public static void reinitializeUniqueHotelNames(List<Hotel> hotels){}
 }
+
+class BookableItem{
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID = 3396066582255989380L;
+}
+
+class BookedItem {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID = 7496066581655989230L;
+}
+
+class BundleItem {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID = 5396066581655339380L;
+	}
+
+class NamedUser {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID = 2396066581335989380L;
+}
+
+class User {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID = 8396063481655949380L;
+	}
