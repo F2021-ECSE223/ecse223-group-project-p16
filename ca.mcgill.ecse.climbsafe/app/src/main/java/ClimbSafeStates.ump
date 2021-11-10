@@ -1,6 +1,6 @@
 class Assignment {
   lazy authCode;
-  lazy Integer refundPercent;
+  lazy Integer refundPercent = 0;
   
   assignmentStatus {
 
@@ -15,7 +15,11 @@ class Assignment {
         start(Member member) / {
           banMember(member);
         } -> Assigned;
-
+        
+        finish(Member member) / {
+          rejectFinishRequest("Cannot finish a trip which has not started");
+        } -> Assigned;
+        
       }
 
       
@@ -26,8 +30,7 @@ class Assignment {
         } -> Started;
 
         pay(Member member, String aAuthCode) / {
-          String error = "Trip has already been paid for";
-          rejectPayment(error); 
+          rejectPayment("Trip has already been paid for"); 
         } -> Paid;
 
         finish(Member member) / {
@@ -43,6 +46,10 @@ class Assignment {
         finish(Member member) / {
           finishTrip(member); 
         }-> Finished;
+        
+        pay(Member member, String aAuthCode) / {
+          rejectPayment("Trip has already been paid for"); 
+        } -> Started;
       }
       
 
@@ -95,7 +102,13 @@ class Assignment {
   }
 
   private boolean isAuthCodeValid(String aAuthCode){
-    return aAuthCode != null;
+    if (aAuthCode.isEmpty()){
+      return false;
+    }
+    else if (aAuthCode == null){
+      return false;
+    }
+    return true;
   }
   
   private boolean isMemberValid(Member member){
