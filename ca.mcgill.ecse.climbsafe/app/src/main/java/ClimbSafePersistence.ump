@@ -1,0 +1,53 @@
+external interface Serializable {}
+
+class ClimbSafe {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID = -2683593616927798071L;
+	
+	public void reinitialize() {
+		Hotel.reinitializeUniqueHotelNames(this.getHotels());
+	}
+}
+
+class Administrator{
+	
+}
+
+class Guide{
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID = 8896099581655989380L;
+}
+
+class Member {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID = -3900912597282882073L;
+}
+
+class Assignment{
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID = 2315072607928790501L;
+}
+
+class Equipment {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID = 2045406856025012133L;
+}
+
+class EquipmentBundle {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID = -7403802774454467836L;
+}
+
+class Hotel {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID = 6696066581655989380L;
+	
+	public static void reinitializeUniqueHotelNames(List<Hotel> hotels){}
+}
