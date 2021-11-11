@@ -4,6 +4,7 @@ import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Hotel;
 import ca.mcgill.ecse.climbsafe.model.Hotel.HotelRating;
+import climbsafe.persistence.ClimbSafePersistence;
 
 
 /**
@@ -42,6 +43,7 @@ public class ClimbSafeFeatureSet7Controller {
 		}
 		try {
 			climbSafe.addHotel(name, address, getRating(nrStars));
+			ClimbSafePersistence.save();
 		} catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
 		}
@@ -83,6 +85,7 @@ public class ClimbSafeFeatureSet7Controller {
 			myHotel.setName(newName);
 			myHotel.setAddress(newAddress);
 			myHotel.setRating(getRating(NewNrStars));
+			ClimbSafePersistence.save();
 		} catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
 		}
