@@ -16,6 +16,7 @@ class Administrator{
 	depend java.io.Serializable;
 	isA Serializable;
 	private static final long serialVersionUID = 4235072607922320501L;
+	
 }
 
 class Guide{
@@ -42,14 +43,12 @@ class Equipment {
 	depend java.io.Serializable;
 	isA Serializable;
 	private static final long serialVersionUID = 2045406856025012133L;
-
 }
 
 class EquipmentBundle {
 	depend java.io.Serializable;
 	isA Serializable;
 	private static final long serialVersionUID = -7403802774454467836L;
-
 }
 
 class Hotel {
@@ -63,9 +62,7 @@ class Hotel {
 		for (Hotel hotel: hotels){
 			hotelsByName.put(hotel.getName(), hotel);
 		}
-
 	}
-
 }
 
 class BookableItem{
@@ -85,6 +82,7 @@ class BookableItem{
 		}
 	}
 }
+
 
 
 class BookedItem {
@@ -110,7 +108,6 @@ class User {
 	isA Serializable;
 	private static final long serialVersionUID = 8396063481655949380L;
 
-
 	public static void reinitializeUserByEmail(Administrator admin, List<Member> members, List<Guide> guides){
 		usersByEmail = new HashMap<String, User>();
 		usersByEmail.put(admin.getEmail(), admin);
@@ -122,8 +119,7 @@ class User {
 		for (Guide guide: guides){
 			User user = (User) guide;
 			usersByEmail.put(guide.getEmail(), user);
-		}
-
+		}	
 	}
-
+	
 }
