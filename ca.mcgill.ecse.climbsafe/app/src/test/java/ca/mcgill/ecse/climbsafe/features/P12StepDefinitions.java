@@ -3,9 +3,12 @@ package ca.mcgill.ecse.climbsafe.features;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+
 import org.junit.Assert;
+
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
+import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Member;
@@ -87,7 +90,11 @@ public class P12StepDefinitions {
    */
   @When("the admin attempts to delete the guide account linked to the {string} \\(p12)")
   public void the_admin_attempts_to_delete_the_guide_account_linked_to_the_p12(String string) {
-    ClimbSafeFeatureSet1Controller.deleteGuide(string);
+    try {
+	  ClimbSafeFeatureSet1Controller.deleteGuide(string);
+    } catch (InvalidInputException e) {
+    	throw new RuntimeException(e.getMessage());
+    }
   }
 
   /**

@@ -3,12 +3,13 @@ package ca.mcgill.ecse.climbsafe.controller;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
-import ca.mcgill.ecse.climbsafe.model.User;
-import ca.mcgill.ecse.climbsafe.model.Member;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Hotel;
-import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
+import ca.mcgill.ecse.climbsafe.model.Member;
+import ca.mcgill.ecse.climbsafe.model.User;
+import climbsafe.persistence.ClimbSafePersistence;
 
 
 /**
@@ -50,6 +51,7 @@ public class ClimbSafeFeatureSet1Controller {
 		  climbSafe.setNrWeeks(nrWeeks);
 		  climbSafe.setPriceOfGuidePerWeek(priceOfGuidePerWeek);
 		  climbSafe.setStartDate(startDate);
+		  ClimbSafePersistence.save();
 	  } catch (RuntimeException e ){
 		  throw new InvalidInputException(e.getMessage());
 	  }
@@ -60,11 +62,16 @@ public class ClimbSafeFeatureSet1Controller {
    * @param email
    * @author Onyekachi Ezekwem
    */
-  public static void deleteMember(String email) {
+  public static void deleteMember(String email) throws InvalidInputException {
 	  User member = User.getWithEmail(email);
 	  if (member != null && member instanceof Member) {
 		  member.delete();
 	  }
+	  try {
+	       	ClimbSafePersistence.save();
+	      } catch (RuntimeException e) {
+	        throw new InvalidInputException(e.getMessage());
+	      }
   }
   
   /**
@@ -72,11 +79,16 @@ public class ClimbSafeFeatureSet1Controller {
    * @param email
    * @author Onyekachi Ezekwem
    */
-  public static void deleteGuide(String email) {
+  public static void deleteGuide(String email) throws InvalidInputException {
 	  User guide = User.getWithEmail(email);
 	  if(guide != null && guide instanceof Guide) {
 		  guide.delete();
 	  }
+	  try {
+	        ClimbSafePersistence.save();
+	      } catch (RuntimeException e) {
+	        throw new InvalidInputException(e.getMessage());
+	      }
   }
 
   // this method needs to be implemented only by teams with seven team members
@@ -85,11 +97,16 @@ public class ClimbSafeFeatureSet1Controller {
    * @param name
    * @author Onyekachi Ezekwem
    */
-  public static void deleteHotel(String name) {
+  public static void deleteHotel(String name) throws InvalidInputException {
 	  Hotel hotel = Hotel.getWithName(name);
 	  if (hotel != null) {
 		  hotel.delete();
 	  }
+	  try {
+	        ClimbSafePersistence.save();
+	      } catch (RuntimeException e) {
+	        throw new InvalidInputException(e.getMessage());
+	      }
   }
   
   /**
