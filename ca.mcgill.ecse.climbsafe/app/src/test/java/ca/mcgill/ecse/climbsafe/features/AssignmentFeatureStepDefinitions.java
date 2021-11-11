@@ -150,8 +150,7 @@ public class AssignmentFeatureStepDefinitions {
       }
       
       Assignment assignment = member.getAssignment();
-      
-      assertEquals(guideEmail, assignment.getGuide());
+      assertEquals(Guide.getWithEmail(guideEmail), assignment.getGuide());
       assertEquals(startWeek, assignment.getStartWeek());
       assertEquals(endWeek, assignment.getEndWeek());
       
@@ -224,10 +223,11 @@ public class AssignmentFeatureStepDefinitions {
       
       Assignment assignment = climbSafe.addAssignment(Integer.parseInt(row.get("startWeek")), Integer.parseInt(row.get("endWeek")), member);
       
-      if (row.get("guideEmail").trim().length() != 0) {
+      if (row.get("guideEmail") != null) {
         Guide guide = (Guide) Guide.getWithEmail("guideEmail");
         assignment.setGuide(guide);
       }
+      
       
     }
 
@@ -388,9 +388,8 @@ public class AssignmentFeatureStepDefinitions {
   private String getAssignmentStatus(Assignment assignment) {
     
     String status = assignment.getAssignmentStatusFullName();
-    if (status.contains(".")) {
-      List<String> statuses = Arrays.asList(status.split("."));
-      status = statuses.get(1);
+    if (status.indexOf(".")!=-1) {
+    	status = status.substring(status.indexOf(".")+1);
     }
     
     return status;

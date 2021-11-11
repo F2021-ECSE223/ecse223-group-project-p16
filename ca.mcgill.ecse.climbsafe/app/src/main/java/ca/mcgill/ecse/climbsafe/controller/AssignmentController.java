@@ -93,7 +93,7 @@ public class AssignmentController {
     public static void pay(String email, String aAuthCode) throws InvalidInputException{
       
       // Input validation 
-      String error = "";
+      String error="";
       
       // Get the member associated with the passed email
       User user = Member.getWithEmail(email);
@@ -197,41 +197,57 @@ public class AssignmentController {
     
     
     
-    public static void start(String email) throws InvalidInputException{
-      
-      // Input Validation
-      
-      String error = "";
-      
-      // Get the member associated with the passed email
-      User user = Member.getWithEmail(email);
-      Member member = null;
-      if (user instanceof Member) {
-        member = (Member) user;
-      }
-      
-      if (member == null) {
-          error = "Member with email address " + email + " does not exist";
-      }
-      
-      if(!error.isEmpty()) {
-        throw new InvalidInputException(error.trim());
-      }
-      
-      // Operation
-      try {
+//    public static void start(String email) throws InvalidInputException{
+//      
+//      // Input Validation
+//      
+//      String error = "";
+//      
+//      // Get the member associated with the passed email
+//      User user = Member.getWithEmail(email);
+//      Member member = null;
+//      if (user instanceof Member) {
+//        member = (Member) user;
+//      }
+//      
+//      if (member == null) {
+//          error = "Member with email address " + email + " does not exist";
+//      }
+//      
+//      if(!error.isEmpty()) {
+//        throw new InvalidInputException(error.trim());
+//      }
+//      
+//      // Operation
+//      try {
+//        
+//        Assignment assignment = member.getAssignment();
+//        
+//        assignment.start(member);
+//        
+//      }
+//      
+//      catch(RuntimeException e) {
+//        throw new InvalidInputException(e.getMessage());
+//      }
+//      
+//    }
+    public static void start(int weekNr) throws InvalidInputException{
+    	
         
-        Assignment assignment = member.getAssignment();
+      
+        	
+        for(Member member: climbSafe.getMembers()) {
+        	if(weekNr==member.getAssignment().getStartWeek()) {
+	        	member.getAssignment().start(member);
+        	}
+        }
         
-        assignment.start(member);
+        
+        
+        
         
       }
-      
-      catch(RuntimeException e) {
-        throw new InvalidInputException(e.getMessage());
-      }
-      
-    }
     
 
 }
