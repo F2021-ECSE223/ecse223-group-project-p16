@@ -1,12 +1,14 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
 import java.util.List;
+
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.Assignment;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Member;
 import ca.mcgill.ecse.climbsafe.model.User;
+import climbsafe.persistence.ClimbSafePersistence;
 
 public class AssignmentController {
   
@@ -48,6 +50,7 @@ public class AssignmentController {
                   
                   guideWeeks -= memberWeeksNumber;
                   
+                  ClimbSafePersistence.save();
                 }
                 
               }
@@ -55,7 +58,7 @@ public class AssignmentController {
               else {
                 
                 Assignment assignment = climbSafe.addAssignment(1, memberWeeksNumber, member);
-               
+                ClimbSafePersistence.save();
               }
               
             }
@@ -119,7 +122,7 @@ public class AssignmentController {
         
         assignment.pay(member, aAuthCode);
         // assignment.pay deals with the state change, and also calls assignment.makePayment, which sets the authcode
-        
+        ClimbSafePersistence.save();
       }
       catch(RuntimeException e) {
         throw new InvalidInputException(e.getMessage());
@@ -153,7 +156,7 @@ public class AssignmentController {
         Assignment assignment = member.getAssignment(); 
         assignment.cancel();
         // The refunding is already handled by assignment.cancelTrip(), which is called by assignment.cancel():
-        
+        ClimbSafePersistence.save();
       }
       catch(RuntimeException e) {
         throw new InvalidInputException(e.getMessage());
@@ -186,7 +189,9 @@ public class AssignmentController {
       
         Assignment assignment = member.getAssignment();
         
-        assignment.finish(member);        
+        assignment.finish(member);     
+        
+        ClimbSafePersistence.save();
       }
       
       catch(RuntimeException e) {
@@ -224,6 +229,8 @@ public class AssignmentController {
         Assignment assignment = member.getAssignment();
         
         assignment.start(member);
+        
+        ClimbSafePersistence.save();
         
       }
       
