@@ -84,17 +84,6 @@ class BookableItem{
 	}
 }
 
-class BookedItem {
-	depend java.io.Serializable;
-	isA Serializable;
-	private static final long serialVersionUID = 7496066581655989230L;
-}
-
-class BundleItem {
-	depend java.io.Serializable;
-	isA Serializable;
-	private static final long serialVersionUID = 5396066581655339380L;
-}
 
 class NamedUser {
 	depend java.io.Serializable;

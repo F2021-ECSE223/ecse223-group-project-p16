@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 // line 1 "../../../../../ClimbSafeStates.ump"
 // line 36 "../../../../../ClimbSafePersistence.ump"
-// line 84 "../../../../../ClimbSafe.ump"
+// line 91 "../../../../../ClimbSafe.ump"
 public class Assignment implements Serializable
 {
 

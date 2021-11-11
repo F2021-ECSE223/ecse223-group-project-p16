@@ -50,6 +50,9 @@ associationClass BookedItem {
   Integer quantity;
   * Member member;
   * BookableItem item;
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 5396066581655339380L;
 }
 
 class BookableItem {
@@ -72,6 +75,10 @@ associationClass BundleItem {
   Integer quantity;
   * EquipmentBundle bundle;
   * Equipment equipment;
+  
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 5396066581655339380L;
 }
 
 class Hotel {
