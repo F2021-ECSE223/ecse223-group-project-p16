@@ -3,6 +3,7 @@ package ca.mcgill.ecse.climbsafe.controller;
 import java.util.List;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.Assignment;
+import ca.mcgill.ecse.climbsafe.model.Assignment.AssignmentStatusActive;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Member;
@@ -106,7 +107,7 @@ public class AssignmentController {
           error = "Member with email address " + email + " does not exist";
       }
       if (aAuthCode.isEmpty()) {
-          error = "Invalid Authorization Code";
+          error = "Invalid authorization code";
       }
       
       if(!error.isEmpty()) {
@@ -123,6 +124,7 @@ public class AssignmentController {
       }
       catch(RuntimeException e) {
         throw new InvalidInputException(e.getMessage());
+        
       }
     }   
     
@@ -234,19 +236,24 @@ public class AssignmentController {
 //    }
     public static void start(int weekNr) throws InvalidInputException{
     	
-        
-      
+    	String error ="";
+    	
+	      try {
+	    	  for(Member member: climbSafe.getMembers()) {
+	          	if(weekNr==member.getAssignment().getStartWeek()) {
+	          		if(member.getAssignment().getAssignmentStatusActive()==AssignmentStatusActive.Assigned) {
+	          			error = "Cannot start the trip due to a ban";
+	          		}
+	  	        	member.getAssignment().start(member);
+	          	}
+	          }
+	    	  if(!error.isEmpty()) {
+	    		  throw new InvalidInputException(error.trim());
+	    	  }
+	      } catch (RuntimeException e) {
+	    	  throw new InvalidInputException(e.getMessage());
+	      }
         	
-        for(Member member: climbSafe.getMembers()) {
-        	if(weekNr==member.getAssignment().getStartWeek()) {
-	        	member.getAssignment().start(member);
-        	}
-        }
-        
-        
-        
-        
-        
       }
     
 
