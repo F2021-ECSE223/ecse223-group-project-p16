@@ -6,6 +6,7 @@ import java.util.Map;
 
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
+import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.model.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -122,9 +123,10 @@ public class P14StepDefinitions {
    * @author: Hongfei Liu, Zihan Zhang, Matt MacDonald, Ryan Reszetnik, Sabrina Mansour, Sehr
    *          Moosabhoy
    * @param string the email of the account that the member is trying to delete
+ * @throws InvalidInputException 
    */
   @When("the member attempts to delete the account with email {string} \\(p14)")
-  public void the_member_attempts_to_delete_the_account_with_email_p14(String string) {
+  public void the_member_attempts_to_delete_the_account_with_email_p14(String string) throws InvalidInputException {
     ClimbSafeFeatureSet1Controller.deleteMember(string);
 
   }
@@ -154,10 +156,11 @@ public class P14StepDefinitions {
    * @author: Hongfei Liu, Zihan Zhang, Matt MacDonald, Ryan Reszetnik, Sabrina Mansour, Sehr
    *          Moosabhoy
    * @param string the email of the Member account that the member is trying to delete
+ * @throws InvalidInputException 
    */
   @When("the member attempts to delete the member account with email {string} \\(p14)")
 
-  public void the_member_attempts_to_delete_the_member_account_with_email_p14(String string) {
+  public void the_member_attempts_to_delete_the_member_account_with_email_p14(String string) throws InvalidInputException {
 
     ClimbSafeFeatureSet1Controller.deleteMember(string);
 
