@@ -197,7 +197,7 @@ public abstract class BookableItem implements Serializable
 			bookableitemsByName.put(bookableItem.getName(),  bookableItem);
 		}
 		for (EquipmentBundle equipmentBundle: bundles){
-			EquipmentBundle bundle = (EquipmentBundle) equipmentBundle;
+			BookableItem bundle = (BookableItem) equipmentBundle;
 			bookableitemsByName.put(bundle.getName(), bundle);
 		}
   }
