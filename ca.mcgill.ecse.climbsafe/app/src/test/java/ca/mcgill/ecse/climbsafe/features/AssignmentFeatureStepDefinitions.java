@@ -27,6 +27,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+/**
+ * 
+ * @author Rui Du exclusively, for all methods
+ *
+ */
 public class AssignmentFeatureStepDefinitions {
 
   /**
@@ -36,7 +41,7 @@ public class AssignmentFeatureStepDefinitions {
 
   private String error;
   private int errorCntr;
-
+  
   @Given("the following ClimbSafe system exists:")
   public void the_following_climb_safe_system_exists(
       io.cucumber.datatable.DataTable climbSafeSystem) {
