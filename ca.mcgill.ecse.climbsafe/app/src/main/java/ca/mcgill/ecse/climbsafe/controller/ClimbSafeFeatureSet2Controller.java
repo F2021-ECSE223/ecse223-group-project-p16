@@ -7,7 +7,8 @@ import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Member;
 import ca.mcgill.ecse.climbsafe.model.User;
-
+import climbsafe.persistence.ClimbSafePersistence;
+import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 
 /**
  * Controller implementation for the feature set 2. This includes the following features:
@@ -90,6 +91,9 @@ public class ClimbSafeFeatureSet2Controller {
       
       // Attempts to register a member onto the system.
       try {
+    	  
+    	  ClimbSafePersistence.save();
+    	  
           climbsafe.addMember(email, password, name, emergencyContact, nrWeeks,
                   guideRequired, hotelRequired);
           
@@ -100,6 +104,7 @@ public class ClimbSafeFeatureSet2Controller {
             addedMember.addBookedItem(itemQuantities.get(itemNames.indexOf(bookableItem)), climbsafe, BookableItem.getWithName(bookableItem));
             
           }
+          
           
           
       } catch (RuntimeException e) {
@@ -172,7 +177,7 @@ public class ClimbSafeFeatureSet2Controller {
             error = "The name cannot be empty";
         }
         if (newEmergencyContact.isEmpty() || newEmergencyContact == null) {
-            error = "The emergency contact cannot be empty";
+            error = "The emergence contact cannot be empty";
         }
         if (newNrWeeks > climbsafe.getNrWeeks() | newNrWeeks == 0) {
             error = "The number of weeks must be greater than zero and less than or equal to the number of climbing weeks in the climbing season";
@@ -199,6 +204,9 @@ public class ClimbSafeFeatureSet2Controller {
 
         // Attempts to update a member in the system.
         try {
+        	
+          ClimbSafePersistence.save();
+        	
           Member.getWithEmail(email).delete();
           registerMember(email, newPassword, newName, newEmergencyContact,
                newNrWeeks, newGuideRequired, newHotelRequired, newItemNames,
@@ -214,7 +222,3 @@ public class ClimbSafeFeatureSet2Controller {
 
   }
   
-
-
-
-
