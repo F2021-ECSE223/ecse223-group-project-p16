@@ -1,3 +1,5 @@
+// authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+
 class Assignment {
   lazy authCode;
   lazy Integer refundPercent = 0;
@@ -101,7 +103,10 @@ class Assignment {
     }
   }
 
+  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+  
   private boolean isAuthCodeValid(String aAuthCode){
+	
     if (aAuthCode.isEmpty()){
       return false;
     }
@@ -111,22 +116,31 @@ class Assignment {
     return true;
   }
   
+  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+  
   private boolean isMemberValid(Member member){
     return member.getMemberStatusFullName().equals("NotBanned");
   }
 
+  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+  
   private void makePayment(Member member, String aAuthCode){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot pay for the trip due to a Ban");
     }
     setAuthCode(aAuthCode);
   }
-
+  
+  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+  
   private void startTrip(Member member){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot start the trip due to a ban");
     }
   }
+  
+  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+  
   private void cancelTrip(Member member){
 	
     if (!isMemberValid(member)){
@@ -145,35 +159,49 @@ class Assignment {
   	  }
 
   }
-
+  
+  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+  
   private void finishTrip(Member member){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot finish the trip due to a ban");
     }
   }
   
+  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+  
   private void banMember(Member member){
     member.ban();
   }
-
+  
+  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+  
   private void rejectPayment(String error){
 
     throw new RuntimeException(error);
   }
-
+  
+  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+  
   private void rejectFinishRequest(String error){
     throw new RuntimeException(error);
   }
-
+  
+  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+  
   private void rejectStartRequest(String error){
     throw new RuntimeException(error);
   }
 
+  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+  
   private void rejectCancelRequest(String error){
     throw new RuntimeException(error);
   }
 
 }
+
+// authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
 
 class Member{
   memberStatus{
