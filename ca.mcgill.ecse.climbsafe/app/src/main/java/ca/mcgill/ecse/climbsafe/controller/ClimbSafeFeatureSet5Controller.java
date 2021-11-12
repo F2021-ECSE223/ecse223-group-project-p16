@@ -10,6 +10,8 @@ import ca.mcgill.ecse.climbsafe.model.Equipment;
 import ca.mcgill.ecse.climbsafe.model.BundleItem;
 import ca.mcgill.ecse.climbsafe.model.BookableItem;
 
+import climbsafe.persistence.ClimbSafePersistence;
+
 public class ClimbSafeFeatureSet5Controller {
   
   private static ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
@@ -94,6 +96,8 @@ public class ClimbSafeFeatureSet5Controller {
           // Attempt to add the equipment to the bundle
           BundleItem bundleItem = climbSafe.addBundleItem(equipmentQuantities.get(i), equipmentBundle, matchedEquipment);
           equipmentBundle.addBundleItem(bundleItem);
+          
+          ClimbSafePersistence.save();
         }
       } 
       catch (RuntimeException e) {
@@ -194,6 +198,8 @@ public class ClimbSafeFeatureSet5Controller {
       
       // Create the new bundle
       addEquipmentBundle(newName, newDiscount, newEquipmentNames, newEquipmentQuantities);
+      
+      ClimbSafePersistence.save();
       
     }
     catch (RuntimeException e) {

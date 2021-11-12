@@ -4,11 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 import org.junit.jupiter.api.function.Executable;
+
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.AssignmentController;
 import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
@@ -24,6 +27,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+/**
+ * 
+ * @author Rui Du exclusively, for all methods
+ *
+ */
 public class AssignmentFeatureStepDefinitions {
 
   /**
@@ -33,7 +41,7 @@ public class AssignmentFeatureStepDefinitions {
 
   private String error;
   private int errorCntr;
-
+  
   @Given("the following ClimbSafe system exists:")
   public void the_following_climb_safe_system_exists(
       io.cucumber.datatable.DataTable climbSafeSystem) {
