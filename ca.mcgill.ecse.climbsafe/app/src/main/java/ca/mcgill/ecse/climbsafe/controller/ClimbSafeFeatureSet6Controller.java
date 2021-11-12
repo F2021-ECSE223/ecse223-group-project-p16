@@ -11,6 +11,7 @@ import ca.mcgill.ecse.climbsafe.model.BundleItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
 import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
+import climbsafe.persistence.ClimbSafePersistence;
 
 public class ClimbSafeFeatureSet6Controller {
 	
@@ -55,6 +56,7 @@ public class ClimbSafeFeatureSet6Controller {
 	  //Attempts to delete the piece of equipment from the system
 	  try {
 		  equipment.delete(); 
+		  ClimbSafePersistence.save();
 		  
 		} catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -72,6 +74,7 @@ public class ClimbSafeFeatureSet6Controller {
 	  
 	  if (bundle != null && bundle instanceof EquipmentBundle) {
 		  bundle.delete();
+		  ClimbSafePersistence.save();
 	  }
   }
   
