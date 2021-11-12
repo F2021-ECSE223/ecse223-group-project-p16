@@ -2,7 +2,7 @@
 
 class Assignment {
   lazy authCode;
-  lazy Integer refundPercent = 0;
+  lazy Integer refundPercent;
   
   assignmentStatus {
 
@@ -19,6 +19,7 @@ class Assignment {
         } -> Assigned;
         
         finish(Member member) / {
+          finishTrip(member);
           rejectFinishRequest("Cannot finish a trip which has not started");
         } -> Assigned;
         
@@ -32,10 +33,12 @@ class Assignment {
         } -> Started;
 
         pay(Member member, String aAuthCode) / {
+          makePayment(member, aAuthCode);
           rejectPayment("Trip has already been paid for"); 
         } -> Paid;
 
         finish(Member member) / {
+          finishTrip(member);
           String error = "Cannot finish a trip which has not started";
           rejectFinishRequest(error);
         } -> Paid;
@@ -47,9 +50,10 @@ class Assignment {
         
         finish(Member member) / {
           finishTrip(member); 
-        }-> Finished;
+        } -> Finished;
         
         pay(Member member, String aAuthCode) / {
+          makePayment(member, aAuthCode);
           rejectPayment("Trip has already been paid for"); 
         } -> Started;
       }
@@ -66,6 +70,8 @@ class Assignment {
     Finished {
 
       pay(Member member, String aAuthCode) / {
+      	
+        makePayment(member, aAuthCode);
         String error = "Cannot pay for a trip which has finished";
         rejectPayment(error); 
       } -> Finished;
@@ -76,6 +82,7 @@ class Assignment {
       } -> Finished;
 
       cancel() / {
+        cancelTrip(member);
         String error = "Cannot cancel a trip which has finished";
         rejectCancelRequest(error);
       } -> Finished;
@@ -86,17 +93,19 @@ class Assignment {
     Cancelled {
       
       pay(Member member, String aAuthCode) / {
+        makePayment(member, aAuthCode);
         error = "Cannot pay for a trip which has been cancelled";
         rejectPayment(error); 
       } -> Cancelled;
 
       start(Member member) / {
-        error = "Cannot start a trip which has been Cancelled";
+        error = "Cannot start a trip which has been cancelled";
         rejectStartRequest(error);
       } -> Cancelled;
 
       finish(Member member) / {
-        String error = "Cannot finish a trip which has been Cancelled";
+        finishTrip(member);
+        String error = "Cannot finish a trip which has been cancelled";
         rejectFinishRequest(error);
       } -> Cancelled;
       
@@ -126,7 +135,7 @@ class Assignment {
   
   private void makePayment(Member member, String aAuthCode){
     if (!isMemberValid(member)){
-      throw new RuntimeException("Cannot pay for the trip due to a Ban");
+      throw new RuntimeException("Cannot pay for the trip due to a ban");
     }
     setAuthCode(aAuthCode);
   }
@@ -152,11 +161,8 @@ class Assignment {
   	  	setRefundPercent(50);
   	  	break;
   	  case Started:
-  	  	setRefundPercent(50);
-  	  	break;
-  	  default:
-  	  	setRefundPercent(0);	
-  	  }
+  	  	setRefundPercent(10);
+  	  	break;	
 
   }
   
@@ -213,5 +219,3 @@ class Member{
   }
   
 }
-
-
