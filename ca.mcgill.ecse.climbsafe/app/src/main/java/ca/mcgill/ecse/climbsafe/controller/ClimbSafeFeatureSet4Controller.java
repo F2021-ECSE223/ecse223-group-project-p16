@@ -4,6 +4,7 @@ import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
+import climbsafe.persistence.ClimbSafePersistence;
 
 /**
  * Here are the controller features for addEquipment and updateEquipment
@@ -62,6 +63,7 @@ public class ClimbSafeFeatureSet4Controller {
 	  
     try {
       climbSafe.addEquipment(name, weight, pricePerWeek);
+      ClimbSafePersistence.save();
     } catch (RuntimeException e) {
       error = e.getMessage();
       if (error.startsWith("Cannot create due to duplicate name.")) {
@@ -129,6 +131,8 @@ public class ClimbSafeFeatureSet4Controller {
 	  Equipment existingEquipment = (Equipment) existingBookableItem;
       existingEquipment.setWeight(newWeight);
       existingEquipment.setPricePerWeek(newPricePerWeek);
+      
+      ClimbSafePersistence.save();
     } catch (RuntimeException e) {
       error = e.getMessage();
       throw new InvalidInputException(error);
