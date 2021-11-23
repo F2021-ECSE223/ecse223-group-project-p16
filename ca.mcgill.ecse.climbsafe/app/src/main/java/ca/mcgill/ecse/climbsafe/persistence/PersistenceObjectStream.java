@@ -1,4 +1,4 @@
-package climbsafe.persistence;
+package ca.mcgill.ecse.climbsafe.persistence;
 
 import java.io.File;
 import java.io.FileInputStream;

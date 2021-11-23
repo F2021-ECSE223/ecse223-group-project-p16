@@ -4,7 +4,7 @@ import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Hotel;
 import ca.mcgill.ecse.climbsafe.model.Hotel.HotelRating;
-import climbsafe.persistence.ClimbSafePersistence;
+import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
 
 
 /**

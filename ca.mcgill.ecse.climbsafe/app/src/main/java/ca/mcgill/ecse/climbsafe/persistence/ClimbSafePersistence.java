@@ -1,4 +1,4 @@
-package climbsafe.persistence;
+package ca.mcgill.ecse.climbsafe.persistence;
 
 import java.sql.Date;
 import java.time.LocalDate;
