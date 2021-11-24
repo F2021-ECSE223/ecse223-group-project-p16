@@ -4,7 +4,10 @@
 package ca.mcgill.ecse.climbsafe.model;
 import java.io.Serializable;
 
-// line 1 "../../../../../ClimbSafeStates.ump"
+/**
+ * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+ */
+// line 3 "../../../../../ClimbSafeStates.ump"
 // line 36 "../../../../../ClimbSafePersistence.ump"
 // line 91 "../../../../../ClimbSafe.ump"
 public class Assignment implements Serializable
@@ -138,13 +141,13 @@ public class Assignment implements Serializable
     {
       case Active:
         exitAssignmentStatus();
-        // line 61 "../../../../../ClimbSafeStates.ump"
+        // line 63 "../../../../../ClimbSafeStates.ump"
         cancelTrip(member);
         setAssignmentStatus(AssignmentStatus.Cancelled);
         wasEventProcessed = true;
         break;
       case Finished:
-        // line 82 "../../../../../ClimbSafeStates.ump"
+        // line 84 "../../../../../ClimbSafeStates.ump"
         cancelTrip(member);
         String error = "Cannot cancel a trip which has finished";
         rejectCancelRequest(error);
@@ -167,7 +170,7 @@ public class Assignment implements Serializable
     switch (aAssignmentStatus)
     {
       case Finished:
-        // line 70 "../../../../../ClimbSafeStates.ump"
+        // line 72 "../../../../../ClimbSafeStates.ump"
         makePayment(member, aAuthCode);
         String error = "Cannot pay for a trip which has finished";
         rejectPayment(error);
@@ -175,7 +178,7 @@ public class Assignment implements Serializable
         wasEventProcessed = true;
         break;
       case Cancelled:
-        // line 93 "../../../../../ClimbSafeStates.ump"
+        // line 95 "../../../../../ClimbSafeStates.ump"
         makePayment(member, aAuthCode);
         error = "Cannot pay for a trip which has been cancelled";
         rejectPayment(error);
@@ -192,7 +195,7 @@ public class Assignment implements Serializable
         if (isAuthCodeValid(aAuthCode))
         {
           exitAssignmentStatusActive();
-        // line 11 "../../../../../ClimbSafeStates.ump"
+        // line 13 "../../../../../ClimbSafeStates.ump"
           makePayment(member, aAuthCode);
           setAssignmentStatusActive(AssignmentStatusActive.Paid);
           wasEventProcessed = true;
@@ -201,7 +204,7 @@ public class Assignment implements Serializable
         break;
       case Paid:
         exitAssignmentStatusActive();
-        // line 33 "../../../../../ClimbSafeStates.ump"
+        // line 35 "../../../../../ClimbSafeStates.ump"
         makePayment(member, aAuthCode);
           rejectPayment("Trip has already been paid for");
         setAssignmentStatusActive(AssignmentStatusActive.Paid);
@@ -209,7 +212,7 @@ public class Assignment implements Serializable
         break;
       case Started:
         exitAssignmentStatusActive();
-        // line 53 "../../../../../ClimbSafeStates.ump"
+        // line 55 "../../../../../ClimbSafeStates.ump"
         makePayment(member, aAuthCode);
           rejectPayment("Trip has already been paid for");
         setAssignmentStatusActive(AssignmentStatusActive.Started);
@@ -231,14 +234,14 @@ public class Assignment implements Serializable
     switch (aAssignmentStatus)
     {
       case Finished:
-        // line 77 "../../../../../ClimbSafeStates.ump"
+        // line 79 "../../../../../ClimbSafeStates.ump"
         String error = "Cannot start a trip which has finished";
         rejectStartRequest(error);
         setAssignmentStatus(AssignmentStatus.Finished);
         wasEventProcessed = true;
         break;
       case Cancelled:
-        // line 99 "../../../../../ClimbSafeStates.ump"
+        // line 101 "../../../../../ClimbSafeStates.ump"
         error = "Cannot start a trip which has been cancelled";
         rejectStartRequest(error);
         setAssignmentStatus(AssignmentStatus.Cancelled);
@@ -252,14 +255,14 @@ public class Assignment implements Serializable
     {
       case Assigned:
         exitAssignmentStatusActive();
-        // line 15 "../../../../../ClimbSafeStates.ump"
+        // line 17 "../../../../../ClimbSafeStates.ump"
         banMember(member);
         setAssignmentStatusActive(AssignmentStatusActive.Assigned);
         wasEventProcessed = true;
         break;
       case Paid:
         exitAssignmentStatusActive();
-        // line 29 "../../../../../ClimbSafeStates.ump"
+        // line 31 "../../../../../ClimbSafeStates.ump"
         startTrip(member);
         setAssignmentStatusActive(AssignmentStatusActive.Started);
         wasEventProcessed = true;
@@ -280,7 +283,7 @@ public class Assignment implements Serializable
     switch (aAssignmentStatus)
     {
       case Cancelled:
-        // line 104 "../../../../../ClimbSafeStates.ump"
+        // line 106 "../../../../../ClimbSafeStates.ump"
         finishTrip(member);
         String error = "Cannot finish a trip which has been cancelled";
         rejectFinishRequest(error);
@@ -295,7 +298,7 @@ public class Assignment implements Serializable
     {
       case Assigned:
         exitAssignmentStatusActive();
-        // line 19 "../../../../../ClimbSafeStates.ump"
+        // line 21 "../../../../../ClimbSafeStates.ump"
         finishTrip(member);
           rejectFinishRequest("Cannot finish a trip which has not started");
         setAssignmentStatusActive(AssignmentStatusActive.Assigned);
@@ -303,7 +306,7 @@ public class Assignment implements Serializable
         break;
       case Paid:
         exitAssignmentStatusActive();
-        // line 38 "../../../../../ClimbSafeStates.ump"
+        // line 40 "../../../../../ClimbSafeStates.ump"
         finishTrip(member);
           String error = "Cannot finish a trip which has not started";
           rejectFinishRequest(error);
@@ -312,7 +315,7 @@ public class Assignment implements Serializable
         break;
       case Started:
         exitAssignmentStatus();
-        // line 49 "../../../../../ClimbSafeStates.ump"
+        // line 51 "../../../../../ClimbSafeStates.ump"
         finishTrip(member);
         setAssignmentStatus(AssignmentStatus.Finished);
         wasEventProcessed = true;
@@ -510,7 +513,11 @@ public class Assignment implements Serializable
     }
   }
 
-  // line 114 "../../../../../ClimbSafeStates.ump"
+
+  /**
+   * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+   */
+  // line 119 "../../../../../ClimbSafeStates.ump"
    private boolean isAuthCodeValid(String aAuthCode){
     if (aAuthCode.isEmpty()){
       return false;
@@ -521,12 +528,20 @@ public class Assignment implements Serializable
     return true;
   }
 
-  // line 124 "../../../../../ClimbSafeStates.ump"
+
+  /**
+   * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+   */
+  // line 131 "../../../../../ClimbSafeStates.ump"
    private boolean isMemberValid(Member member){
     return member.getMemberStatusFullName().equals("NotBanned");
   }
 
-  // line 128 "../../../../../ClimbSafeStates.ump"
+
+  /**
+   * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+   */
+  // line 137 "../../../../../ClimbSafeStates.ump"
    private void makePayment(Member member, String aAuthCode){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot pay for the trip due to a ban");
@@ -534,14 +549,22 @@ public class Assignment implements Serializable
     setAuthCode(aAuthCode);
   }
 
-  // line 135 "../../../../../ClimbSafeStates.ump"
+
+  /**
+   * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+   */
+  // line 146 "../../../../../ClimbSafeStates.ump"
    private void startTrip(Member member){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot start the trip due to a ban");
     }
   }
 
-  // line 141 "../../../../../ClimbSafeStates.ump"
+
+  /**
+   * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+   */
+  // line 155 "../../../../../ClimbSafeStates.ump"
    private void cancelTrip(Member member){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot cancel the trip due to a ban");
@@ -554,39 +577,70 @@ public class Assignment implements Serializable
   	  case Started:
   	  	setRefundPercent(10);
   	  	break;	
-  	  case Null:
-  	  	setRefundPercent(75);
-  	  }
+	}
   }
 
-  // line 159 "../../../../../ClimbSafeStates.ump"
+
+  /**
+   * Testing only
+   */
+  // line 171 "../../../../../ClimbSafeStates.ump"
+   public void setStatus(AssignmentStatus assignmentStatus){
+    this.setAssignmentStatus(assignmentStatus);
+  }
+
+
+  /**
+   * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+   */
+  // line 177 "../../../../../ClimbSafeStates.ump"
    private void finishTrip(Member member){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot finish the trip due to a ban");
     }
   }
 
-  // line 165 "../../../../../ClimbSafeStates.ump"
+
+  /**
+   * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+   */
+  // line 185 "../../../../../ClimbSafeStates.ump"
    private void banMember(Member member){
     member.ban();
   }
 
-  // line 170 "../../../../../ClimbSafeStates.ump"
+
+  /**
+   * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+   */
+  // line 192 "../../../../../ClimbSafeStates.ump"
    private void rejectPayment(String error){
     throw new RuntimeException(error);
   }
 
-  // line 174 "../../../../../ClimbSafeStates.ump"
+
+  /**
+   * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+   */
+  // line 198 "../../../../../ClimbSafeStates.ump"
    private void rejectFinishRequest(String error){
     throw new RuntimeException(error);
   }
 
-  // line 178 "../../../../../ClimbSafeStates.ump"
+
+  /**
+   * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+   */
+  // line 204 "../../../../../ClimbSafeStates.ump"
    private void rejectStartRequest(String error){
     throw new RuntimeException(error);
   }
 
-  // line 182 "../../../../../ClimbSafeStates.ump"
+
+  /**
+   * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+   */
+  // line 210 "../../../../../ClimbSafeStates.ump"
    private void rejectCancelRequest(String error){
     throw new RuntimeException(error);
   }

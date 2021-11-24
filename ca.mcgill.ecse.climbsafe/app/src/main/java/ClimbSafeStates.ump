@@ -163,7 +163,12 @@ class Assignment {
   	  case Started:
   	  	setRefundPercent(10);
   	  	break;	
-
+	}
+  }
+  
+  //Testing only
+  public void setStatus(AssignmentStatus assignmentStatus){
+  	this.setAssignmentStatus(assignmentStatus);
   }
   
   // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin

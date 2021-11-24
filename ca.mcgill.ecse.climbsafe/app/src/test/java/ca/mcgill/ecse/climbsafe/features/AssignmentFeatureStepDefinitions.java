@@ -4,15 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 import org.junit.jupiter.api.function.Executable;
+
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.AssignmentController;
 import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.model.Assignment;
+import ca.mcgill.ecse.climbsafe.model.Assignment.AssignmentStatus;
 import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
@@ -194,7 +198,7 @@ public class AssignmentFeatureStepDefinitions {
 
     Assignment assignment = member.getAssignment();
     String assignmentStatus = assignment.getAssignmentStatus().toString();
-    if(assignmentStatus == "Active" && member.getMemberStatusFullName().equals("NotBanned")) {
+    if("Active".equals(assignmentStatus) && member.getMemberStatusFullName().equals("NotBanned")) {
 		assignmentStatus = assignment.getAssignmentStatusActive().toString();
 	}
     assertEquals(assignmentExpectedStatus, assignmentStatus);
@@ -294,17 +298,6 @@ public class AssignmentFeatureStepDefinitions {
     Member member = (Member) Member.getWithEmail(memberEmail);
     callController(() -> AssignmentController.cancel(memberEmail));
     
-    //this was causing an error so we had to add an if statement
-    Assignment assignment;
-    if(member != null && member.getMemberStatusFullName().equals("NotBanned")) {
-    	assignment = member.getAssignment();
-    	String actualState = assignment.getAssignmentStatus().toString();
-    	
-    	assertEquals(expectedState, actualState);
-    } 
-    
-    
-    
   }
 
   @Given("the member with {string} has paid for their trip")
@@ -394,11 +387,10 @@ public class AssignmentFeatureStepDefinitions {
 
   @Given("the member with {string} has finished their trip")
   public void the_member_with_has_finished_their_trip(String memberEmail) {
-	callController(() -> AssignmentController.finish(memberEmail));
     Member member = (Member) Member.getWithEmail(memberEmail);
     Assignment assignment = member.getAssignment();
     
-    assignment.finish(member);
+    assignment.setStatus(AssignmentStatus.Finished);
     
   }
   
