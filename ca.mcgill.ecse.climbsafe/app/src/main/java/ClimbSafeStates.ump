@@ -163,7 +163,7 @@ class Assignment {
   	  case Started:
   	  	setRefundPercent(10);
   	  	break;	
-
+	}
   }
   
   // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
@@ -204,6 +204,9 @@ class Assignment {
   private void rejectCancelRequest(String error){
     throw new RuntimeException(error);
   }
+  
+  
+  
 
 }
 

@@ -185,6 +185,8 @@ public class AssignmentController {
       // Operation
       try {
         Assignment assignment = member.getAssignment(); 
+        //Add a helper method which will set the refund percent here
+        //Remove the refund percent handling from the stateMachine
         assignment.cancel();
         // The refunding is already handled by assignment.cancelTrip(), which is called by assignment.cancel():
         ClimbSafePersistence.save();
