@@ -5,7 +5,10 @@ package ca.mcgill.ecse.climbsafe.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 187 "../../../../../ClimbSafeStates.ump"
+/**
+ * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
+ */
+// line 230 "../../../../../ClimbSafeStates.ump"
 // line 29 "../../../../../ClimbSafePersistence.ump"
 // line 42 "../../../../../ClimbSafe.ump"
 public class Member extends NamedUser implements Serializable
