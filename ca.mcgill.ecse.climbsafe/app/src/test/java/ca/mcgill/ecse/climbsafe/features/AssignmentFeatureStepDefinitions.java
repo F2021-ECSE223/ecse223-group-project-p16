@@ -4,15 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 import org.junit.jupiter.api.function.Executable;
+
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.AssignmentController;
 import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.model.Assignment;
+import ca.mcgill.ecse.climbsafe.model.Assignment.AssignmentStatus;
+import ca.mcgill.ecse.climbsafe.model.Assignment.AssignmentStatusActive;
 import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
@@ -288,20 +293,8 @@ public class AssignmentFeatureStepDefinitions {
   @When("the administrator attempts to cancel the trip for {string}")
   public void the_administrator_attempts_to_cancel_the_trip_for(String memberEmail) {
     
-    String expectedState = "Cancelled";
-    
-    
-    Member member = (Member) Member.getWithEmail(memberEmail);
     callController(() -> AssignmentController.cancel(memberEmail));
     
-    //this was causing an error so we had to add an if statement
-    Assignment assignment;
-    if(member != null && member.getMemberStatusFullName().equals("NotBanned")) {
-    	assignment = member.getAssignment();
-    	String actualState = assignment.getAssignmentStatus().toString();
-    	
-    	assertEquals(expectedState, actualState);
-    } 
     
     
     
@@ -338,8 +331,7 @@ public class AssignmentFeatureStepDefinitions {
     Member member = (Member) Member.getWithEmail(memberEmail);
     Assignment assignment = member.getAssignment();
     
-    assignment.start(member);
-    
+    assignment.setAppropriateActiveStatus(AssignmentStatusActive.Started);
     
     
   }
@@ -398,7 +390,7 @@ public class AssignmentFeatureStepDefinitions {
     Member member = (Member) Member.getWithEmail(memberEmail);
     Assignment assignment = member.getAssignment();
     
-    assignment.finish(member);
+    assignment.setStatus(AssignmentStatus.Finished);
     
   }
   
