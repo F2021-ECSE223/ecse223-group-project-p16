@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="951.0" prefWidth="654.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="84.0" fitWidth="129.0" layoutX="-3.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../../../../../../../../../var/folders/h8/scrn1qk15gb4l2s8189k30080000gn/T/TemporaryItems/NSIRD_screencaptureui_bHbJDx/Screen%20Shot%202021-11-24%20at%2012.06.27%20AM.png" />
+         </image>
+      </ImageView>
+      <MenuBar layoutX="123.0" layoutY="-2.0" prefHeight="83.0" prefWidth="533.0" style="-fx-background-color: aqua;">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+         <effect>
+            <Blend />
+         </effect>
+      </MenuBar>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#47a7ed" height="761.0" layoutX="8.0" layoutY="173.0" stroke="BLACK" strokeType="INSIDE" width="178.0">
+         <effect>
+            <GaussianBlur radius="0.0" />
+         </effect>
+      </Rectangle>
+      <Text layoutX="9.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Want to Explore the Mountains of Neptan? " textAlignment="CENTER" wrappingWidth="174.1512565612793">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Text layoutX="49.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name *" />
+      <Text layoutX="22.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your email address *" textAlignment="CENTER" wrappingWidth="145.14277433571078" />
+      <Text layoutX="28.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create a Password*" textAlignment="CENTER" wrappingWidth="133.76360887723723" />
+      <Text layoutX="29.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your Emergency Contact Number*" textAlignment="CENTER" wrappingWidth="133.76360887723723" />
+      <TextField fx:id="regNameTextFeild" layoutX="34.0" layoutY="219.0" prefHeight="26.0" prefWidth="127.0" />
+      <TextField fx:id="regEmailTextFeild" layoutX="31.0" layoutY="286.0" prefHeight="26.0" prefWidth="127.0" />
+      <TextField fx:id="regPasswordTextFeild" layoutX="33.0" layoutY="357.0" prefHeight="26.0" prefWidth="127.0" />
+      <TextField fx:id="regEmergencyContactTextFeild" layoutX="33.0" layoutY="445.0" prefHeight="26.0" prefWidth="127.0" />
+      <Text layoutX="58.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register Now!" />
+      <Button fx:id="registerButton" layoutX="61.0" layoutY="898.0" mnemonicParsing="false" onAction="#registerButton" text="Register" />
+      <Text layoutX="474.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cancel your Registration" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#47a7ed" height="328.0" layoutX="455.0" layoutY="222.0" stroke="BLACK" strokeType="INSIDE" width="178.0">
+         <effect>
+            <GaussianBlur radius="0.0" />
+         </effect>
+      </Rectangle>
+      <Text layoutX="476.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name*" textAlignment="CENTER" wrappingWidth="140.18246459960938" />
+      <TextField fx:id="cancelNameTextFeild" layoutX="483.0" layoutY="276.0" prefHeight="26.0" prefWidth="127.0" />
+      <Text layoutX="475.0" layoutY="467.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to cancel your booking?" textAlignment="CENTER" wrappingWidth="140.18246459960938" />
+      <Button fx:id="cancelBookingButton" layoutX="492.0" layoutY="502.0" mnemonicParsing="false" onAction="#cancelBookingButton" text="Cancel Booking" />
+      <Text layoutX="355.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Changed Your Mind?" textAlignment="CENTER" wrappingWidth="142.39845377911826">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Line endX="-1.091583251953125" endY="-227.0587158203125" layoutX="427.0" layoutY="412.0" startX="-1.09161376953125" startY="539.0" />
+      <Text layoutX="22.0" layoutY="502.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the number of weeks that you would like to Climb*" textAlignment="CENTER" wrappingWidth="144.44621080594817" />
+      <TextField fx:id="regNrWeeksTextFeild" layoutX="30.0" layoutY="549.0" prefHeight="26.0" prefWidth="127.0" />
+      <Text layoutX="20.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do you require a Mountain Guide?*" textAlignment="CENTER" wrappingWidth="144.44621080594817" />
+      <Button fx:id="regReqGuideYesButton" layoutX="29.0" layoutY="632.0" mnemonicParsing="false" onAction="#regReqGuideYesButton" text="Yes" />
+      <Button fx:id="regReqGuideNoButton" layoutX="118.0" layoutY="631.0" mnemonicParsing="false" onAction="#regReqGuideNoButton" text="No" />
+      <Text layoutX="22.0" layoutY="690.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do you require a Hotel?*" textAlignment="CENTER" wrappingWidth="144.44621080594817" />
+      <Button fx:id="regHotelYesButton" layoutX="28.0" layoutY="704.0" mnemonicParsing="false" onAction="#regHotelYesButton" text="Yes" />
+      <Button fx:id="regHotelNoButton" layoutX="118.0" layoutY="704.0" mnemonicParsing="false" onAction="#regHotelNoButton" text="No" />
+      <Text layoutX="18.0" layoutY="759.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the names of the equipment you wish to rent" textAlignment="CENTER" wrappingWidth="152.87260864251277" />
+      <TextField fx:id="regEquipNamesTextFeild" layoutX="34.0" layoutY="786.0" prefHeight="26.0" prefWidth="124.0" />
+      <Text layoutX="18.0" layoutY="834.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the quantity  of the equipment you require" textAlignment="CENTER" wrappingWidth="152.87260864251277" />
+      <TextField fx:id="regEquipQuantityTextFeild" layoutX="34.0" layoutY="860.0" prefHeight="26.0" prefWidth="124.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#47a7ed" height="725.0" layoutX="217.0" layoutY="219.0" stroke="BLACK" strokeType="INSIDE" width="192.0">
+         <effect>
+            <GaussianBlur radius="0.0" />
+         </effect>
+      </Rectangle>
+      <Text layoutX="237.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your  password *" textAlignment="CENTER" wrappingWidth="145.14277433571078" />
+      <Text layoutX="246.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update your name*" textAlignment="CENTER" wrappingWidth="133.76360887723723" />
+      <Text layoutX="245.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update your Emergency Contact Number *" textAlignment="CENTER" wrappingWidth="133.76360887723723" />
+      <TextField fx:id="updateEnterEmailTextFeild" layoutX="250.0" layoutY="249.0" prefHeight="26.0" prefWidth="127.0" />
+      <TextField fx:id="updateEnterPasswordTextFeild" layoutX="247.0" layoutY="300.0" prefHeight="26.0" prefWidth="127.0" />
+      <TextField fx:id="updateNameTextFeild" layoutX="249.0" layoutY="398.0" prefHeight="26.0" prefWidth="127.0" />
+      <TextField fx:id="updateContactNumTextFeild" layoutX="249.0" layoutY="470.0" prefHeight="26.0" prefWidth="127.0" />
+      <Text layoutX="250.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update your Booking" />
+      <Button fx:id="updateButton" layoutX="276.0" layoutY="906.0" mnemonicParsing="false" onAction="#updateButton" text="Update" />
+      <Text layoutX="242.0" layoutY="517.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update the number of weeks that you would like to Climb *" textAlignment="CENTER" wrappingWidth="144.44621080594817" />
+      <TextField fx:id="updateNrWeeksTextFeild" layoutX="249.0" layoutY="563.0" prefHeight="26.0" prefWidth="127.0" />
+      <Text layoutX="240.0" layoutY="608.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do you require a Mountain Guide? *" textAlignment="CENTER" wrappingWidth="144.44621080594817" />
+      <Button fx:id="updateMtnGuideButtonYes" layoutX="242.0" layoutY="642.0" mnemonicParsing="false" onAction="#updateMtnGuideButtonYes" text="Yes" />
+      <Button fx:id="updateMtnGuideButtonNo" layoutX="336.0" layoutY="642.0" mnemonicParsing="false" onAction="#updateMtnGuideButtonNo" text="No" />
+      <Text layoutX="238.0" layoutY="691.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do you require a Hotel? *" textAlignment="CENTER" wrappingWidth="144.44621080594817" />
+      <Button fx:id="updateHotelButtonYes" layoutX="243.0" layoutY="707.0" mnemonicParsing="false" onAction="#updateHotelButtonYes" text="Yes" />
+      <Button fx:id="updateHotelButtonNo" layoutX="337.0" layoutY="705.0" mnemonicParsing="false" onAction="#updateHotelButtonNo" text="No" />
+      <Text layoutX="232.0" layoutY="762.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the names of the equipment you wish to rent" textAlignment="CENTER" wrappingWidth="152.87260864251277" />
+      <TextField fx:id="updateEquipNamesTextFeild" layoutX="248.0" layoutY="793.0" prefHeight="26.0" prefWidth="124.0" />
+      <Text layoutX="234.0" layoutY="843.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the quantity of the  equipment you require" textAlignment="CENTER" wrappingWidth="152.87260864251277" />
+      <TextField fx:id="updateEuipQuantitiesTextFeild" layoutX="250.0" layoutY="870.0" prefHeight="26.0" prefWidth="124.0" />
+      <Text layoutX="242.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your email address *" textAlignment="CENTER" wrappingWidth="145.14277433571078" />
+      <Text layoutX="239.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update your  password *" textAlignment="CENTER" wrappingWidth="145.14277433571078" />
+      <TextField fx:id="updatePasswordTextFeild" layoutX="247.0" layoutY="351.0" prefHeight="26.0" prefWidth="127.0" />
+      <Text layoutX="480.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your password*" textAlignment="CENTER" wrappingWidth="140.18246459960938" />
+      <TextField fx:id="cancelPasswordTextFeild" layoutX="483.0" layoutY="404.0" prefHeight="26.0" prefWidth="127.0" />
+      <Text layoutX="475.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your email address*" textAlignment="CENTER" wrappingWidth="140.18246459960938" />
+      <TextField fx:id="cancelEmailTextFeild" layoutX="483.0" layoutY="345.0" prefHeight="26.0" prefWidth="127.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#47a7ed" height="74.0" layoutX="463.0" layoutY="561.0" stroke="BLACK" strokeType="INSIDE" width="156.0">
+         <effect>
+            <GaussianBlur radius="0.0" />
+         </effect>
+      </Rectangle>
+      <Text layoutX="468.0" layoutY="594.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The asterisk (*) indicates a required feild" textAlignment="CENTER" wrappingWidth="144.44621080594817" />
+      <ImageView fitHeight="190.0" fitWidth="230.0" layoutX="439.0" layoutY="753.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../../../../../../../Downloads/Climbhimalayas.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#47a7ed" height="98.0" layoutX="462.0" layoutY="644.0" stroke="BLACK" strokeType="INSIDE" width="156.0">
+         <effect>
+            <GaussianBlur radius="0.0" />
+         </effect>
+      </Rectangle>
+      <Text layoutX="467.0" layoutY="658.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If you do not wish to update certain components of your trip, enter what you have already booked in the respective feilds." textAlignment="CENTER" wrappingWidth="144.44621080594817" />
+   </children>
+</Pane>
