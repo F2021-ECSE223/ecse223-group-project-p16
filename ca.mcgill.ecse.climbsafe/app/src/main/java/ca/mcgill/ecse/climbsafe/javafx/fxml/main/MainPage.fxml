@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
-
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="699.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="View Assignments">
+               <content>
+                  <fx:include source="../pages/ViewAssignments.fxml" />
+               </content></Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</VBox>

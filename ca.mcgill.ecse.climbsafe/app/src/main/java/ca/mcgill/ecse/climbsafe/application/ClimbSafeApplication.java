@@ -4,7 +4,10 @@
 package ca.mcgill.ecse.climbsafe.application;
 
 import java.sql.Date;
+
+import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
+import javafx.application.Application;
 
 public class ClimbSafeApplication {
   private static ClimbSafe climbSafe;
@@ -15,6 +18,7 @@ public class ClimbSafeApplication {
 
   public static void main(String[] args) {
     System.out.println(new ClimbSafeApplication().getGreeting());
+    Application.launch(ClimbSafeFxmlView.class, args);
   }
 
   public static ClimbSafe getClimbSafe() {
