@@ -28,43 +28,43 @@ public class ClimbSafeFeatureSet3Controller {
 	  
 	  //Input Validation
 	  if (password.isEmpty() || password == null) {
-		  error += "Password cannot be empty or null.";
+		  error = "Password cannot be empty or null.";
 		  }
 	  if (password.contains(" ")) {
-		  error += "Password cannot contain spaces";
+		  error = "Password cannot contain spaces";
 		  }
 	  if (name.isEmpty() || name == null) {
-		  error += "Name cannot be empty or null.";
+		  error = "Name cannot be empty or null.";
 		  }
 	  if (emergencyContact.isEmpty() || emergencyContact == null) {
-		  error += "Emergency contact cannot be empty or null.";
+		  error = "Emergency contact cannot be empty or null.";
 		  }
 	  if (email.isEmpty() || email == null) {
-		  error += "Email cannot be empty or null.";
+		  error = "Email cannot be empty or null.";
 		  }
 	  if (email.contains(" ")) {
-		  error += "Email must not contain any spaces";
+		  error = "Email must not contain any spaces";
 		  }
 	  if (email.indexOf("@") == 0) {
-		  error += "Invalid email";
+		  error = "Invalid email";
 		  }
 	  if (email.indexOf("@") != email.lastIndexOf("@")) {
-		  error += "Invalid email";
+		  error = "Invalid email";
 		  }
 	  if (email.indexOf("@") >= email.lastIndexOf(".") - 1) {
-		  error += "Invalid email";
+		  error = "Invalid email";
 		  }
 	  if (email.lastIndexOf(".") == email.length() - 1) {
-		  error += "Invalid email";
+		  error = "Invalid email";
 		  }
 	  if (email.equals("admin@nmc.nt")) {
-		  error += "Email cannot be admin@nmc.nt";
+		  error = "Email cannot be admin@nmc.nt";
 		  }
 	  if (User.getWithEmail(email) instanceof Guide) {
-		  error += "Email already linked to a guide account";
+		  error = "Email already linked to a guide account";
 		  }
 	  if (User.getWithEmail(email) instanceof Member) {
-		  error += "Email already linked to a member account";
+		  error = "Email already linked to a member account";
 		  }
 
 	  if (!error.isEmpty()) {
@@ -96,16 +96,16 @@ public class ClimbSafeFeatureSet3Controller {
 	  
 	  //Input Validation
 	  if (newPassword.isEmpty() || newPassword == null) {
-		  error += "Password cannot be empty or null.";
+		  error = "Password cannot be empty or null.";
 		  }
 	  if (newPassword.contains(" ")) {
-		  error += "Password cannot contain spaces";
+		  error = "Password cannot contain spaces";
 		  }
 	  if (newName.isEmpty() || newName == null) {
-		  error += "Name cannot be empty or null.";
+		  error = "Name cannot be empty or null.";
 		  }
 	  if (newEmergencyContact.isEmpty() || newEmergencyContact == null) {
-		  error += "Emergency contact cannot be empty or null.";
+		  error = "Emergency contact cannot be empty or null.";
 		  }
 	  
 	  if (!error.isEmpty()) {
