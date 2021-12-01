@@ -31,7 +31,7 @@ public class GuideController {
     private Button UpdateGuideButton;
 
     @FXML
-    private Button RemoveGuideButton;
+    private Button DeleteGuideButton;
 
 
     @FXML
@@ -105,7 +105,7 @@ public class GuideController {
     }
 
     @FXML
-    void removeGuide(ActionEvent event) {
+    void deleteGuide(ActionEvent event) {
     	
 
 		String email = EmailTextField.getText();
@@ -117,7 +117,7 @@ public class GuideController {
 	      // reset the driver text field if success
 	      if (ViewUtils.successful(() -> 
 	      ClimbSafeFeatureSet1Controller.deleteGuide(email))) {
-	    	  ViewUtils.makePopupWindow("Removal Successful", "The user with the email " + email + " has been removed.");
+	    	  ViewUtils.makePopupWindow("Deletion Successful", "The Guide with the email " + email + " has been deleted.");
 	    	  
 	    	  EmailTextField.setText("");
 	      }

@@ -22,7 +22,7 @@
    <children>
       <Label text="Member" />
       <Button fx:id="RegisterMemberButton" mnemonicParsing="false" onAction="#registerMember" text="Register" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Button fx:id="RemoveMemberButton" mnemonicParsing="false" onAction="#removeMember" text="Remove" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <Button fx:id="DeleteMemberButton" mnemonicParsing="false" onAction="#deleteMember" text="Remove" GridPane.columnIndex="4" GridPane.rowIndex="1" />
       <TextField fx:id="UserNameTextField" onAction="#enterUserName" promptText="Username" GridPane.columnIndex="1" />
       <TextField fx:id="EmailText" onAction="#enterEmail" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Button fx:id="UpdateMemberButton" mnemonicParsing="false" onAction="#updateMember" text="Update" GridPane.columnIndex="3" GridPane.rowIndex="1" />
