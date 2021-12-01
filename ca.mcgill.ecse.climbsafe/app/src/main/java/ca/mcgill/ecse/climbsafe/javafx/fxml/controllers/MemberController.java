@@ -15,6 +15,12 @@ import javafx.scene.control.TextField;
 
 import javafx.event.ActionEvent;
 
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
+
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet2Controller;
+
+import ca.mcgill.ecse.climbsafe.javafx.fxml.controllers.ViewUtils;
+
 import java.util.Arrays;
 
 import java.util.List;
