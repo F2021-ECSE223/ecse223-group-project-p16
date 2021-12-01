@@ -56,7 +56,7 @@ public class GuideController {
 		}
 	    else {
 	      // reset the driver text field if success
-	      if (ViewUtils.successful(() -> 
+	      if (ViewUtils.callController(() -> 
 	      ClimbSafeFeatureSet3Controller.registerGuide(email, password, name, emergencyContact))) {
 	    	  ViewUtils.makePopupWindow("Registration Successful", name + " has been registered as a Guide.");
 	    	  
@@ -91,7 +91,7 @@ public class GuideController {
 		}
 	    else {
 	      // reset the driver text field if success
-	      if (ViewUtils.successful(() -> 
+	      if (ViewUtils.callController(() -> 
 	      ClimbSafeFeatureSet3Controller.updateGuide(email, password, name, emergencyContact))) {
 	    	  ViewUtils.makePopupWindow("Update Successful", name + "'s Guide information has been updated.");
 	    	  
@@ -115,7 +115,7 @@ public class GuideController {
 	    } 
 	    else {
 	      // reset the driver text field if success
-	      if (ViewUtils.successful(() -> 
+	      if (ViewUtils.callController(() -> 
 	      ClimbSafeFeatureSet1Controller.deleteGuide(email))) {
 	    	  ViewUtils.makePopupWindow("Deletion Successful", "The Guide with the email " + email + " has been deleted.");
 	    	  
