@@ -58,6 +58,8 @@ public class GuideController {
 	      // reset the driver text field if success
 	      if (ViewUtils.successful(() -> 
 	      ClimbSafeFeatureSet3Controller.registerGuide(email, password, name, emergencyContact))) {
+	    	  ViewUtils.makePopupWindow("Registration Successful", name + " has been registered as a Guide.");
+	    	  
 	    	  EmailTextField.setText("");
 	    	  PasswordTextField.setText("");
 	    	  UserNameTextField.setText("");
@@ -91,6 +93,8 @@ public class GuideController {
 	      // reset the driver text field if success
 	      if (ViewUtils.successful(() -> 
 	      ClimbSafeFeatureSet3Controller.updateGuide(email, password, name, emergencyContact))) {
+	    	  ViewUtils.makePopupWindow("Update Successful", name + "'s Guide information has been updated.");
+	    	  
 	    	  EmailTextField.setText("");
 	    	  PasswordTextField.setText("");
 	    	  UserNameTextField.setText("");
@@ -113,6 +117,8 @@ public class GuideController {
 	      // reset the driver text field if success
 	      if (ViewUtils.successful(() -> 
 	      ClimbSafeFeatureSet1Controller.deleteGuide(email))) {
+	    	  ViewUtils.makePopupWindow("Removal Successful", "The user with the email " + email + " has been removed.");
+	    	  
 	    	  EmailTextField.setText("");
 	      }
 	    }
