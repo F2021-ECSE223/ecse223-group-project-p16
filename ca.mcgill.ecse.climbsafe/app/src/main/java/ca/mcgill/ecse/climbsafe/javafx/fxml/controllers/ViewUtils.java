@@ -81,7 +81,7 @@ public class ViewUtils {
 	}
 
 
-	@FunctionalInterface
-	interface Executable {
-	  public void execute() throws Throwable;
-	}
+@FunctionalInterface
+interface Executable {
+	public void execute() throws Throwable;
+}
