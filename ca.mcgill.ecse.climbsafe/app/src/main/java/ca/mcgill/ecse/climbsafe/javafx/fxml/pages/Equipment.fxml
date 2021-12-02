@@ -47,7 +47,7 @@
             <Insets left="11.0" />
          </GridPane.margin></Button>
       <Label text="Equipment Bundle" GridPane.rowIndex="10" />
-      <ChoiceBox fx:id="EquipmentBundleDropDownBar" onDragDetected="#showAllEquipmentBundles" onDragDone="#selectEquipmentBundle" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+      <ChoiceBox fx:id="EquipmentBundleDropDownBar" onDragDone="#selectEquipmentBundle" GridPane.columnIndex="3" GridPane.rowIndex="13" />
       <Button fx:id="AddEquipmentBundleButton" mnemonicParsing="false" onAction="#addEquipmentBundle" text="Add" GridPane.columnIndex="4" GridPane.rowIndex="10" />
       <Button fx:id="DeleteEquipmentBundleButton" mnemonicParsing="false" onAction="#deleteEquipmentBundle" text="Delete" GridPane.columnIndex="4" GridPane.rowIndex="13" />
       <TextField fx:id="EquipmentNameTextField" onAction="#enterEquipmentName" promptText="Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
@@ -66,7 +66,7 @@
          <GridPane.margin>
             <Insets left="11.0" />
          </GridPane.margin></Button>
-      <ChoiceBox fx:id="EquipmentDropDownBar" onDragDetected="#showAllEquipments" onDragDone="#selectEquipment" GridPane.columnIndex="1" GridPane.rowIndex="8">
+      <ChoiceBox fx:id="EquipmentDropDownBar"  onDragDone="#selectEquipment" GridPane.columnIndex="1" GridPane.rowIndex="8">
          <GridPane.margin>
             <Insets left="11.0" />
          </GridPane.margin></ChoiceBox>

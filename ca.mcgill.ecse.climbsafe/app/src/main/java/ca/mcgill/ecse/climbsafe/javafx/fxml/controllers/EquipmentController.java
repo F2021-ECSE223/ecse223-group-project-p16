@@ -1,22 +1,16 @@
 package ca.mcgill.ecse.climbsafe.javafx.fxml.controllers;
 
-import javafx.fxml.FXML;
+import org.w3c.dom.events.MouseEvent;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet4Controller;
-import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
 import ca.mcgill.ecse.climbsafe.controller.TOEquipment;
 import ca.mcgill.ecse.climbsafe.controller.TOEquipmentBundle;
-import ca.mcgill.ecse.climbsafe.javafx.fxml.controllers.ViewUtils;
-import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
 import javafx.event.ActionEvent;
-
-import javafx.scene.input.MouseEvent;
-
-import javafx.scene.input.DragEvent;
-
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
 
 public class EquipmentController {
 	@FXML
