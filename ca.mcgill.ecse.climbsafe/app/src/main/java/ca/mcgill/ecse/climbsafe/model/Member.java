@@ -2,16 +2,11 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 package ca.mcgill.ecse.climbsafe.model;
-import java.io.Serializable;
 import java.util.*;
 
-/**
- * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
- */
-// line 230 "../../../../../ClimbSafeStates.ump"
-// line 29 "../../../../../ClimbSafePersistence.ump"
-// line 42 "../../../../../ClimbSafe.ump"
-public class Member extends NamedUser implements Serializable
+// line 149 "../../../../../ClimbSafeStates.ump"
+// line 41 "../../../../../ClimbSafe.ump"
+public class Member extends NamedUser
 {
 
   //------------------------
@@ -333,13 +328,5 @@ public class Member extends NamedUser implements Serializable
             "hotelRequired" + ":" + getHotelRequired()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "climbSafe = "+(getClimbSafe()!=null?Integer.toHexString(System.identityHashCode(getClimbSafe())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "assignment = "+(getAssignment()!=null?Integer.toHexString(System.identityHashCode(getAssignment())):"null");
-  }  
-  //------------------------
-  // DEVELOPER CODE - PROVIDED AS-IS
-  //------------------------
-  
-  // line 32 "../../../../../ClimbSafePersistence.ump"
-  private static final long serialVersionUID = -3900912597282882073L ;
-
-  
+  }
 }

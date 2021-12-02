@@ -1,34 +1,25 @@
-// authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
-
 class Assignment {
   lazy authCode;
+
   lazy Integer refundPercent;
+  
   
   assignmentStatus {
 
+    
     Active {
       
       Assigned {
         
         pay(Member member, String aAuthCode) [isAuthCodeValid(aAuthCode)] / {
-          makePayment(member, aAuthCode); 
+          makePayment(member); 
         } -> Paid;
+      //how are we going to save the authCode?
 
         start(Member member) / {
           banMember(member);
         } -> Assigned;
-        
-        finish(Member member) / {
-          setAppropriateActiveStatus(AssignmentStatusActive.Assigned);
-          attemptToFinishForBannedMember(member);
-          rejectFinishRequest("Cannot finish a trip which has not started");
-        } -> Assigned;
-        
-        // transitions out of Active composite state
-      cancel() / {
-        cancelTrip(member); 
-      } -> Cancelled;
-        
+
       }
 
       
@@ -39,20 +30,15 @@ class Assignment {
         } -> Started;
 
         pay(Member member, String aAuthCode) / {
-          setAppropriateActiveStatus(AssignmentStatusActive.Paid);
-          rejectPayment("Trip has already been paid for"); 
+          String error = "Trip has already been paid for";
+          rejectPayment(error); 
         } -> Paid;
 
         finish(Member member) / {
-          setAppropriateActiveStatus(AssignmentStatusActive.Paid);
-          rejectFinishRequest("Cannot finish a trip which has not started");
+          String error = "Cannot finish a trip which has not started";
+          rejectFinishRequest(error);
         } -> Paid;
         
-        // transitions out of Active composite state
-      cancel() / {
-        setAppropriateActiveStatus(AssignmentStatusActive.Paid);
-        cancelTrip(member); 
-      } -> Cancelled;
       }
 
       
@@ -60,20 +46,14 @@ class Assignment {
         
         finish(Member member) / {
           finishTrip(member); 
-        } -> Finished;
-        
-        pay(Member member, String aAuthCode) / {
-          setAppropriateActiveStatus(AssignmentStatusActive.Started);
-          rejectPayment("Trip has already been paid for"); 
-        } -> Started;
-        // transitions out of Active composite state
+        }-> Finished;
+      }
+      
+
+      // transitions out of Active composite state
       cancel() / {
-        setAppropriateActiveStatus(AssignmentStatusActive.Started);
         cancelTrip(member); 
       } -> Cancelled;
-      }
-    
-      
       
     }
 
@@ -81,15 +61,18 @@ class Assignment {
     Finished {
 
       pay(Member member, String aAuthCode) / {
-        rejectPayment("Cannot pay for a trip which has finished"); 
+        String error = "Cannot pay for a trip which has finished";
+        rejectPayment(error); 
       } -> Finished;
 
       start(Member member) / {
-        rejectStartRequest("Cannot start a trip which has finished");
+        String error = "Cannot start a trip which has finished";
+        rejectStartRequest(error);
       } -> Finished;
 
       cancel() / {
-        rejectCancelRequest("Cannot cancel a trip which has finished");
+        String error = "Cannot cancel a trip which has finished";
+        rejectCancelRequest(error);
       } -> Finished;
 
     }
@@ -98,65 +81,41 @@ class Assignment {
     Cancelled {
       
       pay(Member member, String aAuthCode) / {
-        rejectPayment("Cannot pay for a trip which has been cancelled"); 
+        error = "Cannot pay for a trip which has been cancelled";
+        rejectPayment(error); 
       } -> Cancelled;
 
       start(Member member) / {
-        rejectStartRequest("Cannot start a trip which has been cancelled");
+        error = "Cannot start a trip which has been Cancelled";
+        rejectStartRequest(error);
       } -> Cancelled;
 
       finish(Member member) / {
-        rejectFinishRequest("Cannot finish a trip which has been cancelled");
+        String error = "Cannot finish a trip which has been Cancelled";
+        rejectFinishRequest(error);
       } -> Cancelled;
-      
-    }
-  }
-  
-  //purely for testing purposes
-  private attemptToFinishForBannedMember(Member member){
-    if(MemberStatus.Banned.equals(member.getMemberStatus())){
-      finishTrip(member);
     }
   }
 
-  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
-  
   private boolean isAuthCodeValid(String aAuthCode){
-	
-    if (aAuthCode.isEmpty()){
-      return false;
-    }
-    else if (aAuthCode == null){
-      return false;
-    }
-    return true;
+    return aAuthCode != null;
   }
-  
-  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
   
   private boolean isMemberValid(Member member){
-    return member.getMemberStatusFullName().equals("NotBanned");
+    return member.getMemberStatus() == MemberStatus.NotBanned;
   }
 
-  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
-  
-  private void makePayment(Member member, String aAuthCode){
+  private void makePayment(Member member){
     if (!isMemberValid(member)){
-      throw new RuntimeException("Cannot pay for the trip due to a ban");
+      throw new RuntimeException("Cannot pay for the trip due to a Ban");
     }
-    setAuthCode(aAuthCode);
   }
-  
-  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
-  
+
   private void startTrip(Member member){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot start the trip due to a ban");
     }
   }
-  
-  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
-  
   private void cancelTrip(Member member){
 	
     if (!isMemberValid(member)){
@@ -165,67 +124,46 @@ class Assignment {
   
   	switch(this.assignmentStatusActive) {
   	  case Paid:
-  	  	setRefundPercent(50);
+  	  	this.refundPercent = 50;
   	  	break;
   	  case Started:
-  	  	setRefundPercent(10);
-  	  	break;	
-	}
+  	  	this.refundPercent = 10;
+  	  	break;
+  	  default:
+  	  	this.refundPercent = null;
+  	
+    member.cancel();
+
   }
-  
-  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
-  
+
   private void finishTrip(Member member){
     if (!isMemberValid(member)){
       throw new RuntimeException("Cannot finish the trip due to a ban");
     }
   }
   
-  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
-  
   private void banMember(Member member){
     member.ban();
   }
-  
-  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
-  
+
   private void rejectPayment(String error){
+
     throw new RuntimeException(error);
   }
-   
-  //for testing only
-  public void setStatus(AssignmentStatus assignmentStatus){
-    this.setAssignmentStatus(assignmentStatus);
-  }
-  
-  //To prevent the exit status setting the state to null
-  public void setAppropriateActiveStatus(AssignmentStatusActive activeStatus){
-    if(AssignmentStatus.Active.equals(this.getAssignmentStatus())){
-      this.setAssignmentStatusActive(activeStatus);
-    }
-  }
-  
-  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
-  
+
   private void rejectFinishRequest(String error){
     throw new RuntimeException(error);
   }
-  
-  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
-  
+
   private void rejectStartRequest(String error){
     throw new RuntimeException(error);
   }
 
-  // authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
-  
   private void rejectCancelRequest(String error){
     throw new RuntimeException(error);
   }
 
 }
-
-// authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
 
 class Member{
   memberStatus{
@@ -237,3 +175,5 @@ class Member{
   }
   
 }
+
+
