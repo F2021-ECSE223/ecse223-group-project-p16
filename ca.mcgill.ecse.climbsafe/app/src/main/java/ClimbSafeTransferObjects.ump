@@ -11,3 +11,14 @@ class TOAssignment {
   Integer totalCostForGuide;
   Integer totalCostForEquipment;
 }
+
+class TOEquipment{
+  name;
+  Integer weight;
+  Integer pricePerWeek;
+}
+
+class TOEquipmentBundle{
+  name;
+  Integer discount;  
+}

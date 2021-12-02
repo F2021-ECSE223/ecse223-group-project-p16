@@ -1,12 +1,9 @@
 package ca.mcgill.ecse.climbsafe.javafx.fxml.controllers;
 
-import javafx.fxml.FXML;
-
-import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 public class GuideController {
 	@FXML
