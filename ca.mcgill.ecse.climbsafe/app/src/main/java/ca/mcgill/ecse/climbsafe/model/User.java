@@ -2,12 +2,10 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 package ca.mcgill.ecse.climbsafe.model;
-import java.io.Serializable;
 import java.util.*;
 
-// line 94 "../../../../../ClimbSafePersistence.ump"
-// line 21 "../../../../../ClimbSafe.ump"
-public abstract class User implements Serializable
+// line 20 "../../../../../ClimbSafe.ump"
+public abstract class User
 {
 
   //------------------------
@@ -93,34 +91,11 @@ public abstract class User implements Serializable
     usersByEmail.remove(getEmail());
   }
 
-  // line 100 "../../../../../ClimbSafePersistence.ump"
-   public static  void reinitializeUserByEmail(Administrator admin, List<Member> members, List<Guide> guides){
-    usersByEmail = new HashMap<String, User>();
-		usersByEmail.put(admin.getEmail(), admin);
-		for (Member member : members){
-			User user = (User) member;
-			usersByEmail.put(member.getEmail(), user);
-		}
-		
-		for (Guide guide: guides){
-			User user = (User) guide;
-			usersByEmail.put(guide.getEmail(), user);
-		}
-  }
-
 
   public String toString()
   {
     return super.toString() + "["+
             "email" + ":" + getEmail()+ "," +
             "password" + ":" + getPassword()+ "]";
-  }  
-  //------------------------
-  // DEVELOPER CODE - PROVIDED AS-IS
-  //------------------------
-  
-  // line 97 "../../../../../ClimbSafePersistence.ump"
-  private static final long serialVersionUID = 8396063481655949380L ;
-
-  
+  }
 }
