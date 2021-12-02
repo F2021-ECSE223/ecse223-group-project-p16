@@ -31,6 +31,7 @@ Feature: Process assignments
       | john@hotmail.ca    | diana@nmc.nt |         1 |       3 |
       | emily@hotmail.ca   | bob@nmc.nt   |         4 |       5 |
 
+
   Scenario Outline: Successfully pay for trip
     When the administrator attempts to confirm payment for "<email>" using authorization code "<code>"
     Then the assignment for "<email>" shall be marked as "Paid"
