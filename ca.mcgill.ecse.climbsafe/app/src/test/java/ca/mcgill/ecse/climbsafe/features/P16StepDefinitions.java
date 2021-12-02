@@ -113,6 +113,7 @@ public class P16StepDefinitions {
 
     assertNull(Hotel.getWithName(hotelName));
 
+
   }
 
   /**
@@ -129,9 +130,12 @@ public class P16StepDefinitions {
     List<Map<String, String>> rows = dataTable.asMaps();
     for (Map<String, String> columns : rows) {
       assertTrue(Hotel.hasWithName(columns.get("name")));
+
       assertEquals(columns.get("address"), Hotel.getWithName(columns.get("name")).getAddress());
       assertEquals(getRatingFromInteger(Integer.parseInt(columns.get("rating"))),
           Hotel.getWithName(columns.get("name")).getRating());
+
+
     }
   }
 

@@ -1,6 +1,7 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
@@ -10,10 +11,14 @@ import ca.mcgill.ecse.climbsafe.model.Member;
 import ca.mcgill.ecse.climbsafe.model.User;
 import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
 
-  public static void setup(Date startDate, int nrWeeks, int priceOfGuidePerWeek)
-      throws InvalidInputException {}
 
-  public static void deleteMember(String email) {}
+/**
+ * ClimbSafe controller features for
+ * setup, deleteMember, deleteGuide, deleteHotel
+ * 
+ * @author Onyekachi Ezekwem
+ *
+ */
 
 public class ClimbSafeFeatureSet1Controller {
   
