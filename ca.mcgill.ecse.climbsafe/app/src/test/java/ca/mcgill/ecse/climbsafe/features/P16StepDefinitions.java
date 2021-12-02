@@ -3,14 +3,11 @@ package ca.mcgill.ecse.climbsafe.features;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
-
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
-import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Hotel;
 import ca.mcgill.ecse.climbsafe.model.Hotel.HotelRating;
@@ -78,11 +75,8 @@ public class P16StepDefinitions {
   @When("the administator attempts to delete the hotel in the system with name {string} \\(p16)")
   public void the_administator_attempts_to_delete_the_hotel_in_the_system_with_name_p16(
       String name) {
-	  try {
+
     ClimbSafeFeatureSet1Controller.deleteHotel(name);
-	  } catch (InvalidInputException e) {
-		  throw new RuntimeException(e.getMessage());
-	  }
   }
 
   /**
