@@ -35,32 +35,32 @@ public class ClimbSafeFeatureSet4Controller {
    */
   public static void addEquipment(String name, int weight, int pricePerWeek)
     throws InvalidInputException {
-	
-	var error = "";
-	  
-	if (name.isEmpty()|| name == null) {
-	  error = "The name must not be empty";
-	}
-	if (weight <= 0) {
-	  error = "The weight must be greater than 0";
-	}
-	if (pricePerWeek < 0) {
-	  error = "The price per week must be greater than or equal to 0";
-	}
-	BookableItem item = BookableItem.getWithName(name);
-	if (item != null) {
-	  if (item instanceof Equipment) {
-	    error = "The piece of equipment already exists";
-	  }
-	  else {
-	    error = "The equipment bundle already exists";
-	  }
-	}
-	  
-	if (!error.isEmpty()) {
-	  throw new InvalidInputException(error.trim());
-	}
-	  
+    
+    var error = "";
+      
+    if (name.isEmpty()|| name == null) {
+      error = "The name must not be empty";
+    }
+    if (weight <= 0) {
+      error = "The weight must be greater than 0";
+    }
+    if (pricePerWeek < 0) {
+      error = "The price per week must be greater than or equal to 0";
+    }
+    BookableItem item = BookableItem.getWithName(name);
+    if (item != null) {
+      if (item instanceof Equipment) {
+        error = "The piece of equipment already exists";
+      }
+      else {
+        error = "The equipment bundle already exists";
+      }
+    }
+      
+    if (!error.isEmpty()) {
+      throw new InvalidInputException(error.trim());
+    }
+      
     try {
       climbSafe.addEquipment(name, weight, pricePerWeek);
       ClimbSafePersistence.save();
@@ -71,7 +71,7 @@ public class ClimbSafeFeatureSet4Controller {
       }
       throw new InvalidInputException(error);
     }
-	  
+      
   }
 
   /**
@@ -90,45 +90,45 @@ public class ClimbSafeFeatureSet4Controller {
    */
   public static void updateEquipment(String oldName, String newName, int newWeight,
     int newPricePerWeek) throws InvalidInputException {
-	  
-	var error = "";
       
-	if (newName.isEmpty()|| newName == null) {
-	  error = "The name must not be empty";
-	}
-	if (oldName.isEmpty()|| oldName == null) {
-	  error = "Old equipment name cannot be empty or null.";
-	}
-	if (newWeight <= 0) {
-	  error = "The weight must be greater than 0";
-	}
-	if (newPricePerWeek < 0) {
-	  error = "The price per week must be greater than or equal to 0";
-	}
-	 
-	BookableItem existingBookableItem = BookableItem.getWithName(oldName);
-	if (existingBookableItem == null || !(existingBookableItem instanceof Equipment)) {
-	  error = "The piece of equipment does not exist";
-	}
-	
-	if (!newName.equals(oldName)) {
-	  BookableItem takenName = BookableItem.getWithName(newName);
-	  if (takenName != null) { // should be null if the name does not exist in the system
+    var error = "";
+      
+    if (newName.isEmpty()|| newName == null) {
+      error = "The name must not be empty";
+    }
+    if (oldName.isEmpty()|| oldName == null) {
+      error = "Old equipment name cannot be empty or null.";
+    }
+    if (newWeight <= 0) {
+      error = "The weight must be greater than 0";
+    }
+    if (newPricePerWeek < 0) {
+      error = "The price per week must be greater than or equal to 0";
+    }
+     
+    BookableItem existingBookableItem = BookableItem.getWithName(oldName);
+    if (existingBookableItem == null || !(existingBookableItem instanceof Equipment)) {
+      error = "The piece of equipment does not exist";
+    }
+    
+    if (!newName.equals(oldName)) {
+      BookableItem takenName = BookableItem.getWithName(newName);
+      if (takenName != null) { // should be null if the name does not exist in the system
         if (takenName instanceof Equipment) {
           error = "The piece of equipment already exists";
         } else {
           error = "An equipment bundle with the same name already exists";
         }
       }
-	}
-  	
-	if (!error.isEmpty()) {
-	  throw new InvalidInputException(error.trim());
-	}
-	
-	try {
-	  existingBookableItem.setName(newName);
-	  Equipment existingEquipment = (Equipment) existingBookableItem;
+    }
+    
+    if (!error.isEmpty()) {
+      throw new InvalidInputException(error.trim());
+    }
+    
+    try {
+      existingBookableItem.setName(newName);
+      Equipment existingEquipment = (Equipment) existingBookableItem;
       existingEquipment.setWeight(newWeight);
       existingEquipment.setPricePerWeek(newPricePerWeek);
       
@@ -137,8 +137,8 @@ public class ClimbSafeFeatureSet4Controller {
       error = e.getMessage();
       throw new InvalidInputException(error);
     }
-	
-	  
+    
+      
   }
   
 }
