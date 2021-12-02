@@ -22,3 +22,12 @@ class TOEquipmentBundle{
   name;
   Integer discount;  
 }
+
+class TOGuide{
+  guideEmail;
+  guideName;
+  
+  @Override public String toString() {
+  	return guideName + " + " + guideEmail;
+  }
+}

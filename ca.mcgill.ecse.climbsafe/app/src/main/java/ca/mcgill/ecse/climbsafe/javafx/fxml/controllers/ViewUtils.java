@@ -1,11 +1,15 @@
 package ca.mcgill.ecse.climbsafe.javafx.fxml.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
 import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
+import ca.mcgill.ecse.climbsafe.controller.TOGuide;
 import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
+import ca.mcgill.ecse.climbsafe.model.Guide;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -77,6 +81,24 @@ public class ViewUtils {
 	    // javafx.collections.observableList
 	    return FXCollections.observableList(assignments);
 	  }
+	  
+	  public static ObservableList<TOGuide> getGuides() {
+		  List<Guide> guides = ClimbSafeApplication.getClimbSafe().getGuides();
+		    
+		  List<TOGuide> TOguides = new ArrayList<>();
+		    
+		  for (int i = 0; i < guides.size(); i++) {
+			  TOguides.add(i, new TOGuide(null, null) );
+		    	
+			  if (guides.get(i) != null) {
+				  TOguides.get(i).setGuideEmail(guides.get(i).getEmail());
+				  TOguides.get(i).setGuideName(guides.get(i).getName());
+				  }
+			  }
+		  // as javafx works with observable list, we need to convert the java.util.List to
+		  // javafx.collections.observableList
+		  return FXCollections.observableList(TOguides);
+		  }
 
 	}
 
