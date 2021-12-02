@@ -18,17 +18,13 @@
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label text="Guide" />
-      <Button fx:id="AddGuideButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addGuide" text="Add" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Button fx:id="DeleteGuideButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteGuide" text="Delete" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-      <TextField fx:id="UserNameTextField" promptText="Username" GridPane.columnIndex="1" />
-      <TextField fx:id="EmergencyContactTextField" promptText="Emergency Contact" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button fx:id="UpdateGuideButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateGuide" text="Update" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <TextField fx:id="EmailTextField" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField fx:id="PasswordTextField" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button fx:id="AddGuideButton" mnemonicParsing="false" onAction="#addGuide" text="Add" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Button fx:id="RemoveGuideButton" mnemonicParsing="false" onAction="#removeGuide" text="Remove" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <TextField fx:id="UserNameTextField" onAction="#enterUserName" promptText="Username" GridPane.columnIndex="1" />
+      <TextField fx:id="EmailText" onAction="#enterEmail" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button fx:id="UpdateGuideButton" mnemonicParsing="false" onAction="#updateGuide" text="Update" GridPane.columnIndex="3" GridPane.rowIndex="1" />
    </children>
 </GridPane>
