@@ -1,5 +1,19 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
+import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
+import ca.mcgill.ecse.climbsafe.model.BookableItem;
+import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
+import ca.mcgill.ecse.climbsafe.model.Equipment;
+import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
+
+/**
+ * Here are the controller features for addEquipment and updateEquipment
+ * as specified by the administrator when defining the set of available equipment.
+ * 
+ * @author Rui Du
+ *
+ */
+
 public class ClimbSafeFeatureSet4Controller {
   
   /**
