@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="Setup NMC">
+               <content>
+               	  <fx:include source="../pages/SetupNMC.fxml" />
+              </content>
+            </Tab>
+            <Tab text="Equipment">
+               <content>
+                  <fx:include source="../pages/Equipment.fxml" />
+               </content>
+            </Tab>
+            <Tab text="Guides">
+               <content>
+                  <fx:include source="../pages/Guide.fxml" />
+               </content>
+            </Tab>
+            <Tab text="Members">
+               <content>
+                  <fx:include source="../pages/Member.fxml" />
+               </content>
+            </Tab>
+            <Tab text="Hotels">
+              <content>
+                  <fx:include source="../pages/Hotel.fxml" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Line endX="700.8928833007812" endY="0.8928809762001038" startX="-100.0" />
+            <fx:include source="../pages/ViewAssignments.fxml" />
+         </children>
+      </VBox>
+   </children>
+</VBox>
