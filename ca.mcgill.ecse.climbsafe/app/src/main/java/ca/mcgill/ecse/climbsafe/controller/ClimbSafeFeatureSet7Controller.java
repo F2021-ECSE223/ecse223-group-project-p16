@@ -12,8 +12,6 @@ import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
 	 * @author Youssof Mohamed
 	 */
 public class ClimbSafeFeatureSet7Controller {
-	
-	private static ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
 
 	
 	/**
