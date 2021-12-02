@@ -4,7 +4,14 @@
 package ca.mcgill.ecse.climbsafe.application;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet2Controller;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet3Controller;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet4Controller;
+import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import javafx.application.Application;
@@ -18,7 +25,34 @@ public class ClimbSafeApplication {
 
   public static void main(String[] args) {
     System.out.println(new ClimbSafeApplication().getGreeting());
+    try {
+		ClimbSafeFeatureSet1Controller.setup(Date.valueOf(LocalDate.now()), 30, 10);
+		ClimbSafeFeatureSet2Controller.registerMember("user@yavdvdhoo.usa", "password4", "UI test name", "ER4", 4, false, false, new ArrayList<String>(), new ArrayList<Integer>());
+		ClimbSafeFeatureSet4Controller.addEquipment("e3tfdfi", 50, 33);
+		ClimbSafeFeatureSet2Controller.registerMember("mo@masfdsil.cmvdvom", "password2", "Mo2", "ER2", 2, true, false, new ArrayList<String>(), new ArrayList<Integer>());
+		ClimbSafeFeatureSet2Controller.registerMember("mo10gf@macdvdvdil.com", "password3", "Mo3", "ER3", 3, false, true, new ArrayList<String>(), new ArrayList<Integer>());
+		ClimbSafeFeatureSet2Controller.registerMember("mo4@mfilw.com", "password4", "Mo4", "ER4", 4, false, false, new ArrayList<String>(), new ArrayList<Integer>());		
+		ClimbSafeFeatureSet2Controller.registerMember("mo5@marfr.m", "password5", "Mo5", "ER5", 1, true, true, new ArrayList<String>(), new ArrayList<Integer>());
+		ClimbSafeFeatureSet3Controller.registerGuide("mod5@maww.e", "pass1", "guide1", "E1");
+		ClimbSafeFeatureSet3Controller.registerGuide("mo5@mal.uide", "pass2", "guide2", "E2");
+		ClimbSafeFeatureSet2Controller.registerMember("m@mppail.com", "password2", "Mo2", "ER2", 2, true, false, new ArrayList<String>(), new ArrayList<Integer>());
+		ClimbSafeFeatureSet2Controller.registerMember("mo0@maimml.com", "password3", "Mo3", "ER3", 3, false, true, new ArrayList<String>(), new ArrayList<Integer>());
+		ClimbSafeFeatureSet2Controller.registerMember("mco434@mailw.cxxom", "password4", "Mo4", "ER4", 4, false, false, new ArrayList<String>(), new ArrayList<Integer>());		
+		ClimbSafeFeatureSet2Controller.registerMember("mo434d325@maizl.wcom", "password5", "Mo5", "ER5", 1, true, true, new ArrayList<String>(), new ArrayList<Integer>());
+		ClimbSafeFeatureSet3Controller.registerGuide("mc234@mail.wcoe", "pass1", "guide1", "E1");
+		ClimbSafeFeatureSet3Controller.registerGuide("mo5254d353@mail.wccuide", "pass2", "guide2", "E2");
+		ClimbSafeFeatureSet1Controller.setup(Date.valueOf(LocalDate.now()), 30, 10);
+		getClimbSafe().getMember(0).addBookedItem(2, climbSafe, getClimbSafe().getEquipment(0));
+	   ClimbSafeFeatureSet4Controller.addEquipment("a", 20, 30);
+	   ClimbSafeFeatureSet4Controller.addEquipment("b", 10, 15);
+	   ClimbSafeFeatureSet4Controller.addEquipment("newlist", 10, 15);
+//	   ClimbSafeFeatureSet5Controller.addEquipmentBundle("TESTER", 20, Arrays.asList(new String[]{"a", "b", "c"}), Arrays.asList(new Integer[]{2,1,3}));
+//	((Member) Member.getWithEmail("mo534234@mail.wcovvmguide")).addBookedItem(2, climbSafe, Equipment.getWithName("eq1"));
+	} catch (InvalidInputException e) {
+		e.printStackTrace();
+	}
     Application.launch(ClimbSafeFxmlView.class, args);
+    
   }
 
   public static ClimbSafe getClimbSafe() {

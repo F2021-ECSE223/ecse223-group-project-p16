@@ -6,20 +6,16 @@ import ca.mcgill.ecse.climbsafe.controller.AssignmentController;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
 import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
 import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
-import ca.mcgill.ecse.climbsafe.model.Assignment;
-import ca.mcgill.ecse.climbsafe.model.Member;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 
 public class ViewAssignmentsController {
@@ -30,13 +26,13 @@ public class ViewAssignmentsController {
 	@FXML
 	private Button initiateAssignments;
 	@FXML
-	private Button start;
+	private Button startTrip;
 	@FXML
-	private Button finish;
+	private Button finishTrip;
 	@FXML
-	private Button cancel;
+	private Button cancelTrip;
 	@FXML
-	private Button pay;
+	private Button payTrip;
 	@FXML
 	private ChoiceBox<TOAssignment> members;
 	@FXML
@@ -71,55 +67,67 @@ public class ViewAssignmentsController {
 	    assignments.getColumns().add(createTableColumn("End Week","endWeek"));
 	    assignments.getColumns().add(createTableColumn("Guide Cost","totalCostForGuide"));
 	    assignments.getColumns().add(createTableColumn("Equipment Cost","totalCostForEquipment"));
+	    assignments.getColumns().add(createTableColumn("Status","status"));
+	    assignments.getColumns().add(createTableColumn("AuthCode","authorizationCode"));
+	    assignments.getColumns().add(createTableColumn("Refund","refundedPercentageAmount"));
 	    
 	    
 	    // member column needs to have customized string
 	   
 
 	    // change the color of the cells based on the value in the TOAssignment
-	    memberColumn.setCellFactory(col -> new TableCell<>() {
-	      @Override public void updateItem(String item, boolean empty) {
-	        super.updateItem(item, empty);
-	        var row = getTableRow();
-	        setText(item);
-	        setTextFill(Color.BLACK);
-	        
-	        Member member = (Member) Member.getWithEmail(row.getItem().getMemberEmail());
-	        if (row.getItem() != null && member.getMemberStatus().toString()=="Banned") {
-	          setText(item + " (Banned)");
-	          setTextFill(Color.RED);
-	        }
-	      }
-	    });
-        guideEmailColumn.setCellFactory(col -> new TableCell<>() {
-	      @Override public void updateItem(String item, boolean empty) {
-		        super.updateItem(item, empty);
-		        var row = getTableRow();
-		        setText(item);
-		        setTextFill(Color.BLACK);
-		        
-		        Member member = (Member) Member.getWithEmail(row.getItem().getMemberEmail());
-		        if (row.getItem() != null && !member.isGuideRequired()) {
-		          setText("No Guide");
-		          setTextFill(Color.RED);
-		        }
-		      }
-		    });
-        guideNameColumn.setCellFactory(col -> new TableCell<>() {
-        	@Override public void updateItem(String item, boolean empty) {
-        		super.updateItem(item, empty);
-        		var row = getTableRow();
-        		setText(item);
-        		setTextFill(Color.BLACK);
-        		
-        		Member member = (Member) Member.getWithEmail(row.getItem().getMemberEmail());
-        		if (row.getItem() != null && !member.isGuideRequired()) {
-        			setText("No Guide");
-        			setTextFill(Color.RED);
-        		}
-        	}
-        });
-
+//	    memberColumn.setCellFactory(col -> new TableCell<>() {
+//	      @Override public void updateItem(String item, boolean empty) {
+//	        super.updateItem(item, empty);
+//	        var row = getTableRow();
+//	        setText(item);
+//	        setTextFill(Color.BLACK);
+//	        
+//	        Member member = (Member) Member.getWithEmail(row.getItem().getMemberEmail());
+//	        if (row.getItem() != null && member.getMemberStatus().toString()=="Banned") {
+//	          setText(item + " (Banned)");
+//	          setTextFill(Color.RED);
+//	        }
+//	      }
+//	    });
+//        guideEmailColumn.setCellFactory(col -> new TableCell<>() {
+//	      @Override public void updateItem(String item, boolean empty) {
+//		        super.updateItem(item, empty);
+//		        var row = getTableRow();
+//		        setText(item);
+//		        setTextFill(Color.BLACK);
+//		        
+//		        Member member = (Member) Member.getWithEmail(row.getItem().getMemberEmail());
+//		        if (row.getItem() != null && !member.isGuideRequired()) {
+//		          setText("No Guide");
+//		          setTextFill(Color.RED);
+//		        }
+//		      }
+//		    });
+//        guideNameColumn.setCellFactory(col -> new TableCell<>() {
+//        	@Override public void updateItem(String item, boolean empty) {
+//        		super.updateItem(item, empty);
+//        		var row = getTableRow();
+//        		setText(item);
+//        		setTextFill(Color.BLACK);
+//        		
+//        		Member member = (Member) Member.getWithEmail(row.getItem().getMemberEmail());
+//        		if (row.getItem() != null && !member.isGuideRequired()) {
+//        			setText("No Guide");
+//        			setTextFill(Color.RED);
+//        		}
+//        	}
+//        });
+        
+        members.addEventHandler(ClimbSafeFxmlView.REFRESH_EVENT, e -> {
+            members.setItems(ViewUtils.getAssignments());
+            System.out.println("choice box");
+        //    members.setValue(null);
+          });
+          weekNr.addEventHandler(ClimbSafeFxmlView.REFRESH_EVENT, e -> {
+            weekNr.setItems(ViewUtils.getWeekNrs());
+            weekNr.setValue(null);
+          });
 
 	    // overview table if a refreshable element
         assignments.addEventHandler(ClimbSafeFxmlView.REFRESH_EVENT, e -> assignments.setItems(getAllAssignments()));
@@ -136,6 +144,8 @@ public class ViewAssignmentsController {
 	@FXML
 	public void initiateAssignments(MouseEvent event) {
 		callController(() -> AssignmentController.initiateAssignment());
+		members.setItems(ViewUtils.getAssignments());
+		weekNr.setItems(ViewUtils.getWeekNrs());
 	}
 	
 	@FXML
@@ -159,10 +169,8 @@ public class ViewAssignmentsController {
 	@FXML
 	public void payTrip(MouseEvent event) {
 		TOAssignment member = members.getValue();
-		Member realMember = (Member) Member.getWithEmail(member.getMemberEmail());
-		Assignment assignment = realMember.getAssignment();
 		
-		callController(()->AssignmentController.pay(member.getMemberEmail(),assignment.getAuthCode()));
+		callController(()->AssignmentController.pay(member.getMemberEmail(),member.getAuthorizationCode()));
 	}
 	
 	public ObservableList<TOAssignment> getAllAssignments() {

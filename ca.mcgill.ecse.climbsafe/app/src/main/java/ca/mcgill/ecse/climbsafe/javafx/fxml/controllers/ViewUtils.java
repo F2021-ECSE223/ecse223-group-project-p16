@@ -78,11 +78,12 @@ public class ViewUtils {
 	    List<TOAssignment> assignments = ClimbSafeFeatureSet6Controller.getAssignments();
 	    // as javafx works with observable list, we need to convert the java.util.List to
 	    // javafx.collections.observableList
+	   //  System.out.println(assignments.size()+"getAssignments");
 	    return FXCollections.observableList(assignments);
 	  }
 	  public static ObservableList<Integer> getWeekNrs() {
 		  ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
-		    List<Integer> weeks = new ArrayList<Integer>(climbSafe.getNrWeeks());
+		    List<Integer> weeks = new ArrayList<Integer>();
 		    for(int i=1;i<=climbSafe.getNrWeeks();i++) {
 		    	weeks.add(i);
 		    }
