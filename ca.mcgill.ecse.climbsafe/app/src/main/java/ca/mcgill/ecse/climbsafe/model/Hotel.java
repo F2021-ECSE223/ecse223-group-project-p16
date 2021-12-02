@@ -2,12 +2,10 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 package ca.mcgill.ecse.climbsafe.model;
-import java.io.Serializable;
 import java.util.*;
 
-// line 54 "../../../../../ClimbSafePersistence.ump"
-// line 84 "../../../../../ClimbSafe.ump"
-public class Hotel implements Serializable
+// line 76 "../../../../../ClimbSafe.ump"
+public class Hotel
 {
 
   //------------------------
@@ -259,15 +257,6 @@ public class Hotel implements Serializable
     }
   }
 
-  // line 60 "../../../../../ClimbSafePersistence.ump"
-   public static  void reinitializeHotelNames(List<Hotel> hotels){
-    hotelsByName = new HashMap<String, Hotel>();
-
-		for (Hotel hotel: hotels){
-			hotelsByName.put(hotel.getName(), hotel);
-		}
-  }
-
 
   public String toString()
   {
@@ -276,13 +265,5 @@ public class Hotel implements Serializable
             "address" + ":" + getAddress()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "rating" + "=" + (getRating() != null ? !getRating().equals(this)  ? getRating().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "climbSafe = "+(getClimbSafe()!=null?Integer.toHexString(System.identityHashCode(getClimbSafe())):"null");
-  }  
-  //------------------------
-  // DEVELOPER CODE - PROVIDED AS-IS
-  //------------------------
-  
-  // line 57 "../../../../../ClimbSafePersistence.ump"
-  private static final long serialVersionUID = 6696066581655989380L ;
-
-  
+  }
 }
