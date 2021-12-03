@@ -124,7 +124,7 @@ public class ViewUtils {
     // javafx.collections.observableList
     return FXCollections.observableList(TOequipment);
   }
-
+  
   public static ObservableList<TOEquipmentBundle> getEquipmentBundles() {
     List<EquipmentBundle> equipmentBundles = ClimbSafeApplication.getClimbSafe().getBundles();
 
