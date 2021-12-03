@@ -58,12 +58,10 @@ public class EquipmentController {
     try {
       weight = Integer.parseInt(addWeight.getText());
     } catch (NumberFormatException e) {
-      ViewUtils.showError("Please input a valid weight");
     }
     try {
       price = Integer.parseInt(addPrice.getText());
     } catch (NumberFormatException e) {
-      ViewUtils.showError("Please input a valid price per week");
     }
 
     if (name == null || name.trim().isEmpty()) {
@@ -107,12 +105,10 @@ public class EquipmentController {
     try {
       newWeight = Integer.parseInt(updateNewWeight.getText());
     } catch (NumberFormatException e) {
-      ViewUtils.showError("Please input a valid weight");
     }
     try {
       newPrice = Integer.parseInt(updateNewPrice.getText());
     } catch (NumberFormatException e) {
-      ViewUtils.showError("Please input a valid price per week");
     }
 
     if (newName == null || newName.trim().isEmpty()) {
