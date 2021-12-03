@@ -8,6 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 
+/**
+ * @author Tushar Srivastava - ID: 260922439
+ * HotelController for Iteration 4
+ */
+
 public class HotelController {
 	@FXML
 	private Button AddHotelButton;
