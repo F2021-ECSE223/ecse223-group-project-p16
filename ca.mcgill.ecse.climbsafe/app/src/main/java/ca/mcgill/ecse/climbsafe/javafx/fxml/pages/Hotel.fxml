@@ -38,11 +38,11 @@
          <GridPane.margin>
             <Insets left="11.0" />
          </GridPane.margin></Button>
-      <Button fx:id="RemoveHotelButton" mnemonicParsing="false" onAction="#deleteHotel" text="Remove" GridPane.columnIndex="4" GridPane.rowIndex="9">
+      <Button fx:id="RemoveHotelButton" mnemonicParsing="false" onAction="#removeHotel" text="Remove" GridPane.columnIndex="4" GridPane.rowIndex="9">
          <GridPane.margin>
             <Insets left="11.0" />
          </GridPane.margin></Button>
-      <TextField fx:id="HotelNameTextField" onAction="#enterHotelName" prefHeight="27.0" prefWidth="83.0" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <TextField fx:id="HotelNameTextField" prefHeight="27.0" prefWidth="83.0" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin></TextField>
@@ -50,17 +50,17 @@
          <GridPane.margin>
             <Insets left="11.0" />
          </GridPane.margin></Button>
-      <TextField fx:id="HotelAddressTextField" onAction="#enterHotelAddress" promptText="Address" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <TextField fx:id="HotelAddressTextField" promptText="Address" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin>
       </TextField>
-      <TextField fx:id="StarRatingTextField" layoutX="210.0" layoutY="59.0" onAction="#enterHotelRating" promptText="Rating" GridPane.columnIndex="3" GridPane.rowIndex="2">
+      <TextField fx:id="StarRatingTextField" layoutX="210.0" layoutY="59.0" promptText="Rating" GridPane.columnIndex="3" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin>
       </TextField>
-      <TextField fx:id="NewHotelNameTextField" layoutX="210.0" layoutY="59.0" onAction="#enterNewHotelName" promptText="New Hotel" GridPane.columnIndex="1" GridPane.rowIndex="6">
+      <TextField fx:id="NewHotelNameTextField" layoutX="210.0" layoutY="59.0" promptText="New Hotel" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin>
@@ -70,17 +70,17 @@
             <Insets left="15.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="NewHotelAddressTextField" layoutX="110.0" layoutY="135.0" onAction="#enterNewHotelAddress" promptText="New Address" GridPane.columnIndex="2" GridPane.rowIndex="6">
+      <TextField fx:id="NewHotelAddressTextField" layoutX="110.0" layoutY="135.0" promptText="New Address" GridPane.columnIndex="2" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin>
       </TextField>
-      <TextField fx:id="NewStarRatingTextField" layoutX="110.0" layoutY="135.0" onAction="#enterNewHotelRating" promptText="New Rating" GridPane.columnIndex="3" GridPane.rowIndex="6">
+      <TextField fx:id="NewStarRatingTextField" layoutX="110.0" layoutY="135.0" promptText="New Rating" GridPane.columnIndex="3" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin>
       </TextField>
-      <TextField fx:id="OldHotelNameTextField" layoutX="121.0" layoutY="135.0" onAction="#enterOldHotelName" promptText="Old Hotel" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <TextField fx:id="OldHotelNameTextField" layoutX="121.0" layoutY="135.0" promptText="Old Hotel" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin>
@@ -90,7 +90,7 @@
             <Insets left="15.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="HotelDeleteTextField" layoutX="121.0" layoutY="58.0" onAction="#enterHotelName" prefHeight="27.0" prefWidth="83.0" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="9">
+      <TextField fx:id="HotelDeleteTextField" layoutX="121.0" layoutY="58.0" prefHeight="27.0" prefWidth="83.0" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="9">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin>
