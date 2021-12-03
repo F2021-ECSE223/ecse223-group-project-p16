@@ -12,15 +12,19 @@ public class TOEquipment
   //------------------------
 
   //TOEquipment Attributes
-  private String name;
+  private String equipmentName;
+  private int weight;
+  private int pricePerWeek;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public TOEquipment(String aName)
+  public TOEquipment(String aEquipmentName, int aWeight, int aPricePerWeek)
   {
-    name = aName;
+    equipmentName = aEquipmentName;
+    weight = aWeight;
+    pricePerWeek = aPricePerWeek;
   }
 
   //------------------------
@@ -35,8 +39,35 @@ public class TOEquipment
     return wasSet;
   }
 
-  public String getName() {
+  public boolean setWeight(int aWeight)
+  {
+    boolean wasSet = false;
+    weight = aWeight;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setPricePerWeek(int aPricePerWeek)
+  {
+    boolean wasSet = false;
+    pricePerWeek = aPricePerWeek;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public String getEquipmentName()
+  {
     return equipmentName;
+  }
+
+  public int getWeight()
+  {
+    return weight;
+  }
+
+  public int getPricePerWeek()
+  {
+    return pricePerWeek;
   }
 
   public void delete()
@@ -44,9 +75,9 @@ public class TOEquipment
 
 
   @Override
-  // line 18 "../../../../../ClimbSafeTransferObjects.ump"
+  // line 21 "../../../../../ClimbSafeTransferObjects.ump"
    public String toString(){
-    return name;
+    return equipmentName + " " + weight + " " + pricePerWeek;
   }
 
 }
