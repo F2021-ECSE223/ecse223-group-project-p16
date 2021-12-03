@@ -81,13 +81,20 @@ public class ViewUtils {
 	    makePopupWindow("Error", message);
 	  }
 
+	  /**
+	   * 
+	   * @return a list of TO assignments
+	   */
 	  public static ObservableList<TOAssignment> getAssignments() {
 	    List<TOAssignment> assignments = ClimbSafeFeatureSet6Controller.getAssignments();
 	    // as javafx works with observable list, we need to convert the java.util.List to
 	    // javafx.collections.observableList
 	    return FXCollections.observableList(assignments);
 	  }
-	  
+	  /**
+	   * 
+	   * @return a list of TO members
+	   */
 	  public static ObservableList<TOMember> getMembers() {
 		  List<Member> members = ClimbSafeApplication.getClimbSafe().getMembers();
 		    
@@ -106,6 +113,10 @@ public class ViewUtils {
 		  return FXCollections.observableList(TOmembers);
 		  }
 	  
+	  /**
+	   * 
+	   * @return a list of equipment
+	   */
 	  public static ObservableList<TOEquipment> getEquipment() {
 	        List<Equipment> equipment = ClimbSafeApplication.getClimbSafe().getEquipment();
 	          
@@ -125,6 +136,10 @@ public class ViewUtils {
 	        return FXCollections.observableList(TOequipment);
 	        }
 	  
+	  /**
+	   * 
+	   * @return a list of equipmentBundle
+	   */
 	  public static ObservableList<TOEquipmentBundle> getEquipmentBundles() {
 	        List<EquipmentBundle> equipmentBundles = ClimbSafeApplication.getClimbSafe().getBundles();
 	          
@@ -144,7 +159,10 @@ public class ViewUtils {
 	        }
 
 	
-	  
+	  /**
+	   * 
+	   * @return a list of guides
+	   */
 	  public static ObservableList<TOGuide> getGuides() {
 		  List<Guide> guides = ClimbSafeApplication.getClimbSafe().getGuides();
 		    
@@ -165,21 +183,7 @@ public class ViewUtils {
 
 	}
 
-  public static ObservableList<TOEquipment> getEquipment() {
-    List<Equipment> equipment = ClimbSafeApplication.getClimbSafe().getEquipment();
-
-    List<TOEquipment> TOequipment = new ArrayList<>();
-
-    for (int i = 0; i < equipment.size(); i++) {
-      
-      if (equipment.get(i) != null) {
-        TOequipment.add(new TOEquipment(equipment.get(i).getName()));
-      }
-    }
-    // as javafx works with observable list, we need to convert the java.util.List to
-    // javafx.collections.observableList
-    return FXCollections.observableList(TOequipment);
-  }
+  
 
 @FunctionalInterface
 interface Executable {

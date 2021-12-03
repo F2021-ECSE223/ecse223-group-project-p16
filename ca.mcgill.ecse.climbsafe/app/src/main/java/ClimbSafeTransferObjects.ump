@@ -13,9 +13,11 @@ class TOAssignment {
 }
 
 class TOEquipment{
-  name;
+  equipmentName;
+  Integer pricePerWeek;
+  Integer weight;
   @Override public String toString() {
-    return name;
+    return equipmentName;
   }
 }
 
