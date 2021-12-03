@@ -81,6 +81,7 @@ public class EquipmentController {
         addName.setText("");
         addWeight.setText("");
         addPrice.setText("");
+        ViewUtils.makePopupWindow("Equipment adding successful", "Successfully added equipment!");
       }
     }
   }
@@ -98,7 +99,10 @@ public class EquipmentController {
     if (equipment == null) {
       ViewUtils.showError("Please select a valid equipment");
     } else {
-      ViewUtils.callController(() -> ClimbSafeFeatureSet6Controller.deleteEquipment(equipment.getEquipmentName()));
+
+      ViewUtils.callController(() -> ClimbSafeFeatureSet6Controller.deleteEquipment(equipment.toString()));
+      ViewUtils.makePopupWindow("Equipment deleting successful", "Successfully deleted equipment!");
+
     }
     
   }
@@ -138,6 +142,7 @@ public class EquipmentController {
         addName.setText("");
         addWeight.setText("");
         addPrice.setText("");
+        ViewUtils.makePopupWindow("Equipment update successful", "Successfully updated equipment!");
       }
     }
   }
