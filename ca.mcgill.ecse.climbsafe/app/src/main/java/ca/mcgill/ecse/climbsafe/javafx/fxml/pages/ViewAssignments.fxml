@@ -23,71 +23,68 @@
       <RowConstraints maxHeight="385.0" minHeight="10.0" prefHeight="295.39998168945317" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <ScrollPane fitToWidth="true" maxWidth="1.7976931348623157E308" prefHeight="276.0" prefWidth="1010.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
-         <content>
-            <TableView fx:id="assignments" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="277.0" prefWidth="802.0">
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-         </content>
-      </ScrollPane>
-      <Button fx:id="viewAssignments" mnemonicParsing="false" onAction="#viewAssignments" prefHeight="26.0" prefWidth="95.0" text="Refresh" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
-         <GridPane.margin>
-            <Insets right="5.0" />
-         </GridPane.margin>
-      </Button>
-      <Button fx:id="initiateAssignments" mnemonicParsing="false" onAction="#initiateAssignments" prefHeight="26.0" prefWidth="155.0" text="Initiate Assignments">
-         <GridPane.margin>
-            <Insets left="5.0" />
-         </GridPane.margin>
-      </Button>
-      <Label text="Member" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets left="5.0" />
-         </GridPane.margin>
-      </Label>
-      <Button fx:id="startTrip" mnemonicParsing="false" onAction="#startTrip" text="Start" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+      <TableView fx:id="assignmentsTable" maxWidth="1.7976931348623157E308" prefHeight="277.0" prefWidth="802.0">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" maxWidth="1.7976931348623157E308" prefHeight="276.0" prefWidth="1010.0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <Button fx:id="viewAssignments" mnemonicParsing="false" onAction="#viewAssignments" prefHeight="26.0" prefWidth="60.0" text="Refresh" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS">
          <GridPane.margin>
             <Insets right="20.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="cancelTrip" mnemonicParsing="false" onAction="#cancelTrip" text="Cancel" GridPane.rowIndex="1">
+      <Button fx:id="initiateAssignments" mnemonicParsing="false" onAction="#initiateAssignments" prefHeight="26.0" prefWidth="127.0" text="Initiate Assignments" GridPane.hgrow="ALWAYS">
+         <GridPane.margin>
+            <Insets left="5.0" />
+         </GridPane.margin>
+      </Button>
+      <Label text="Member" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="5.0" />
+         </GridPane.margin>
+      </Label>
+      <Button fx:id="startTrip" mnemonicParsing="false" onAction="#startTrip" text="Start" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="cancelTrip" mnemonicParsing="false" onAction="#cancelTrip" text="Cancel" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="225.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="payTrip" mnemonicParsing="false" onAction="#payTrip" text="Pay" GridPane.rowIndex="2">
+      <Button fx:id="payTrip" mnemonicParsing="false" onAction="#payTrip" text="Pay" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="230.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="finishTrip" mnemonicParsing="false" onAction="#finishTrip" text="Finish" GridPane.rowIndex="1">
+      <Button fx:id="finishTrip" mnemonicParsing="false" onAction="#finishTrip" text="Finish" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="285.0" />
          </GridPane.margin>
       </Button>
-      <Label text="Week Number" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+      <Label text="Week Number" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="150.0" />
          </GridPane.margin>
       </Label>
-      <ChoiceBox fx:id="weekNr" prefHeight="26.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+      <ChoiceBox fx:id="weekNrChoiceBox" prefHeight="26.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="90.0" />
          </GridPane.margin>
       </ChoiceBox>
-      <ChoiceBox fx:id="members" prefWidth="150.0" GridPane.rowIndex="1">
+      <ChoiceBox fx:id="membersChoiceBox" prefWidth="150.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="60.0" />
          </GridPane.margin>
       </ChoiceBox>
-      <TextField fx:id="authCode" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="125.0" GridPane.rowIndex="2">
+      <TextField fx:id="authCode" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="125.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="70.0" />
          </GridPane.margin>
       </TextField>
-      <Label text="AuthCode" GridPane.rowIndex="2">
+      <Label text="AuthCode" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="5.0" />
          </GridPane.margin>

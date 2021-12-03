@@ -115,8 +115,10 @@ public class ClimbSafeFeatureSet6Controller {
 			  } else if(assignments.get(i).getAssignmentStatusActive().toString().equals("Null")) {
 				  toAss.get(i).setStatus(assignments.get(i).getAssignmentStatus().toString());
 			  }
-			  else {
+			  else if(!assignments.get(i).getAssignmentStatus().toString().equals("Cancelled")){
 				  toAss.get(i).setStatus(assignments.get(i).getAssignmentStatusActive().toString());
+			  } else {
+				  toAss.get(i).setStatus("Cancelled");
 			  }
 			  
 			  
