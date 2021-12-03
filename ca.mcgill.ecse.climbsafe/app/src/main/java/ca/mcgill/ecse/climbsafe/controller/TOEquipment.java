@@ -27,17 +27,16 @@ public class TOEquipment
   // INTERFACE
   //------------------------
 
-  public boolean setName(String aName)
+  public boolean setEquipmentName(String aEquipmentName)
   {
     boolean wasSet = false;
-    name = aName;
+    equipmentName = aEquipmentName;
     wasSet = true;
     return wasSet;
   }
 
-  public String getName()
-  {
-    return name;
+  public String getName() {
+    return equipmentName;
   }
 
   public void delete()

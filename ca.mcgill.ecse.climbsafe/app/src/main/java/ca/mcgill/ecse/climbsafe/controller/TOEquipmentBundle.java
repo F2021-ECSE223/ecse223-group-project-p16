@@ -12,16 +12,16 @@ public class TOEquipmentBundle
   //------------------------
 
   //TOEquipmentBundle Attributes
-  private String name;
+  private String equipmentBundleName;
   private int discount;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public TOEquipmentBundle(String aName, int aDiscount)
+  public TOEquipmentBundle(String aEquipmentBundleName, int aDiscount)
   {
-    name = aName;
+    equipmentBundleName = aEquipmentBundleName;
     discount = aDiscount;
   }
 
@@ -29,10 +29,10 @@ public class TOEquipmentBundle
   // INTERFACE
   //------------------------
 
-  public boolean setName(String aName)
+  public boolean setEquipmentBundleName(String aEquipmentBundleName)
   {
     boolean wasSet = false;
-    name = aName;
+    equipmentBundleName = aEquipmentBundleName;
     wasSet = true;
     return wasSet;
   }
@@ -45,9 +45,9 @@ public class TOEquipmentBundle
     return wasSet;
   }
 
-  public String getName()
+  public String getEquipmentBundleName()
   {
-    return name;
+    return equipmentBundleName;
   }
 
   public int getDiscount()
@@ -59,10 +59,10 @@ public class TOEquipmentBundle
   {}
 
 
-  public String toString()
-  {
-    return super.toString() + "["+
-            "name" + ":" + getName()+ "," +
-            "discount" + ":" + getDiscount()+ "]";
+  @Override
+  // line 31 "../../../../../ClimbSafeTransferObjects.ump"
+   public String toString(){
+    return equipmentBundleName + " " + discount;
   }
+
 }

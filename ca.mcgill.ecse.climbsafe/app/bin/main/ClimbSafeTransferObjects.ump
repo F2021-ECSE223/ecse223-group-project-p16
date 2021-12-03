@@ -19,9 +19,13 @@ class TOEquipment{
   }
 }
 
-class TOEquipmentBundle{
-  name;
-  Integer discount;  
+class TOEquipmentBundle {
+  equipmentBundleName;
+  Integer discount;
+  
+  @Override public String toString() {
+  	return equipmentBundleName + " " + discount;
+  }
 }
 
 class TOGuide{
@@ -30,5 +34,14 @@ class TOGuide{
   
   @Override public String toString() {
   	return guideName + " + " + guideEmail;
+  }
+}
+
+class TOMember{
+  memberEmail;
+  memberName;
+  
+  @Override public String toString() {
+  	return memberName + " + " + memberEmail;
   }
 }
