@@ -12,15 +12,11 @@ class TOAssignment {
   Integer totalCostForEquipment;
 }
 
-class TOEquipment {
-  equipmentName;
-  Integer weight;
-  Integer pricePerWeek;
-  
+class TOEquipment{
+  name;
   @Override public String toString() {
-  	return equipmentName + " " + weight + " " + pricePerWeek;
+    return name;
   }
-  
 }
 
 class TOEquipmentBundle {

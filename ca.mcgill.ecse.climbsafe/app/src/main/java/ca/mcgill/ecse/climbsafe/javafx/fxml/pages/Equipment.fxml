@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -27,63 +28,51 @@
       <RowConstraints minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="11.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label text="Add New Equipment:" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="11.0" />
          </GridPane.margin></Label>
-      <Button fx:id="AddEquipmentButton" mnemonicParsing="false" onAction="#addEquipment" text="Add" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <Button fx:id="addButton" minWidth="68.0" mnemonicParsing="false" onAction="#addClicked" prefWidth="68.0" text="Add" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <GridPane.margin>
-            <Insets left="11.0" />
+            <Insets left="11.0" right="11.0" />
          </GridPane.margin></Button>
-      <Button fx:id="DeleteEquipmentButton" mnemonicParsing="false" onAction="#deleteEquipment" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="8">
+      <Button fx:id="deleteButton" minWidth="68.0" mnemonicParsing="false" onAction="#deleteClicked" prefWidth="68.0" text="Delete" GridPane.columnIndex="4" GridPane.rowIndex="8">
          <GridPane.margin>
-            <Insets left="11.0" />
+            <Insets left="11.0" right="11.0" />
          </GridPane.margin></Button>
-      <Label text="Equipment Bundle" GridPane.rowIndex="10" />
-      <ChoiceBox fx:id="EquipmentBundleDropDownBar" onDragDone="#selectEquipmentBundle" GridPane.columnIndex="3" GridPane.rowIndex="13" />
-      <Button fx:id="AddEquipmentBundleButton" mnemonicParsing="false" onAction="#addEquipmentBundle" text="Add" GridPane.columnIndex="4" GridPane.rowIndex="10" />
-      <Button fx:id="DeleteEquipmentBundleButton" mnemonicParsing="false" onAction="#deleteEquipmentBundle" text="Delete" GridPane.columnIndex="4" GridPane.rowIndex="13" />
-      <TextField fx:id="EquipmentNameTextField" onAction="#enterEquipmentName" promptText="Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <TextField fx:id="addName" promptText="Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin></TextField>
-      <TextField fx:id="EquipmentWeightTextField" onAction="#enterEquipmentWeight" promptText="Weight" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <TextField fx:id="addWeight" promptText="Weight" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin></TextField>
-      <TextField fx:id="EquipmentPricePerWeekTextField" onAction="#enterEquipmentPricePerWeek" promptText="Price per Week" GridPane.columnIndex="3" GridPane.rowIndex="2">
+      <TextField fx:id="addPrice" promptText="Price per Week" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin></TextField>
-      <Button fx:id="UpdateEquipmentButton" mnemonicParsing="false" onAction="#updateEquipment" text="Update" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+      <Button fx:id="updateButton" minWidth="68.0" mnemonicParsing="false" onAction="#updateClicked" prefWidth="68.0" text="Update" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
          <GridPane.margin>
-            <Insets left="11.0" />
+            <Insets left="11.0" right="11.0" />
          </GridPane.margin></Button>
-      <ChoiceBox fx:id="EquipmentDropDownBar"  onDragDone="#selectEquipment" GridPane.columnIndex="1" GridPane.rowIndex="8">
+      <ChoiceBox fx:id="deleteDropDownBar" minWidth="100.0" prefWidth="103.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8">
          <GridPane.margin>
-            <Insets left="11.0" />
+            <Insets left="11.0" right="11.0" />
          </GridPane.margin></ChoiceBox>
-      <Button fx:id="UpdateEquipmentBundleButton" mnemonicParsing="false" onAction="#updateEquipmentBundle" text="Update" GridPane.columnIndex="4" GridPane.rowIndex="12" />
-      <TextField fx:id="EquipmentBundleNameTextField" onAction="#enterEquipmentBundleName" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-      <TextField fx:id="EquipmentBundleDiscountTextField" onAction="#enterEquipmentBundleDiscount" promptText="Discount" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-      <TextField fx:id="EquipmentOldNameTextField" onAction="#enterOldEquipmentName" promptText="Old Name" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <TextField fx:id="updateOldName" promptText="Old Name" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin></TextField>
-      <TextField fx:id="EquipmentBundleOldNameTextField" onAction="#enterOldEquipmentBundleName" promptText="Old Name" GridPane.columnIndex="3" GridPane.rowIndex="12" />
       <Label text="Update Equipment:" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="11.0" />
          </GridPane.margin>
       </Label>
-      <TextField promptText="New Name" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <TextField fx:id="updateNewName" promptText="New Name" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -91,12 +80,12 @@
             <Insets left="11.0" right="11.0" />
          </GridPane.margin>
       </TextField>
-      <TextField promptText="New Weight" GridPane.columnIndex="2" GridPane.rowIndex="5">
+      <TextField fx:id="updateNewWeight" promptText="New Weight" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin>
       </TextField>
-      <TextField promptText="New Price per Week" GridPane.columnIndex="3" GridPane.rowIndex="5">
+      <TextField fx:id="updateNewPrice" promptText="New Price per Week" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets left="11.0" right="11.0" />
          </GridPane.margin>
@@ -106,5 +95,15 @@
             <Insets left="11.0" />
          </GridPane.margin>
       </Label>
+      <Separator prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <Separator prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <Separator layoutX="10.0" layoutY="99.0" prefWidth="200.0" GridPane.rowIndex="6" />
+      <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Separator prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <Separator prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+      <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Separator prefWidth="200.0" GridPane.rowIndex="3" />
    </children>
 </GridPane>

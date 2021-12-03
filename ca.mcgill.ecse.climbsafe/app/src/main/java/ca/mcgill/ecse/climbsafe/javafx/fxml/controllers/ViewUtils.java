@@ -165,11 +165,23 @@ public class ViewUtils {
 
 	}
 
+  public static ObservableList<TOEquipment> getEquipment() {
+    List<Equipment> equipment = ClimbSafeApplication.getClimbSafe().getEquipment();
 
+    List<TOEquipment> TOequipment = new ArrayList<>();
 
-
+    for (int i = 0; i < equipment.size(); i++) {
+      
+      if (equipment.get(i) != null) {
+        TOequipment.add(new TOEquipment(equipment.get(i).getName()));
+      }
+    }
+    // as javafx works with observable list, we need to convert the java.util.List to
+    // javafx.collections.observableList
+    return FXCollections.observableList(TOequipment);
+  }
 
 @FunctionalInterface
 interface Executable {
-	public void execute() throws Throwable;
+  public void execute() throws Throwable;
 }
