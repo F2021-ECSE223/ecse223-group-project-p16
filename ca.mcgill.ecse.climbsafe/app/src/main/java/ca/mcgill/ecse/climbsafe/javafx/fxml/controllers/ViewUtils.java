@@ -34,7 +34,6 @@ public class ViewUtils {
 	  public static ObservableList<Integer> getWeekNrs() {
 		  ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
 		  List<Integer> weeks = new ArrayList<Integer>();
-		  System.out.println(climbSafe.getNrWeeks());
 		  for(int i=1;i<=climbSafe.getNrWeeks();i++) {
 			 weeks.add(i);
 		  }
@@ -206,7 +205,6 @@ public class ViewUtils {
       
     }
     
-    System.out.println(TOequipment.size());
     return FXCollections.observableList(TOequipment);
     
   }

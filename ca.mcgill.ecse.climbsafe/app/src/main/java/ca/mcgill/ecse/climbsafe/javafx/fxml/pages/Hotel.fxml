@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -95,5 +96,7 @@
             <Insets left="11.0" right="11.0" />
          </GridPane.margin>
       </TextField>
+      <Separator prefWidth="200.0" GridPane.columnSpan="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+      <Separator prefWidth="200.0" GridPane.columnSpan="5" GridPane.rowIndex="7" />
    </children>
 </GridPane>
