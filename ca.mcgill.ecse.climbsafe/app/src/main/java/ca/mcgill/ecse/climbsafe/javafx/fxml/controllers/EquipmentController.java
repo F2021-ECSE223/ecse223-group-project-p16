@@ -38,6 +38,10 @@ public class EquipmentController {
   private TextField updateNewPrice;
 
 
+ 
+  /**
+   * @author Rui Du
+   */
   @FXML
   public void initialize() {
     deleteDropDownBar.addEventHandler(ClimbSafeFxmlView.REFRESH_EVENT, e -> {
@@ -82,6 +86,10 @@ public class EquipmentController {
   }
   
   
+  /**
+   * @author Rui Du
+   * @param event
+   */
   // Event Listener on Button[#deleteButton].onAction
   @FXML
   public void deleteClicked(ActionEvent event) {
@@ -95,6 +103,10 @@ public class EquipmentController {
     
   }
 
+  /**
+   * @author Rui Du
+   * @param event
+   */
   // Event Listener on Button[#updateButton].onAction
   @FXML
   public void updateClicked(ActionEvent event) {
