@@ -38,6 +38,11 @@ public class GuideController {
     private Button DeleteGuideButton;
 
 
+    /**
+	   * registerGuide - Registers a guide in the ClimbSafe database.
+	   * @param ActionEvent event
+	   * @author Yakir Bender
+	   */
     @FXML
     void registerGuide(ActionEvent event) {
     	
@@ -73,6 +78,11 @@ public class GuideController {
 
     }
     
+    /**
+	   * updateGuide - Updates a guide's information in the ClimbSafe database.
+	   * @param ActionEvent event
+	   * @author Onyekachi Ezekwem, Saif Shahin, Yakir Bender
+	   */
     @FXML
     void updateGuide(ActionEvent event) {
     	TOGuide guide = DeleteGuideBox.getValue();
@@ -112,6 +122,11 @@ public class GuideController {
 
     }
 
+    /**
+	   * deleteGuide - Deletes a guide from the ClimbSafe database.
+	   * @param ActionEvent event
+	   * @author Onyekachi Ezekwem, Saif Shahin, Yakir Bender
+	   */
     @FXML
     void deleteGuide(ActionEvent event) {
     	
@@ -136,6 +151,11 @@ public class GuideController {
 
     }
     
+    /**
+	 * initialize() - method that refreshes the page on click on any choiceBox
+	 * @param ActionEvent event
+	 * @author Yakir Bender
+	 * **/
     @FXML
     public void initialize() {
       // the choice boxes listen to the refresh event

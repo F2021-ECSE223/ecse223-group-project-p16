@@ -38,6 +38,10 @@ public class EquipmentController {
   private TextField updateNewPrice;
 
 
+ 
+  /**
+   * @author Rui Du
+   */
   @FXML
   public void initialize() {
     deleteDropDownBar.addEventHandler(ClimbSafeFxmlView.REFRESH_EVENT, e -> {
@@ -77,11 +81,16 @@ public class EquipmentController {
         addName.setText("");
         addWeight.setText("");
         addPrice.setText("");
+        ViewUtils.makePopupWindow("Equipment adding successful", "Successfully added equipment!");
       }
     }
   }
   
   
+  /**
+   * @author Rui Du
+   * @param event
+   */
   // Event Listener on Button[#deleteButton].onAction
   @FXML
   public void deleteClicked(ActionEvent event) {
@@ -90,11 +99,18 @@ public class EquipmentController {
     if (equipment == null) {
       ViewUtils.showError("Please select a valid equipment");
     } else {
-      ViewUtils.callController(() -> ClimbSafeFeatureSet6Controller.deleteEquipment(equipment.getEquipmentName()));
+
+      ViewUtils.callController(() -> ClimbSafeFeatureSet6Controller.deleteEquipment(equipment.toString()));
+      ViewUtils.makePopupWindow("Equipment deleting successful", "Successfully deleted equipment!");
+
     }
     
   }
 
+  /**
+   * @author Rui Du
+   * @param event
+   */
   // Event Listener on Button[#updateButton].onAction
   @FXML
   public void updateClicked(ActionEvent event) {
@@ -126,6 +142,7 @@ public class EquipmentController {
         addName.setText("");
         addWeight.setText("");
         addPrice.setText("");
+        ViewUtils.makePopupWindow("Equipment update successful", "Successfully updated equipment!");
       }
     }
   }

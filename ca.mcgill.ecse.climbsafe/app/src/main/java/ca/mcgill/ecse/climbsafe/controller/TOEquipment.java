@@ -16,6 +16,7 @@ public class TOEquipment
   private int weight;
   private int pricePerWeek;
 
+
   //------------------------
   // CONSTRUCTOR
   //------------------------
@@ -38,7 +39,7 @@ public class TOEquipment
     wasSet = true;
     return wasSet;
   }
-
+  
   public boolean setWeight(int aWeight)
   {
     boolean wasSet = false;
@@ -68,6 +69,7 @@ public class TOEquipment
   public int getPricePerWeek()
   {
     return pricePerWeek;
+
   }
 
   public void delete()
@@ -75,9 +77,9 @@ public class TOEquipment
 
 
   @Override
-  // line 21 "../../../../../ClimbSafeTransferObjects.ump"
+  // line 20 "../../../../../ClimbSafeTransferObjects.ump"
    public String toString(){
-    return equipmentName + " " + weight + " " + pricePerWeek;
+    return equipmentName;
   }
 
 }

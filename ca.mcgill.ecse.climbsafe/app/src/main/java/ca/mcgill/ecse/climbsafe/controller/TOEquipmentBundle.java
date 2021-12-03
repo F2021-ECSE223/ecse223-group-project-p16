@@ -4,6 +4,7 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
 // line 26 "../../../../../ClimbSafeTransferObjects.ump"
+
 public class TOEquipmentBundle
 {
 
@@ -60,7 +61,7 @@ public class TOEquipmentBundle
 
 
   @Override
-  // line 31 "../../../../../ClimbSafeTransferObjects.ump"
+  // line 29 "../../../../../ClimbSafeTransferObjects.ump"
    public String toString(){
     return equipmentBundleName + " " + discount;
   }
