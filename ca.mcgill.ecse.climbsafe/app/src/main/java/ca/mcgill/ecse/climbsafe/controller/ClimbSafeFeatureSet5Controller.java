@@ -81,7 +81,7 @@ public class ClimbSafeFeatureSet5Controller {
         EquipmentBundle equipmentBundle = climbSafe.addBundle(name, discount);
         
         // Iterate through all the names and quantities of equipments to add to the bundle
-        for (int i = 0; i <= equipmentNames.size(); i++) {
+        for (int i = 0; i < equipmentNames.size(); i++) {
           
           // Find the existing equipment with the same name as the passed name
           Equipment matchedEquipment = null;

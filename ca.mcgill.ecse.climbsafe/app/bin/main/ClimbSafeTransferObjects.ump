@@ -10,6 +10,13 @@ class TOAssignment {
   Integer endWeek;
   Integer totalCostForGuide;
   Integer totalCostForEquipment;
+  status;
+  authorizationCode;
+  Integer refundedPercentageAmount;
+  
+  @Override public String toString() {
+    return memberName + " - " + memberEmail;
+  }
 }
 
 class TOEquipment{

@@ -86,7 +86,7 @@ public class EquipmentController {
         // reset the driver text field if success
         if (ViewUtils.successful(() -> 
         ClimbSafeFeatureSet4Controller.addEquipment(name, Integer.valueOf(weight),Integer.valueOf(pricePerWeek) ))) {
-            ViewUtils.makePopupWindow("Registration Successful", name + " has been registered as a Guide.");
+            ViewUtils.makePopupWindow("Registration Successful", name + " has been registered as an Equipment.");
 
             EquipmentNameTextField.setText("");
             EquipmentWeightTextField.setText("");
