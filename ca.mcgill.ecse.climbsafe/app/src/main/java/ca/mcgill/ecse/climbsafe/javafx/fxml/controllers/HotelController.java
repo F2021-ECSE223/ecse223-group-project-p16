@@ -2,11 +2,15 @@ package ca.mcgill.ecse.climbsafe.javafx.fxml.controllers;
 
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet7Controller;
-import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.event.ActionEvent;
+
+/**
+ * @author Tushar Srivastava - ID: 260922439
+ * HotelController for Iteration 4
+ */
 
 /**
  * @author Tushar Srivastava - ID: 260922439
@@ -140,3 +144,4 @@ public class HotelController {
 	}
 	 
 }
+

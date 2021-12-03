@@ -4,9 +4,17 @@ import static ca.mcgill.ecse.climbsafe.javafx.fxml.controllers.ViewUtils.callCon
 
 import java.sql.Date;
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet2Controller;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet3Controller;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet4Controller;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet5Controller;
+import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
+import ca.mcgill.ecse.climbsafe.model.Equipment;
+import ca.mcgill.ecse.climbsafe.model.Member;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -73,6 +81,7 @@ public class SetupNMCController {
 		        	NumberOfWeeksTextField.setText("");
 		        	PriceOfGuidePerWeekTextField.setText("");
 		        	datePicker.setValue(null);
+
 		        };
 		      }
 	    }

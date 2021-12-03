@@ -104,11 +104,24 @@ public class ClimbSafeFeatureSet6Controller {
 	  //Iterates over each assignment
 	  for (int i = 0; i < assignments.size(); i++) {
 		  
-		  toAss.add(i, new TOAssignment(null, null, null, null, null, 0, 0, 0, 0));
+		  toAss.add(i, new TOAssignment(null, null, null, null, null, 0, 0, 0, 0, null, null, 0));
 		  
 		  //Copies member email & name (if they exist) to new assignment
 		  if (assignments.get(i).getMember() != null) toAss.get(i).setMemberEmail(assignments.get(i).getMember().getEmail());
 		  if (assignments.get(i).getMember() != null) toAss.get(i).setMemberName(assignments.get(i).getMember().getName());
+		  if (assignments.get(i).getMember() != null) {
+			  if(assignments.get(i).getMember().getMemberStatus().toString().equals("Banned")) {
+				  toAss.get(i).setStatus(assignments.get(i).getMember().getMemberStatus().toString());
+			  } else if(assignments.get(i).getAssignmentStatusActive().toString().equals("Null")) {
+				  toAss.get(i).setStatus(assignments.get(i).getAssignmentStatus().toString());
+			  }
+			  else {
+				  toAss.get(i).setStatus(assignments.get(i).getAssignmentStatusActive().toString());
+			  }
+			  
+			  
+		  }
+		  toAss.get(i).setAuthorizationCode(assignments.get(i).getAuthCode());
 		  
 		  //Copies guide email & name (if they exist) to new assignment
 		  if (assignments.get(i).getGuide() != null) toAss.get(i).setGuideEmail(assignments.get(i).getGuide().getEmail());
