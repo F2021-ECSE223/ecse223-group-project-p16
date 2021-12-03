@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 
 public class ViewUtils {
 
+
 	  /** Calls the controller and shows an error, if applicable. */
 	  public static boolean callController(Executable executable) {
 	    try {
@@ -185,7 +186,9 @@ public class ViewUtils {
 
   
 
+
 @FunctionalInterface
 interface Executable {
   public void execute() throws Throwable;
 }
+

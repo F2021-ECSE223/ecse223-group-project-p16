@@ -29,21 +29,3 @@ class TOEquipmentBundle {
   	return equipmentBundleName + " " + discount;
   }
 }
-
-class TOGuide{
-  guideEmail;
-  guideName;
-  
-  @Override public String toString() {
-  	return guideName + " + " + guideEmail;
-  }
-}
-
-class TOMember{
-  memberEmail;
-  memberName;
-  
-  @Override public String toString() {
-  	return memberName + " + " + memberEmail;
-  }
-}

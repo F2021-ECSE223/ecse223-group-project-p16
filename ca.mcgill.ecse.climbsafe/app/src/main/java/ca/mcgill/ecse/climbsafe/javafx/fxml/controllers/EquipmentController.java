@@ -91,8 +91,10 @@ public class EquipmentController {
     if (equipment == null) {
       ViewUtils.showError("Please select a valid equipment");
     } else {
+
       ViewUtils.callController(() -> ClimbSafeFeatureSet6Controller.deleteEquipment(equipment.toString()));
       ViewUtils.makePopupWindow("Equipment deleting successful", "Successfully deleted equipment!");
+
     }
     
   }
