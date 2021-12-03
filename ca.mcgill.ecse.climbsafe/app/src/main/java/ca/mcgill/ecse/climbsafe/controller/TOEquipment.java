@@ -12,17 +12,18 @@ public class TOEquipment
   //------------------------
 
   //TOEquipment Attributes
-  private String name;
+  private String equipmentName;
   private int weight;
   private int pricePerWeek;
+
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public TOEquipment(String aName, int aWeight, int aPricePerWeek)
+  public TOEquipment(String aEquipmentName, int aWeight, int aPricePerWeek)
   {
-    name = aName;
+    equipmentName = aEquipmentName;
     weight = aWeight;
     pricePerWeek = aPricePerWeek;
   }
@@ -31,14 +32,14 @@ public class TOEquipment
   // INTERFACE
   //------------------------
 
-  public boolean setName(String aName)
+  public boolean setEquipmentName(String aEquipmentName)
   {
     boolean wasSet = false;
-    name = aName;
+    equipmentName = aEquipmentName;
     wasSet = true;
     return wasSet;
   }
-
+  
   public boolean setWeight(int aWeight)
   {
     boolean wasSet = false;
@@ -55,9 +56,9 @@ public class TOEquipment
     return wasSet;
   }
 
-  public String getName()
+  public String getEquipmentName()
   {
-    return name;
+    return equipmentName;
   }
 
   public int getWeight()
@@ -68,17 +69,17 @@ public class TOEquipment
   public int getPricePerWeek()
   {
     return pricePerWeek;
+
   }
 
   public void delete()
   {}
 
 
-  public String toString()
-  {
-    return super.toString() + "["+
-            "name" + ":" + getName()+ "," +
-            "weight" + ":" + getWeight()+ "," +
-            "pricePerWeek" + ":" + getPricePerWeek()+ "]";
+  @Override
+  // line 20 "../../../../../ClimbSafeTransferObjects.ump"
+   public String toString(){
+    return equipmentName;
   }
+
 }

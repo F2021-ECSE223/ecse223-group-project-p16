@@ -1,210 +1,149 @@
 package ca.mcgill.ecse.climbsafe.javafx.fxml.controllers;
 
-import org.w3c.dom.events.MouseEvent;
-
-import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet4Controller;
-import ca.mcgill.ecse.climbsafe.controller.TOEquipment;
-import ca.mcgill.ecse.climbsafe.controller.TOEquipmentBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+
 import javafx.scene.control.TextField;
-import javafx.scene.input.DragEvent;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet4Controller;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
+import ca.mcgill.ecse.climbsafe.controller.TOEquipment;
+import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
+import javafx.event.ActionEvent;
+
+import javafx.scene.control.ChoiceBox;
 
 public class EquipmentController {
-	@FXML
-	private Button AddEquipmentButton;
-	@FXML
-	private Button DeleteEquipmentButton;
-	@FXML
-	private ChoiceBox<TOEquipmentBundle> EquipmentBundleDropDownBar;
-	@FXML
-	private Button AddEquipmentBundleButton;
-	@FXML
-	private Button DeleteEquipmentBundleButton;
-	@FXML
-	private TextField EquipmentNameTextField;
-	@FXML
-    private TextField EquipmentOldNameTextField;
-	@FXML
-	private TextField EquipmentWeightTextField;
-	@FXML
-	private TextField EquipmentPricePerWeekTextField;
-	@FXML
-	private Button UpdateEquipmentButton;
-	@FXML
-	private ChoiceBox<TOEquipment> EquipmentDropDownBar;
-	@FXML
-	private Button UpdateEquipmentBundleButton;
-	@FXML
-	private TextField EquipmentBundleNameTextField;
-	@FXML
-	private TextField EquipmentBundleDiscountTextField;
-	@FXML
-	private TextField EquipmentBundleOldNameTextField;
+  @FXML
+  private Button addButton;
+  @FXML
+  private Button deleteButton;
+  @FXML
+  private TextField addName;
+  @FXML
+  private TextField addWeight;
+  @FXML
+  private TextField addPrice;
+  @FXML
+  private Button updateButton;
+  @FXML
+  private ChoiceBox deleteDropDownBar;
+  @FXML
+  private TextField updateOldName;
+  @FXML
+  private TextField updateNewName;
+  @FXML
+  private TextField updateNewWeight;
+  @FXML
+  private TextField updateNewPrice;
 
-//	@FXML
-//	  public void initialize() {
-//	    // the choice boxes listen to the refresh event
-//	    EquipmentBundleDropDownBar.addEventHandler(ClimbSafeFxmlView.REFRESH_EVENT, e -> {
-//	      
-//	      
-//	      
-//	      EquipmentBundleDropDownBar.setItems(ViewUtils.getDrivers());
-//	      // reset the choice
-//	      EquipmentBundleDropDownBar.setValue(null);
-//	    });
-//
-//	    EquipmentDropDownBar.addEventHandler(ClimbSafeFxmlView.REFRESH_EVENT, e -> {
-//	      EquipmentDropDownBar.setItems(ViewUtils.getEquipment());
-//	      EquipmentDropDownBar.setValue(null);
-//	    });
-//
-//	    // let the application be aware of the refreshable node
-//	    ClimbSafeFxmlView.getInstance().registerRefreshEvent(EquipmentDropDownBar, EquipmentBundleDropDownBar);
-//	  }
-	
-	// Event Listener on Button[#AddEquipmentButton].onAction
-	@FXML
-	public void addEquipment(ActionEvent event) {
-	  
-	  String name = EquipmentNameTextField.getText();
-      String weight = EquipmentWeightTextField.getText();
-      String pricePerWeek = EquipmentPricePerWeekTextField.getText();
-      
-      if (name == null || name.trim().isEmpty()) {
-          ViewUtils.showError("Please input a valid equipment nmae");
-      } 
-      else if (weight == null || weight.trim().isEmpty()) {
-          ViewUtils.showError("Please input a valid weight");
-      }
-      else if (pricePerWeek == null || pricePerWeek.trim().isEmpty()) {
-          ViewUtils.showError("Please input a valid price");
-      }
-      else {
-        // reset the driver text field if success
-        if (ViewUtils.successful(() -> 
-        ClimbSafeFeatureSet4Controller.addEquipment(name, Integer.valueOf(weight),Integer.valueOf(pricePerWeek) ))) {
-            ViewUtils.makePopupWindow("Registration Successful", name + " has been registered as an Equipment.");
 
-            EquipmentNameTextField.setText("");
-            EquipmentWeightTextField.setText("");
-            EquipmentPricePerWeekTextField.setText("");
-        }
+ 
+  /**
+   * @author Rui Du
+   */
+  @FXML
+  public void initialize() {
+    deleteDropDownBar.addEventHandler(ClimbSafeFxmlView.REFRESH_EVENT, e -> {
+      deleteDropDownBar.setItems(ViewUtils.getEquipment());
+      deleteDropDownBar.setValue(null);
+    });
+
+    ClimbSafeFxmlView.getInstance().registerRefreshEvent(deleteDropDownBar);
+  }
+
+  // Event Listener on Button[#addButton].onAction
+  @FXML
+  public void addClicked(ActionEvent event) {
+
+    String name = addName.getText();
+    Integer weight = null;
+    Integer price = null;
+    try {
+      weight = Integer.parseInt(addWeight.getText());
+    } catch (NumberFormatException e) {
+    }
+    try {
+      price = Integer.parseInt(addPrice.getText());
+    } catch (NumberFormatException e) {
+    }
+
+    if (name == null || name.trim().isEmpty()) {
+      ViewUtils.showError("Please input a valid equipment name");
+    } else if (weight == null) {
+      ViewUtils.showError("Please input a valid weight");
+    } else if (price == null) {
+      ViewUtils.showError("Please input a valid price per week");
+    } else {
+      // reset the driver text field if success
+      if (ViewUtils
+          .successful(() -> ClimbSafeFeatureSet4Controller.addEquipment(name, Integer.parseInt(addWeight.getText()), Integer.parseInt(addPrice.getText())))) {
+        addName.setText("");
+        addWeight.setText("");
+        addPrice.setText("");
+        ViewUtils.makePopupWindow("Equipment adding successful", "Successfully added equipment!");
       }
-		// TODO Autogenerated
-	}
-	// Event Listener on Button[#UpdateEquipmentButton].onAction
-    @FXML
-    public void updateEquipment(ActionEvent event) {
-      
-      String newName = EquipmentNameTextField.getText();
-      String oldName = EquipmentOldNameTextField.getText();
-      String weight = EquipmentWeightTextField.getText();
-      String pricePerWeek = EquipmentPricePerWeekTextField.getText();
+    }
+  }
+  
+  
+  /**
+   * @author Rui Du
+   * @param event
+   */
+  // Event Listener on Button[#deleteButton].onAction
+  @FXML
+  public void deleteClicked(ActionEvent event) {
+    
+    TOEquipment equipment = (TOEquipment) deleteDropDownBar.getValue();
+    if (equipment == null) {
+      ViewUtils.showError("Please select a valid equipment");
+    } else {
+
+      ViewUtils.callController(() -> ClimbSafeFeatureSet6Controller.deleteEquipment(equipment.toString()));
+      ViewUtils.makePopupWindow("Equipment deleting successful", "Successfully deleted equipment!");
+
+    }
+    
+  }
+
+  /**
+   * @author Rui Du
+   * @param event
+   */
+  // Event Listener on Button[#updateButton].onAction
+  @FXML
+  public void updateClicked(ActionEvent event) {
+    String newName = updateNewName.getText();
+    String oldName = updateOldName.getText();
+    Integer newWeight = null;
+    Integer newPrice = null;
+    try {
+      newWeight = Integer.parseInt(updateNewWeight.getText());
+    } catch (NumberFormatException e) {
+    }
+    try {
+      newPrice = Integer.parseInt(updateNewPrice.getText());
+    } catch (NumberFormatException e) {
+    }
 
     if (newName == null || newName.trim().isEmpty()) {
-        ViewUtils.showError("Please input a valid equipment name");
-    } 
-    else if (oldName == null || oldName.trim().isEmpty()) {
-        ViewUtils.showError("Please input a valid equipment name");
-    }
-    else if (weight == null || weight.trim().isEmpty()) {
-        ViewUtils.showError("Please input a valid weight");
-    }
-    else if (pricePerWeek == null || pricePerWeek.trim().isEmpty()) {
-        ViewUtils.showError("Please input a valid price");
-    }
-      else {
-        // reset the driver text field if success
-        if (ViewUtils.successful(() -> 
-        ClimbSafeFeatureSet4Controller.updateEquipment(oldName, newName, Integer.valueOf(weight),Integer.valueOf(pricePerWeek)))) {
-            ViewUtils.makePopupWindow("Update Successful, equipment", newName + "'s information has been updated.");
-            
-            EquipmentNameTextField.setText("");
-            EquipmentOldNameTextField.setText("");;
-            EquipmentWeightTextField.setText("");
-            EquipmentPricePerWeekTextField.setText("");
-        }
+      ViewUtils.showError("Please input a valid new equipment name");
+    } else if (oldName == null || oldName.trim().isEmpty()) {
+      ViewUtils.showError("Please input a valid old equipment name");
+    } else if (newWeight == null) {
+      ViewUtils.showError("Please input a valid weight");
+    } else if (newPrice == null) {
+      ViewUtils.showError("Please input a valid price per week");
+    } else {
+      // reset the driver text field if success
+      if (ViewUtils
+          .successful(() -> ClimbSafeFeatureSet4Controller.updateEquipment(oldName, newName, Integer.parseInt(updateNewWeight.getText()), Integer.parseInt(updateNewPrice.getText())))) {
+        addName.setText("");
+        addWeight.setText("");
+        addPrice.setText("");
+        ViewUtils.makePopupWindow("Equipment update successful", "Successfully updated equipment!");
       }
     }
-	// Event Listener on Button[#DeleteEquipmentButton].onAction
-	@FXML
-	public void deleteEquipment(ActionEvent event) {
-		// TODO Autogenerated
-	  
-	}
-	// Event Listener on ChoiceBox[#EquipmentBundleDropDownBar].onDragDetected
-	@FXML
-	public void showAllEquipmentBundles(MouseEvent event) {
-		// TODO Autogenerated
-	}
-	// Event Listener on ChoiceBox[#EquipmentBundleDropDownBar].onDragDone
-	@FXML
-	public void selectEquipmentBundle(DragEvent event) {
-		// TODO Autogenerated
-	}
-	// Event Listener on Button[#AddEquipmentBundleButton].onAction
-	@FXML
-	public void addEquipmentBundle(ActionEvent event) {
-		// TODO Autogenerated
-	}
-	// Event Listener on Button[#DeleteEquipmentBundleButton].onAction
-	@FXML
-	public void deleteEquipmentBundle(ActionEvent event) {
-		// TODO Autogenerated
-	}
-	// Event Listener on TextField[#EquipmentNameTextField1].onAction
-	@FXML
-	public void enterEquipmentName(ActionEvent event) {
-		// TODO Autogenerated
-	}
-	// Event Listener on TextField[#EquipmentWeightTextField1].onAction
-	@FXML
-	public void enterEquipmentWeight(ActionEvent event) {
-		// TODO Autogenerated
-	}
-	// Event Listener on TextField[#EquipmentPricePerWeek1].onAction
-	@FXML
-	public void enterEquipmentPricePerWeek(ActionEvent event) {
-		// TODO Autogenerated
-	}
-	// Event Listener on ChoiceBox[#EquipmentDropDownBar].onDragDetected
-	@FXML
-	public void showAllEquipments(MouseEvent event) {
-		// TODO Autogenerated
-	}
-	// Event Listener on ChoiceBox[#EquipmentDropDownBar].onDragDone
-	@FXML
-	public void selectEquipment(DragEvent event) {
-		// TODO Autogenerated
-	  System.out.println("hello");
-	}
-	// Event Listener on Button[#UpdateEquipmentBundleButton].onAction
-	@FXML
-	public void updateEquipmentBundle(ActionEvent event) {
-		// TODO Autogenerated
-	}
-	// Event Listener on TextField[#EquipmentBundleNameTextField].onAction
-	@FXML
-	public void enterEquipmentBundleName(ActionEvent event) {
-		// TODO Autogenerated
-	}
-	// Event Listener on TextField[#EquipmentBundleDiscountTextField].onAction
-	@FXML
-	public void enterEquipmentBundleDiscount(ActionEvent event) {
-		// TODO Autogenerated
-	}
-	@FXML
-	public void enterOldEquipmentBundleName(ActionEvent event) {
-	  
-	
-	}
-	@FXML
-    public void enterOldEquipmentName(ActionEvent event) {
-      
-    
-    }
-    
+  }
 }

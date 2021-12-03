@@ -12,6 +12,11 @@ import javafx.scene.control.TextField;
  * HotelController for Iteration 4
  */
 
+/**
+ * @author Tushar Srivastava - ID: 260922439
+ * HotelController for Iteration 4
+ */
+
 public class HotelController {
 	@FXML
 	private Button AddHotelButton;
@@ -139,3 +144,4 @@ public class HotelController {
 	}
 	 
 }
+

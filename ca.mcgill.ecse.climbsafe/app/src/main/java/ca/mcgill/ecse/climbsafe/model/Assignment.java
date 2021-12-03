@@ -3,7 +3,6 @@
 
 package ca.mcgill.ecse.climbsafe.model;
 import java.io.Serializable;
-
 import ca.mcgill.ecse.climbsafe.model.Member.MemberStatus;
 
 /**

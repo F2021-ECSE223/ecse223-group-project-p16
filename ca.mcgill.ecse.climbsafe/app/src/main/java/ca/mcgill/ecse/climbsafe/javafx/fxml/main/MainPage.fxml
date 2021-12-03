@@ -35,6 +35,11 @@
                   <fx:include source="../pages/Hotel.fxml" />
               </content>
             </Tab>
+            <Tab text="Equipment Bundles">
+               <content>
+                  <fx:include source="../pages/EquipmentBundleTabs.fxml" />
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
       <VBox prefHeight="200.0" prefWidth="100.0">
