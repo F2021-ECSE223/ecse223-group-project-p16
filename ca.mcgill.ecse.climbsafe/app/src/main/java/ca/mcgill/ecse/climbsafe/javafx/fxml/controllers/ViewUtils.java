@@ -2,6 +2,7 @@ package ca.mcgill.ecse.climbsafe.javafx.fxml.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
 import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
@@ -12,6 +13,7 @@ import ca.mcgill.ecse.climbsafe.controller.TOGuide;
 import ca.mcgill.ecse.climbsafe.controller.TOMember;
 import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
 import ca.mcgill.ecse.climbsafe.model.BundleItem;
+import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
 import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
 import ca.mcgill.ecse.climbsafe.model.Guide;
@@ -29,6 +31,19 @@ import javafx.stage.Stage;
 
 public class ViewUtils {
 
+	  public static ObservableList<Integer> getWeekNrs() {
+		  ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
+		  List<Integer> weeks = new ArrayList<Integer>();
+		  System.out.println(climbSafe.getNrWeeks());
+		  for(int i=1;i<=climbSafe.getNrWeeks();i++) {
+			 weeks.add(i);
+		  }
+		  // as javafx works with observable list, we need to convert the java.util.List to
+		  // javafx.collections.observableList
+		  return FXCollections.observableList(weeks);
+	  }
+
+	
   /** Calls the controller and shows an error, if applicable. */
   public static boolean callController(Executable executable) {
     try {
@@ -215,6 +230,7 @@ public class ViewUtils {
   }
 
 }
+
 
 
 @FunctionalInterface
