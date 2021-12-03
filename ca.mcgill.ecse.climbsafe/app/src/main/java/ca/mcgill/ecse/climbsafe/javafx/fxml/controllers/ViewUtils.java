@@ -7,9 +7,15 @@ import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
 import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
+import ca.mcgill.ecse.climbsafe.controller.TOEquipment;
+import ca.mcgill.ecse.climbsafe.controller.TOEquipmentBundle;
 import ca.mcgill.ecse.climbsafe.controller.TOGuide;
+import ca.mcgill.ecse.climbsafe.controller.TOMember;
 import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
+import ca.mcgill.ecse.climbsafe.model.Equipment;
+import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
 import ca.mcgill.ecse.climbsafe.model.Guide;
+import ca.mcgill.ecse.climbsafe.model.Member;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -82,6 +88,63 @@ public class ViewUtils {
 	    return FXCollections.observableList(assignments);
 	  }
 	  
+	  public static ObservableList<TOMember> getMembers() {
+		  List<Member> members = ClimbSafeApplication.getClimbSafe().getMembers();
+		    
+		  List<TOMember> TOmembers = new ArrayList<>();
+		    
+		  for (int i = 0; i < members.size(); i++) {
+			  TOmembers.add(i, new TOMember(null, null) );
+		    	
+			  if (members.get(i) != null) {
+				  TOmembers.get(i).setMemberEmail(members.get(i).getEmail());
+				  TOmembers.get(i).setMemberName(members.get(i).getName());
+				  }
+			  }
+		  // as javafx works with observable list, we need to convert the java.util.List to
+		  // javafx.collections.observableList
+		  return FXCollections.observableList(TOmembers);
+		  }
+	  
+	  public static ObservableList<TOEquipment> getEquipment() {
+	        List<Equipment> equipment = ClimbSafeApplication.getClimbSafe().getEquipment();
+	          
+	        List<TOEquipment> TOequipment = new ArrayList<>();
+	          
+	        for (int i = 0; i < equipment.size(); i++) {
+	            TOequipment.add(i, new TOEquipment(null, 0, 0) );
+	              
+	            if (equipment.get(i) != null) {
+	                TOequipment.get(i).setEquipmentName(equipment.get(i).getName());
+	                TOequipment.get(i).setWeight(equipment.get(i).getWeight());
+	                TOequipment.get(i).setPricePerWeek(equipment.get(i).getPricePerWeek());
+	                }
+	            }
+	        // as javafx works with observable list, we need to convert the java.util.List to
+	        // javafx.collections.observableList
+	        return FXCollections.observableList(TOequipment);
+	        }
+	  
+	  public static ObservableList<TOEquipmentBundle> getEquipmentBundles() {
+	        List<EquipmentBundle> equipmentBundles = ClimbSafeApplication.getClimbSafe().getBundles();
+	          
+	        List<TOEquipmentBundle> TOequipmentBundles = new ArrayList<>();
+	          
+	        for (int i = 0; i < equipmentBundles.size(); i++) {
+	            TOequipmentBundles.add(i, new TOEquipmentBundle(null, 0) );
+	              
+	            if (equipmentBundles.get(i) != null) {
+	                TOequipmentBundles.get(i).setEquipmentBundleName(equipmentBundles.get(i).getName());
+	                TOequipmentBundles.get(i).setDiscount(equipmentBundles.get(i).getDiscount());
+	                }
+	            }
+	        // as javafx works with observable list, we need to convert the java.util.List to
+	        // javafx.collections.observableList
+	        return FXCollections.observableList(TOequipmentBundles);
+	        }
+
+	
+	  
 	  public static ObservableList<TOGuide> getGuides() {
 		  List<Guide> guides = ClimbSafeApplication.getClimbSafe().getGuides();
 		    
@@ -101,6 +164,9 @@ public class ViewUtils {
 		  }
 
 	}
+
+
+
 
 
 @FunctionalInterface

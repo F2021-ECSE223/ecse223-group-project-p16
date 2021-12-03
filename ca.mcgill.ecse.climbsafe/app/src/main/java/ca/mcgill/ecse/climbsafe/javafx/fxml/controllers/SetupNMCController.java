@@ -65,10 +65,7 @@ public class SetupNMCController {
 		        	ViewUtils.makePopupWindow("Setup Successful","Season begins on " + date.toString() + " for " + String.valueOf(nrWeeks) + " week(s), with guide prices at " + String.valueOf(pricePerWeek) + " shillings per week.");
 		        	NumberOfWeeksTextField.setText("");
 		        	PriceOfGuidePerWeekTextField.setText("");
-		        	
-		        		
-
-		        
+		        	datePicker.setValue(null);
 		        };
 		      }
 	    }

@@ -75,14 +75,17 @@ public class GuideController {
     
     @FXML
     void updateGuide(ActionEvent event) {
-    	
+    	TOGuide guide = DeleteGuideBox.getValue();
 		String email = EmailTextField.getText();
 		String password = PasswordTextField.getText();
 		String name = UserNameTextField.getText();
 	    String emergencyContact = EmergencyContactTextField.getText();
 	    
-	    if (email == null || email.trim().isEmpty()) {
-	    	ViewUtils.showError("Please input a valid email address");
+	    if (guide == null) {
+	    	ViewUtils.showError("Please select a guide!");
+	    }
+	    if (!email.equals(guide.getGuideEmail())) {
+	    	ViewUtils.showError("You can not change the guide email!");
 	    } 
 	    else if (password == null || password.trim().isEmpty()) {
 	    	ViewUtils.showError("Please input a valid password");
@@ -103,6 +106,7 @@ public class GuideController {
 	    	  PasswordTextField.setText("");
 	    	  UserNameTextField.setText("");
 	    	  EmergencyContactTextField.setText("");
+	    	  DeleteGuideBox.setValue(null);
 	      }
 	    }
 
@@ -121,6 +125,11 @@ public class GuideController {
 	      // reset the driver text field if success
 	      if (ViewUtils.callController(() -> 
 	      ClimbSafeFeatureSet1Controller.deleteGuide(guide.getGuideEmail()))) {
+	    	  EmailTextField.setText("");
+	    	  PasswordTextField.setText("");
+	    	  UserNameTextField.setText("");
+	    	  EmergencyContactTextField.setText("");
+	    	  DeleteGuideBox.setValue(null);
 	    	  ViewUtils.makePopupWindow("Deletion Successful", "The following Guide has been deleted: " + guide.getGuideEmail());
 	      }
 	    }
