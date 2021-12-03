@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="Add Equipment Bundle">
+               <content>
+               	  <fx:include source="../pages/AddEquipmentBundle.fxml" />
+              </content>
+            </Tab>
+            <Tab text="Update Equipment Bundle">
+               <content>
+                  <fx:include source="../pages/UpdateEquipmentBundle.fxml" />
+               </content>
+            </Tab>
+            <Tab text="Delete Equipment Bundle">
+               <content>
+                  <fx:include source="../pages/DeleteEquipmentBundle.fxml" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</VBox>

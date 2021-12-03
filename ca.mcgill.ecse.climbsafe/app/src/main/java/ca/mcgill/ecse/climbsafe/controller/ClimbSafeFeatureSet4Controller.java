@@ -5,6 +5,8 @@ import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
 import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
+import javafx.collections.ObservableList;
+import java.util.*;
 
 /**
  * Here are the controller features for addEquipment and updateEquipment
@@ -138,7 +140,5 @@ public class ClimbSafeFeatureSet4Controller {
       throw new InvalidInputException(error);
     }
 	
-	  
-  }
-  
+	}
 }

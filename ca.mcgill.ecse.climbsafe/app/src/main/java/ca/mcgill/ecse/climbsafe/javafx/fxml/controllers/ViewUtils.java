@@ -1,11 +1,17 @@
 package ca.mcgill.ecse.climbsafe.javafx.fxml.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
-
+import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
 import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
+import ca.mcgill.ecse.climbsafe.controller.TOEquipment;
+import ca.mcgill.ecse.climbsafe.controller.TOEquipmentBundle;
 import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
+import ca.mcgill.ecse.climbsafe.model.BundleItem;
+import ca.mcgill.ecse.climbsafe.model.Equipment;
+import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -32,7 +38,7 @@ public class ViewUtils {
 	    }
 	    return false;
 	  }
-
+	  
 	  /** Calls the controller and returns true on success. This method is included for readability. */
 	  public static boolean successful(Executable controllerCall) {
 	    return callController(controllerCall);
@@ -77,8 +83,100 @@ public class ViewUtils {
 	    // javafx.collections.observableList
 	    return FXCollections.observableList(assignments);
 	  }
+	  
+	  public static ObservableList<TOEquipment> getEquipment() {
+        List<Equipment> equipment = ClimbSafeApplication.getClimbSafe().getEquipment();
+          
+        List<TOEquipment> TOequipment = new ArrayList<>();
+          
+        for (int i = 0; i < equipment.size(); i++) {
+            TOequipment.add(i, new TOEquipment(null, 0, 0) );
+              
+            if (equipment.get(i) != null) {
+                TOequipment.get(i).setEquipmentName(equipment.get(i).getName());
+                TOequipment.get(i).setWeight(equipment.get(i).getWeight());
+                TOequipment.get(i).setPricePerWeek(equipment.get(i).getPricePerWeek());
+                }
+            }
+        // as javafx works with observable list, we need to convert the java.util.List to
+        // javafx.collections.observableList
+        return FXCollections.observableList(TOequipment);
+        }
+	  
+	  /**
+	   * 
+	   * @author Samuel Valentine
+	   *
+	   */
+	  public static ObservableList<TOEquipment> getEquipmentForSpecificBundle(TOEquipmentBundle TObundle){
 
-	}
+
+        List<TOEquipment> TOequipment = new ArrayList<>();
+	    
+        List<EquipmentBundle> bundleList = ClimbSafeApplication.getClimbSafe().getBundles();
+        
+        for (EquipmentBundle bundle: bundleList) {
+          
+          if (bundle.getName().equals(TObundle.getEquipmentBundleName())) {
+            
+            
+              
+              List<BundleItem> bs =  bundle.getBundleItems();
+              
+              for (int i = 0; i < bs.size(); i++) {
+                
+                TOequipment.add(i, new TOEquipment(null, 0, 0) );
+                
+                if (bs.get(i) != null) {
+                    TOequipment.get(i).setEquipmentName(bs.get(i).getEquipment().getName());
+                    TOequipment.get(i).setWeight(bs.get(i).getEquipment().getWeight());
+                    TOequipment.get(i).setPricePerWeek(bs.get(i).getEquipment().getPricePerWeek());
+                    }
+                }
+              
+              break;
+                      
+          }
+          
+        }
+	    
+        System.out.println(TOequipment.size());
+        return FXCollections.observableList(TOequipment);
+        
+	  }
+	  
+	  
+	  public static List<String> getEquipmentNamesListFromTOEquipmentList(List<TOEquipment> TOEquipmentList) {
+
+        List<String> Names = new ArrayList<>();
+	    for (int i = 0; i < TOEquipmentList.size(); i++) {
+	      Names.add(TOEquipmentList.get(i).getEquipmentName());
+	    }
+	    
+	    return Names;
+	    
+	  }
+	  
+	  
+	  public static ObservableList<TOEquipmentBundle> getEquipmentBundles() {
+        List<EquipmentBundle> equipmentBundles = ClimbSafeApplication.getClimbSafe().getBundles();
+          
+        List<TOEquipmentBundle> TOequipmentBundles = new ArrayList<>();
+          
+        for (int i = 0; i < equipmentBundles.size(); i++) {
+            TOequipmentBundles.add(i, new TOEquipmentBundle(null, 0) );
+              
+            if (equipmentBundles.get(i) != null) {
+                TOequipmentBundles.get(i).setEquipmentBundleName(equipmentBundles.get(i).getName());
+                TOequipmentBundles.get(i).setDiscount(equipmentBundles.get(i).getDiscount());
+                }
+            }
+        // as javafx works with observable list, we need to convert the java.util.List to
+        // javafx.collections.observableList
+        return FXCollections.observableList(TOequipmentBundles);
+        }
+
+  }
 
 
 	@FunctionalInterface

@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -13,20 +14,33 @@
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label text="Equipment" />
-      <Button fx:id="AddEquipmentButton" mnemonicParsing="false" onAction="#addEquipment" text="Add" GridPane.columnIndex="2" />
-      <Button fx:id="DeleteEquipmentButton" mnemonicParsing="false" onAction="#deleteEquipment" text="Delete" GridPane.columnIndex="3" />
-      <ChoiceBox fx:id="EquipmentDropDownBar" onDragDetected="#showAllEquipments" onDragDone="#selectEquipment" GridPane.columnIndex="1" />
-      <Label text="Equipment Bundle" GridPane.rowIndex="1" />
-      <ChoiceBox fx:id="EquipmentBundleDropDownBar" onDragDetected="#showAllEquipmentBundles" onDragDone="#selectEquipmentBundle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Button fx:id="AddBundleButton" mnemonicParsing="false" onAction="#addEquipmentBundle" text="Add" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Button fx:id="DeleteBundleButton" mnemonicParsing="false" onAction="#deleteEquipmentBundle" text="Delete" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <Button fx:id="AddEquipmentButton" mnemonicParsing="false" onAction="#addEquipment" text="Add" GridPane.columnIndex="4" />
+      <Button fx:id="DeleteEquipmentButton" mnemonicParsing="false" onAction="#deleteEquipment" text="Delete" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+      <Label text="Equipment Bundle" GridPane.rowIndex="3" />
+      <ChoiceBox fx:id="EquipmentBundleDropDownBar" onDragDetected="#showAllEquipmentBundles" onDragDone="#selectEquipmentBundle" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+      <Button fx:id="AddEquipmentBundleButton" mnemonicParsing="false" onAction="#addEquipmentBundle" text="Add" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <Button fx:id="DeleteEquipmentBundleButton" mnemonicParsing="false" onAction="#deleteEquipmentBundle" text="Delete" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+      <TextField fx:id="EquipmentNameTextField" onAction="#enterEquipmentName" promptText="Name" GridPane.columnIndex="1" />
+      <TextField fx:id="EquipmentWeightTextField" onAction="#enterEquipmentWeight" promptText="Weight" GridPane.columnIndex="2" />
+      <TextField fx:id="EquipmentPricePerWeekTextField" onAction="#enterEquipmentPricePerWeek" promptText="Price per week" GridPane.columnIndex="3" />
+      <Button fx:id="UpdateEquipmentButton" mnemonicParsing="false" onAction="#updateEquipment" text="Update" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <ChoiceBox fx:id="EquipmentDropDownBar" onDragDetected="#showAllEquipments" onDragDone="#selectEquipment" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <Button fx:id="UpdateEquipmentBundleButton" mnemonicParsing="false" onAction="#updateEquipmentBundle" text="Update" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+      <TextField fx:id="EquipmentBundleNameTextField" onAction="#enterEquipmentBundleName" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextField fx:id="EquipmentBundleDiscountTextField" onAction="#enterEquipmentBundleDiscount" promptText="Discount" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="EquipmentOldNameTextField" onAction="#enterOldEquipmentName" promptText="Old Name" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <TextField fx:id="EquipmentBundleOldNameTextField" onAction="#enterOldEquipmentBundleName" promptText="Old Name" GridPane.columnIndex="3" GridPane.rowIndex="4" />
    </children>
 </GridPane>
