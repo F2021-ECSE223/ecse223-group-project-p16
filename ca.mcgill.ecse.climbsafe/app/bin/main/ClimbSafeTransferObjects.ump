@@ -12,7 +12,6 @@ class TOAssignment {
   Integer totalCostForEquipment;
 }
 
-
 class TOEquipment{
   equipmentName;
   Integer pricePerWeek;
