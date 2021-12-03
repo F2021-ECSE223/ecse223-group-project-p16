@@ -270,7 +270,9 @@ public class ViewAssignmentsController {
 			ViewUtils.showError("Please Choose a Member!");
 		} else {
 			callController(()->AssignmentController.pay(member.getMemberEmail(),authCode.getText()));
+			authCode.setText("");
 		}
+		
 	}
 	/**
 	 * @author Youssof Mohamed
