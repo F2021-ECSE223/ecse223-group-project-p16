@@ -81,7 +81,7 @@ public class ViewAssignmentsController {
 	    assignmentsTable.getColumns().add(startWeekColumn);
 	    var endWeekColumn = new TableColumn<TOAssignment, String>("End Week");
 	    endWeekColumn.setCellValueFactory(data -> Bindings.createStringBinding(
-	    		() -> Integer.toString(data.getValue().getStartWeek())));
+	    		() -> Integer.toString(data.getValue().getEndWeek())));
 	    assignmentsTable.getColumns().add(endWeekColumn);
 	    var guideCostColumn = new TableColumn<TOAssignment, String>("Guide Cost");
 	    guideCostColumn.setCellValueFactory(data -> Bindings.createStringBinding(
