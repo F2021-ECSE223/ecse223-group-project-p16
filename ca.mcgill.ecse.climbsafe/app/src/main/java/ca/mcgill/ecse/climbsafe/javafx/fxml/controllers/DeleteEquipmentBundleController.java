@@ -38,17 +38,22 @@ public class DeleteEquipmentBundleController {
     @FXML
     public void deleteBundle(ActionEvent event) {
         
-        String name = BundleChoiceBox.getValue().getEquipmentBundleName();
-        
-//         reset the driver text field if success
-        if (ViewUtils.successful(() -> 
-        
-        ClimbSafeFeatureSet6Controller.deleteEquipmentBundle(name))) {
-            ViewUtils.makePopupWindow("Deletion Successful", name + " has been deleted.");
-
-         
+        if (BundleChoiceBox.getValue() == null) {
+          ViewUtils.showError("Please choose a bundle to delete.");
         }
-        BundleChoiceBox.setValue(null);
+        else {
+          String name = BundleChoiceBox.getValue().getEquipmentBundleName();
+          
+  //         reset the driver text field if success
+          if (ViewUtils.successful(() -> 
+          
+          ClimbSafeFeatureSet6Controller.deleteEquipmentBundle(name))) {
+              ViewUtils.makePopupWindow("Deletion Successful", name + " has been deleted.");
+  
+           
+          }
+          BundleChoiceBox.setValue(null);
+        }
         
       
       

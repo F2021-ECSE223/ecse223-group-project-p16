@@ -7,6 +7,7 @@ import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
 import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
+import ca.mcgill.ecse.climbsafe.controller.TOBundleEquipment;
 import ca.mcgill.ecse.climbsafe.controller.TOEquipment;
 import ca.mcgill.ecse.climbsafe.controller.TOEquipmentBundle;
 import ca.mcgill.ecse.climbsafe.controller.TOGuide;
@@ -162,6 +163,7 @@ public class ViewUtils {
     List<String> Names = new ArrayList<>();
     for (int i = 0; i < TOEquipmentList.size(); i++) {
       Names.add(TOEquipmentList.get(i).getEquipmentName());
+      
     }
     
     return Names;
@@ -173,10 +175,10 @@ public class ViewUtils {
    * @author Samuel Valentine
    *
    */
-  public static ObservableList<TOEquipment> getEquipmentForSpecificBundle(TOEquipmentBundle TObundle){
+  public static List<TOBundleEquipment> getEquipmentForSpecificBundle(TOEquipmentBundle TObundle){
 
 
-    List<TOEquipment> TOequipment = new ArrayList<>();
+    List<TOBundleEquipment> TOBundleEquipment = new ArrayList<>();
     
     List<EquipmentBundle> bundleList = ClimbSafeApplication.getClimbSafe().getBundles();
     
@@ -190,12 +192,11 @@ public class ViewUtils {
           
           for (int i = 0; i < bs.size(); i++) {
             
-            TOequipment.add(i, new TOEquipment(null, 0, 0) );
+            TOBundleEquipment.add(i, new TOBundleEquipment(null, 0) );
             
             if (bs.get(i) != null) {
-                TOequipment.get(i).setEquipmentName(bs.get(i).getEquipment().getName());
-                TOequipment.get(i).setWeight(bs.get(i).getEquipment().getWeight());
-                TOequipment.get(i).setPricePerWeek(bs.get(i).getEquipment().getPricePerWeek());
+                TOBundleEquipment.get(i).setEquipmentName(bs.get(i).getEquipment().getName());
+                TOBundleEquipment.get(i).setQuantity(1);
                 }
             }
           
@@ -205,9 +206,12 @@ public class ViewUtils {
       
     }
     
-    return FXCollections.observableList(TOequipment);
-    
+
+
+    return (TOBundleEquipment);
   }
+  
+  
 
   public static ObservableList<TOGuide> getGuides() {
     List<Guide> guides = ClimbSafeApplication.getClimbSafe().getGuides();

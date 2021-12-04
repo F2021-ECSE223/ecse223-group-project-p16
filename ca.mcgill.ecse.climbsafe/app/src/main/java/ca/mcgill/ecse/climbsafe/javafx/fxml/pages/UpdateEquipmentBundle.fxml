@@ -22,7 +22,8 @@
   <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -31,9 +32,9 @@
   </rowConstraints>
    <children>
       <ChoiceBox fx:id="BundleChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <TableView fx:id="EquipmentTable" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="3" />
+      <TableView fx:id="EquipmentTable" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="3" />
       <Label text="Select Bundle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Button fx:id="RemoveEquipmentButton" mnemonicParsing="false" onAction="#removeEquipment" text="Remove Equipment From Bundle" GridPane.columnIndex="3" GridPane.rowIndex="2">
+      <Button fx:id="RemoveEquipmentButton" mnemonicParsing="false" onAction="#removeEquipment" text="Remove Equipment From Bundle" GridPane.columnIndex="1" GridPane.rowIndex="8">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin></Button>
@@ -41,25 +42,26 @@
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin></Button>
-      <ChoiceBox fx:id="SelectEquipmentToRemoveChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <ChoiceBox fx:id="SelectEquipmentToAddChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <TextField fx:id="EquipmentQuantityTextBoxToRemove" promptText="Equipment Quantity" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <ChoiceBox fx:id="SelectEquipmentToAddChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin></ChoiceBox>
       <TextField fx:id="EquipmentQuantityTextBoxToAdd" promptText="Equipment Quantity" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Button fx:id="UpdateBundleButton" mnemonicParsing="false" onAction="#updateBundle" text="Update Bundle" GridPane.columnIndex="3" GridPane.rowIndex="6">
+      <Button fx:id="UpdateBundleButton" mnemonicParsing="false" onAction="#updateBundle" text="Update Bundle" GridPane.columnIndex="4" GridPane.rowIndex="8">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin></Button>
-      <Button fx:id="RefreshTableButton" mnemonicParsing="false" onAction="#refreshTable" text="Refresh" GridPane.columnIndex="3" GridPane.rowIndex="4">
+      <Button fx:id="RefreshTableButton" mnemonicParsing="false" onAction="#refreshTable" text="Set to Table" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin>
       </Button>
-      <TextField fx:id="NewNameTextField" promptText="New Name" GridPane.columnIndex="3" GridPane.rowIndex="5">
+      <TextField fx:id="NewNameTextField" promptText="New Name" GridPane.columnIndex="4" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin>
       </TextField>
-      <TextField fx:id="NewDiscountTextField" promptText="New Discount" GridPane.columnIndex="4" GridPane.rowIndex="5">
+      <TextField fx:id="NewDiscountTextField" promptText="New Discount" GridPane.columnIndex="4" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin>
