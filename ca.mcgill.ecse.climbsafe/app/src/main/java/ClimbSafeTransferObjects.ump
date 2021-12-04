@@ -29,6 +29,12 @@ class TOEquipment{
   
 }
 
+class TOBundleEquipment{
+  equipmentName;
+  Integer quantity;
+ 
+}
+
 class TOEquipmentBundle {
   equipmentBundleName;
   Integer discount;

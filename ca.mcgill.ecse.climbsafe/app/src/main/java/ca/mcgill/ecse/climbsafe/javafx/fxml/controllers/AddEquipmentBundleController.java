@@ -3,6 +3,7 @@ package ca.mcgill.ecse.climbsafe.javafx.fxml.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet5Controller;
+import ca.mcgill.ecse.climbsafe.controller.TOBundleEquipment;
 import ca.mcgill.ecse.climbsafe.controller.TOEquipment;
 import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
 import javafx.event.ActionEvent;
@@ -16,8 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class AddEquipmentBundleController {
   
-    private List<TOEquipment> Equipments = new ArrayList<TOEquipment>();
-    private List<Integer> EquipmentQuantities = new ArrayList<Integer>();
+
+    private List<TOBundleEquipment> bes = new ArrayList<TOBundleEquipment>();
   
     @FXML
     private TextField BundleNameTextField;
@@ -32,7 +33,7 @@ public class AddEquipmentBundleController {
     @FXML
     private Button AddEquipmentToBundleButton;
     @FXML
-    private TableView<TOEquipment> EquipmentTable;
+    private TableView<TOBundleEquipment> EquipmentTable;
     
     /**
      * 
@@ -53,20 +54,9 @@ public class AddEquipmentBundleController {
       ClimbSafeFxmlView.getInstance().registerRefreshEvent(EquipmentTable);
       
       
-      
       EquipmentTable.getColumns().add(createTableColumn("Equipment", "equipmentName"));
-//      
-//      TableColumn quantityColumn = new TableColumn("Quantity");
-//      quantityColumn.setCellFactory(String);
-//      
-//      
-//            
-//      nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-//
-//      TableColumn surnameColumn = new TableColumn("Surname");
-//      surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
-//
-//      tab.getColumns().addAll(nameColumn, surnameColumn);
+      EquipmentTable.getColumns().add(createTableColumn("Quantity", "quantity"));
+
     }
     
     /**
@@ -74,11 +64,39 @@ public class AddEquipmentBundleController {
      * @author Samuel Valentine
      *
      */
-    public static TableColumn<TOEquipment, String> createTableColumn(String header, String propertyName) {
-           TableColumn<TOEquipment, String> column = new TableColumn<>(header);
+    public static TableColumn<TOBundleEquipment, String> createTableColumn(String header, String propertyName) {
+           TableColumn<TOBundleEquipment, String> column = new TableColumn<>(header);
            column.setCellValueFactory(new PropertyValueFactory<>(propertyName));
            return column;
        }
+    
+    /**
+     * 
+     * @author Samuel Valentine
+     * 
+     */
+    public List<String> getBeNames(){
+
+      List<String> beNames = new ArrayList<String>();
+      for (TOBundleEquipment be : bes) {
+        beNames.add(be.getEquipmentName());
+      }
+      return beNames;
+    }
+    
+    /**
+     * 
+     * @author Samuel Valentine
+     * 
+     */
+    public List<Integer> getBeQuantities(){
+      
+      List<Integer> beQuantities = new ArrayList<Integer>();
+      for (TOBundleEquipment be : bes) {
+        beQuantities.add(Integer.valueOf(be.getQuantity()));
+      }
+      return beQuantities;
+    }
 
     /**
      * 
@@ -102,16 +120,19 @@ public class AddEquipmentBundleController {
         if (ViewUtils.successful(() -> 
         
         
-        ClimbSafeFeatureSet5Controller.addEquipmentBundle(name, Integer.parseInt(discount), ViewUtils.getEquipmentNamesListFromTOEquipmentList(Equipments), EquipmentQuantities))) {
+        ClimbSafeFeatureSet5Controller.addEquipmentBundle(name, Integer.parseInt(discount), getBeNames(), getBeQuantities()))) {
             ViewUtils.makePopupWindow("Registration Successful", name + " has been registered as an equipment bundle.");
+            
+            BundleNameTextField.setText("");
+            DiscountTextField.setText("");
+            EquipmentQuantityTextField.setText("");
+            EquipmentTable.getItems().clear();
+            EquipmentChoiceBox.setValue(null);
+            bes.clear();
 
          
         }
-        BundleNameTextField.setText("");
-        DiscountTextField.setText("");
-        EquipmentQuantityTextField.setText("");
-        EquipmentTable.getItems().clear();
-        EquipmentChoiceBox.setValue(null);
+        
       }
     }
     
@@ -122,18 +143,47 @@ public class AddEquipmentBundleController {
      */
     @FXML
     public void addEquipmentToBundle(ActionEvent event) {
-
-      EquipmentTable.getItems().add(EquipmentChoiceBox.getValue());
-//    
-//    if (Equipments == null ) {
-//      Equipments = 
-//    }
       
-      Equipments.add(EquipmentChoiceBox.getValue());
-      EquipmentQuantities.add(Integer.valueOf(EquipmentQuantityTextField.getText()));
-      
-      EquipmentQuantityTextField.setText("");
-      EquipmentChoiceBox.setValue(null);
+      if (EquipmentChoiceBox.getValue() == null) {
+        ViewUtils.showError("Please choose an equipment to add.");
+      }
+      else if (EquipmentQuantityTextField.getText().isEmpty()) {
+        ViewUtils.showError("Please choose a quantity.");        
+      }
+      else {
+        
+        if (getBeNames().contains(EquipmentChoiceBox.getValue().getEquipmentName())) {
+          
+          for (TOBundleEquipment b : bes) {
+            
+            if (b.getEquipmentName().equals(EquipmentChoiceBox.getValue().getEquipmentName())) {
+              
+              b.setQuantity(b.getQuantity() + Integer.valueOf(EquipmentQuantityTextField.getText()));
+              
+              EquipmentTable.getItems().set(bes.indexOf(b), b);
+              
+              break;
+              
+            }
+            
+          }
+          
+        }
+        
+        else {
+        
+          TOBundleEquipment be = new TOBundleEquipment(EquipmentChoiceBox.getValue().getEquipmentName(), Integer.valueOf(EquipmentQuantityTextField.getText()));
+          
+          EquipmentTable.getItems().add(be);
+          
+          bes.add(be);
+          
+        }
+        
+        
+        EquipmentQuantityTextField.setText("");
+        EquipmentChoiceBox.setValue(null);
+      }
       
       
     }

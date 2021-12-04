@@ -84,13 +84,15 @@ public class ClimbSafeFeatureSet5Controller {
         for (int i = 0; i < equipmentNames.size(); i++) {
           
           // Find the existing equipment with the same name as the passed name
-          Equipment matchedEquipment = null;
-          for (Equipment equipment: climbSafe.getEquipment()) {
-            if (equipment.getName().toString().equals( equipmentNames.get(i).toString())){
-              matchedEquipment = equipment;
-              break;
-            }
-          } 
+//          Equipment matchedEquipment = null;
+//          for (Equipment equipment: climbSafe.getEquipment()) {
+//            if (equipment.getName().toString().equals( equipmentNames.get(i).toString())){
+//              matchedEquipment = equipment;
+//              break;
+//            }
+//          } 
+          
+          Equipment matchedEquipment = (Equipment) Equipment.getWithName(equipmentNames.get(i).toString());
           
           // Attempt to add the equipment to the bundle
           BundleItem bundleItem = climbSafe.addBundleItem(equipmentQuantities.get(i), equipmentBundle, matchedEquipment);
@@ -100,7 +102,7 @@ public class ClimbSafeFeatureSet5Controller {
         }
       } 
       catch (RuntimeException e) {
-        throw new InvalidInputException(error);
+        throw new InvalidInputException(e.getMessage());
     }
   }
  

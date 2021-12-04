@@ -3,9 +3,11 @@ package ca.mcgill.ecse.climbsafe.javafx.fxml.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet5Controller;
+import ca.mcgill.ecse.climbsafe.controller.TOBundleEquipment;
 import ca.mcgill.ecse.climbsafe.controller.TOEquipment;
 import ca.mcgill.ecse.climbsafe.controller.TOEquipmentBundle;
 import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,13 +24,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class UpdateEquipmentBundleController {
   
-    private List<TOEquipment> Equipments = new ArrayList<TOEquipment>();
-    private List<Integer> EquipmentQuantities = new ArrayList<Integer>();
-  
+  private List<TOBundleEquipment> bes = new ArrayList<TOBundleEquipment>();
+//  
     @FXML
     private ChoiceBox<TOEquipmentBundle> BundleChoiceBox;
     @FXML
-    private TableView<TOEquipment> EquipmentTable;
+    private TableView<TOBundleEquipment> EquipmentTable;
     @FXML
     private Button RemoveEquipmentButton;
     @FXML
@@ -38,13 +39,9 @@ public class UpdateEquipmentBundleController {
     @FXML
     private TextField EquipmentQuantityTextBoxToAdd;
     @FXML
-    private TextField EquipmentQuantityTextBoxToRemove;
-    @FXML
     private TextField NewNameTextField;
     @FXML
     private TextField NewDiscountTextField;
-    @FXML
-    private ChoiceBox<TOEquipment> SelectEquipmentToRemoveChoiceBox;
     @FXML
     private ChoiceBox<TOEquipment> SelectEquipmentToAddChoiceBox;
     @FXML
@@ -69,10 +66,10 @@ public class UpdateEquipmentBundleController {
       });
       
       EquipmentTable.getColumns().add(createTableColumn("Equipment", "equipmentName"));
+      EquipmentTable.getColumns().add(createTableColumn("Quantity", "quantity"));
       
       ClimbSafeFxmlView.getInstance().registerRefreshEvent(BundleChoiceBox);
       ClimbSafeFxmlView.getInstance().registerRefreshEvent(SelectEquipmentToAddChoiceBox);
-      ClimbSafeFxmlView.getInstance().registerRefreshEvent(SelectEquipmentToRemoveChoiceBox);
       ClimbSafeFxmlView.getInstance().registerRefreshEvent(EquipmentTable);
       
     }
@@ -80,8 +77,8 @@ public class UpdateEquipmentBundleController {
     /**
      * @author Samuel Valentine
      */
-    public static TableColumn<TOEquipment, String> createTableColumn(String header, String propertyName) {
-       TableColumn<TOEquipment, String> column = new TableColumn<>(header);
+    public static TableColumn<TOBundleEquipment, String> createTableColumn(String header, String propertyName) {
+       TableColumn<TOBundleEquipment, String> column = new TableColumn<>(header);
        column.setCellValueFactory(new PropertyValueFactory<>(propertyName));
        return column;
    }
@@ -91,13 +88,22 @@ public class UpdateEquipmentBundleController {
      */
     @FXML
     public void removeEquipment(ActionEvent event) {
-      EquipmentTable.getItems().remove(SelectEquipmentToRemoveChoiceBox.getValue().getEquipmentName());
       
-      Equipments.remove(SelectEquipmentToRemoveChoiceBox.getValue());
-      EquipmentQuantities.remove(Integer.valueOf(EquipmentQuantityTextBoxToRemove.getText()));
-      EquipmentQuantityTextBoxToRemove.setText("");
-      SelectEquipmentToRemoveChoiceBox.setValue(null);
+      if (EquipmentTable.getSelectionModel().getSelectedItem() == null) {
+        
+        ViewUtils.showError("Please select an item from the table that you would like to remove.");
+        
+      }
+      else {
+        TOBundleEquipment be = new TOBundleEquipment(EquipmentTable.getSelectionModel().getSelectedItem().getEquipmentName(),(EquipmentTable.getSelectionModel().getSelectedItem().getQuantity()));
+       
+        EquipmentTable.getItems().removeAll(EquipmentTable.getSelectionModel().getSelectedItem());
+        
+        
+        bes.clear();
+        bes.addAll(EquipmentTable.getItems());
       
+      }
     }
     
     /**
@@ -106,13 +112,77 @@ public class UpdateEquipmentBundleController {
     @FXML
     public void addEquipment(ActionEvent event) {
       
-      EquipmentTable.getItems().add(SelectEquipmentToAddChoiceBox.getValue());
+      if (SelectEquipmentToAddChoiceBox.getValue() == null) {
+        ViewUtils.showError("Please choose an equipment to add.");
+      }
+      else if (EquipmentQuantityTextBoxToAdd.getText().isEmpty()) {
+        ViewUtils.showError("Please choose a quantity.");        
+      }
+      else {
+        
+        if (getBeNames().contains(SelectEquipmentToAddChoiceBox.getValue().getEquipmentName())) {
+          
+          for (TOBundleEquipment b : bes) {
+            
+            if (b.getEquipmentName().equals(SelectEquipmentToAddChoiceBox.getValue().getEquipmentName())) {
+              
+              b.setQuantity(b.getQuantity() + Integer.valueOf(EquipmentQuantityTextBoxToAdd.getText()));
+              
+              EquipmentTable.getItems().set(bes.indexOf(b), b);
+              
+              break;
+              
+            }
+            
+          }
+          
+        }
+        
+        else {
+        
+          TOBundleEquipment be = new TOBundleEquipment(SelectEquipmentToAddChoiceBox.getValue().getEquipmentName(), Integer.valueOf(EquipmentQuantityTextBoxToAdd.getText()));
+          
+          EquipmentTable.getItems().add(be);
+          
+          bes.add(be);
+          
+        }
+        
+        
+        EquipmentQuantityTextBoxToAdd.setText("");
+        SelectEquipmentToAddChoiceBox.setValue(null);
+      }
       
-      Equipments.add(SelectEquipmentToAddChoiceBox.getValue());
-      EquipmentQuantities.add(Integer.valueOf(EquipmentQuantityTextBoxToAdd.getText()));
-      EquipmentQuantityTextBoxToAdd.setText("");
-      SelectEquipmentToAddChoiceBox.setValue(null);
     }
+    
+    /**
+     * 
+     * @author Samuel Valentine
+     * 
+     */
+    public List<String> getBeNames(){
+
+      List<String> beNames = new ArrayList<String>();
+      for (TOBundleEquipment be : bes) {
+        beNames.add(be.getEquipmentName());
+      }
+      return beNames;
+    }
+    
+    /**
+     * 
+     * @author Samuel Valentine
+     * 
+     */
+    public List<Integer> getBeQuantities(){
+      
+      List<Integer> beQuantities = new ArrayList<Integer>();
+      for (TOBundleEquipment be : bes) {
+        beQuantities.add(Integer.valueOf(be.getQuantity()));
+      }
+      return beQuantities;
+    }
+    
     
     /**
      * @author Samuel Valentine
@@ -120,23 +190,30 @@ public class UpdateEquipmentBundleController {
     @FXML
     public void updateBundle(ActionEvent event) {
       
-      String oldName = BundleChoiceBox.getValue().getEquipmentBundleName();
-      String newName = NewNameTextField.getText();
-      String discount = NewDiscountTextField.getText();
       
-      if (newName == null || newName.trim().isEmpty()) {
-          ViewUtils.showError("Please input a valid name");
+      
+      
+      if (NewNameTextField.getText() == null || NewNameTextField.getText().trim().isEmpty()) {
+          ViewUtils.showError("Please input a valid name.");
       } 
-      else if (discount == null || discount.trim().isEmpty() || (Integer.valueOf(discount) < 0)) {
-          ViewUtils.showError("Please input a valid discount");
+      else if (NewDiscountTextField.getText() == null || NewDiscountTextField.getText().trim().isEmpty() || (Integer.valueOf(NewDiscountTextField.getText()) < 0)) {
+          ViewUtils.showError("Please input a valid discount.");
       }
+      else if (BundleChoiceBox.getValue() == null) {
+          ViewUtils.showError("Please select a bundle.");
+      } 
+       
       else {
-
+        String newName = NewNameTextField.getText();
+        String oldName = BundleChoiceBox.getValue().getEquipmentBundleName();
+        String discount = NewDiscountTextField.getText();
+        
+        
 //         reset the driver text field if success
         if (ViewUtils.successful(() -> 
         
         
-        ClimbSafeFeatureSet5Controller.updateEquipmentBundle(oldName, newName, Integer.parseInt(discount), ViewUtils.getEquipmentNamesListFromTOEquipmentList(Equipments), EquipmentQuantities))) {
+        ClimbSafeFeatureSet5Controller.updateEquipmentBundle(oldName, newName, Integer.parseInt(discount), getBeNames(), getBeQuantities()))) {
             ViewUtils.makePopupWindow("Registration Successful", newName + " has been updated.");
 
          
@@ -144,9 +221,8 @@ public class UpdateEquipmentBundleController {
         NewNameTextField.setText("");
         NewDiscountTextField.setText("");
         EquipmentQuantityTextBoxToAdd.setText("");
-        EquipmentQuantityTextBoxToRemove.setText("");
-//        EquipmentTable.getItems().clear();
         BundleChoiceBox.setValue(null);
+        bes.clear();
       }
     }
     
@@ -154,20 +230,24 @@ public class UpdateEquipmentBundleController {
      * @author Samuel Valentine
      */
     @FXML
-    public void setTable(ActionEvent event) {
-      System.out.println("helloooo");
-    }
-    
-    /**
-     * @author Samuel Valentine
-     */
-    @FXML
     public void refreshTable(ActionEvent event) {
+      
+      if (BundleChoiceBox.getValue() == null) {
+        ViewUtils.showError("Please choose a bundle to set to the table.");
+      }
+      else {
+        
+      
+      
       EquipmentTable.getItems().clear();
      
-      EquipmentTable.getItems().setAll(ViewUtils.getEquipmentForSpecificBundle(BundleChoiceBox.getValue()));
+      EquipmentTable.getItems().setAll(FXCollections.observableList(ViewUtils.getEquipmentForSpecificBundle(BundleChoiceBox.getValue())));
       
-      SelectEquipmentToRemoveChoiceBox.setItems(ViewUtils.getEquipmentForSpecificBundle(BundleChoiceBox.getValue()));
+//      String bundleName = BundleChoiceBox.getValue().getEquipmentBundleName();
+      
+      bes.addAll(ViewUtils.getEquipmentForSpecificBundle(BundleChoiceBox.getValue()));
+      }
+//      SelectEquipmentToRemoveChoiceBox.setItems(ViewUtils.getEquipmentForSpecificBundle(BundleChoiceBox.getValue()));
     }
     
 }
