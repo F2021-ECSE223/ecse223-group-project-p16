@@ -179,7 +179,7 @@ public class ViewAssignmentsController {
         		setTextFill(Color.BLACK);
         		if(row.getItem()!=null) {
         			Member member = (Member) Member.getWithEmail(row.getItem().getMemberEmail());
-        			if (member.getBookedItems().size()>0) {
+        			if (member.getBookedItems().size()<0) {
         				setText("NO EQUIPMENTS");
         				setTextFill(Color.GREY);
         			}
