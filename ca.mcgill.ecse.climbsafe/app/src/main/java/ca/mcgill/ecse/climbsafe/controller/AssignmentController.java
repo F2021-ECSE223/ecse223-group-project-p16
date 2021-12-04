@@ -31,6 +31,7 @@ public class AssignmentController {
      
       List<Member> members = climbSafe.getMembers();
       List<Guide> guides = climbSafe.getGuides();
+      int lastAssignedWeek = 1;
       
       try {
         
@@ -61,6 +62,8 @@ public class AssignmentController {
                   
                   guideWeeks -= memberWeeksNumber;
                   
+                  lastAssignedWeek = currentWeek;
+                  
                   ClimbSafePersistence.save();
                 }
                 
@@ -85,13 +88,17 @@ public class AssignmentController {
         
       
       for (Member member : members) {
-        
-        if (member.getAssignment() == null) {
+        if (member.getAssignment() == null && member.getGuideRequired()) {
         
           error = "Assignments could not be completed for all members";
           break;
           
-        }
+        } else if(member.getAssignment()==null && !member.getGuideRequired()){
+        	climbSafe.addAssignment(lastAssignedWeek, lastAssignedWeek+member.getNrWeeks()-1, member);
+        	System.out.println(lastAssignedWeek+member.getNrWeeks()-1);
+        	lastAssignedWeek+=member.getNrWeeks();
+        	ClimbSafePersistence.save();
+        	}
         
       }
       
