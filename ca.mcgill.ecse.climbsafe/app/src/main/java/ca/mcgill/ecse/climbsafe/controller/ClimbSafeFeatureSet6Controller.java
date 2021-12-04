@@ -124,6 +124,7 @@ public class ClimbSafeFeatureSet6Controller {
 			  
 		  }
 		  toAss.get(i).setAuthorizationCode(assignments.get(i).getAuthCode());
+		  toAss.get(i).setRefundedPercentageAmount(assignments.get(i).getRefundPercent());
 		  
 		  //Copies guide email & name (if they exist) to new assignment
 		  if (assignments.get(i).getGuide() != null) toAss.get(i).setGuideEmail(assignments.get(i).getGuide().getEmail());

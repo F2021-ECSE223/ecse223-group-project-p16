@@ -81,7 +81,7 @@ public class ViewAssignmentsController {
 	    assignmentsTable.getColumns().add(startWeekColumn);
 	    var endWeekColumn = new TableColumn<TOAssignment, String>("End Week");
 	    endWeekColumn.setCellValueFactory(data -> Bindings.createStringBinding(
-	    		() -> Integer.toString(data.getValue().getStartWeek())));
+	    		() -> Integer.toString(data.getValue().getEndWeek())));
 	    assignmentsTable.getColumns().add(endWeekColumn);
 	    var guideCostColumn = new TableColumn<TOAssignment, String>("Guide Cost");
 	    guideCostColumn.setCellValueFactory(data -> Bindings.createStringBinding(
@@ -168,6 +168,21 @@ public class ViewAssignmentsController {
         				setText("NO");
 //        				setTextFill(Color.ORANGE);
         			}else setText("YES");
+        		} 
+        	}
+        });
+         equipmentCostColumn.setCellFactory(col -> new TableCell<>() {
+        	@Override public void updateItem(String item, boolean empty) {
+        		super.updateItem(item, empty);
+        		var row = getTableRow();
+        		setText(item);
+        		setTextFill(Color.BLACK);
+        		if(row.getItem()!=null) {
+        			Member member = (Member) Member.getWithEmail(row.getItem().getMemberEmail());
+        			if (member.getBookedItems().size()<0) {
+        				setText("NO EQUIPMENTS");
+        				setTextFill(Color.GREY);
+        			}
         		} 
         	}
         });
@@ -270,7 +285,9 @@ public class ViewAssignmentsController {
 			ViewUtils.showError("Please Choose a Member!");
 		} else {
 			callController(()->AssignmentController.pay(member.getMemberEmail(),authCode.getText()));
+			authCode.setText("");
 		}
+		
 	}
 	/**
 	 * @author Youssof Mohamed
