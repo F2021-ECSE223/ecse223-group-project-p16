@@ -34,73 +34,84 @@ public class AssignmentController {
       int lastAssignedWeek = 1;
       
       try {
-        
-        for (Guide guide: guides) {
-          
-          int seasonWeeks = climbSafe.getNrWeeks();
-          
-          int guideWeeks = seasonWeeks;
-          
-          int currentWeek = 1;
-          
-          for (Member member: members) {
-            
-            // if we have not assigned it yet
-            if (member.getAssignment() == null) {
-              
-              int memberWeeksNumber = member.getNrWeeks();
-              
-              if (member.getGuideRequired()) {             
-               
-                if (memberWeeksNumber <= guideWeeks) {
+        if(guides.size()>0) {
+        	for (Guide guide: guides) {
+                
+                int seasonWeeks = climbSafe.getNrWeeks();
+                
+                int guideWeeks = seasonWeeks;
+                
+                int currentWeek = 1;
+                
+                for (Member member: members) {
                   
-                  Assignment assignment = climbSafe.addAssignment(currentWeek, currentWeek+memberWeeksNumber-1, member);
+                  // if we have not assigned it yet
+                  if (member.getAssignment() == null) {
+                    
+                    int memberWeeksNumber = member.getNrWeeks();
+                    
+                    if (member.getGuideRequired()) {             
+                     
+                      if (memberWeeksNumber <= guideWeeks) {
+                        
+                        Assignment assignment = climbSafe.addAssignment(currentWeek, currentWeek+memberWeeksNumber-1, member);
+                        
+                        guide.addAssignment(assignment);
+                        
+                        currentWeek += memberWeeksNumber;
+                        
+                        guideWeeks -= memberWeeksNumber;
+                        
+                        lastAssignedWeek = currentWeek;
+                        
+                        ClimbSafePersistence.save();
+                      }
+                      
+                    }
+                    
+                    else {
+                      
+                      climbSafe.addAssignment(1, memberWeeksNumber, member);
+                      ClimbSafePersistence.save();
+                    }
+                    
+                  }
                   
-                  guide.addAssignment(assignment);
-                  
-                  currentWeek += memberWeeksNumber;
-                  
-                  guideWeeks -= memberWeeksNumber;
-                  
-                  lastAssignedWeek = currentWeek;
-                  
-                  ClimbSafePersistence.save();
                 }
-                
-              }
               
-              else {
-                
-                climbSafe.addAssignment(1, memberWeeksNumber, member);
-                ClimbSafePersistence.save();
-              }
-              
+              } 
+            } else {
+              	for (Member member : members) {
+                    if (member.getAssignment() == null && !member.getGuideRequired()) {
+                    
+                    	climbSafe.addAssignment(lastAssignedWeek, lastAssignedWeek+member.getNrWeeks()-1, member);
+                    	lastAssignedWeek+=member.getNrWeeks();
+                    	ClimbSafePersistence.save();
+                      
+                    }  
+              	}
+                    
             }
+      	}
             
-          }
-        
+        catch(RuntimeException e) {
+           throw new InvalidInputException(e.getMessage());
         }
-      }
-      
-      catch(RuntimeException e) {
-         throw new InvalidInputException(e.getMessage());
-      }
         
-      
       for (Member member : members) {
-        if (member.getAssignment() == null && member.getGuideRequired()) {
+      	if (member.getAssignment() == null) {
+      		
+      		error = "Assignments could not be completed for all members";
+      		break;
+      		
+      	}  
+      
+    }
+    
         
-          error = "Assignments could not be completed for all members";
-          break;
-          
-        } else if(member.getAssignment()==null && !member.getGuideRequired()){
-        	climbSafe.addAssignment(lastAssignedWeek, lastAssignedWeek+member.getNrWeeks()-1, member);
-        	System.out.println(lastAssignedWeek+member.getNrWeeks()-1);
-        	lastAssignedWeek+=member.getNrWeeks();
-        	ClimbSafePersistence.save();
-        	}
         
-      }
+      
+      
       
       if(!error.isEmpty()) {
         
