@@ -98,7 +98,7 @@ public class MemberController {
 		    else {
 		      // reset the driver text field if success
 		      if (ViewUtils.callController(() -> 
-		      ClimbSafeFeatureSet2Controller.registerMember(email, password, name, emergencyContact, nrWeeks, requiresHotel, requiresGuide, memberEquipment, memberQuantity))) {
+		      ClimbSafeFeatureSet2Controller.registerMember(email, password, name, emergencyContact, nrWeeks, requiresGuide, requiresHotel, memberEquipment, memberQuantity))) {
 		    	  ViewUtils.makePopupWindow("Registration Successful", name + " has been registered as a Member.");
 		    	  
 		    	  EmailTextField.setText("");
@@ -193,7 +193,7 @@ public class MemberController {
 		    else {
 		      // reset the driver text field if success
 		      if (ViewUtils.callController(() -> 
-		      ClimbSafeFeatureSet2Controller.updateMember(email, password, name, emergencyContact, nrWeeks, requiresHotel, requiresGuide, memberEquipment, memberQuantity))) {
+		      ClimbSafeFeatureSet2Controller.updateMember(email, password, name, emergencyContact, nrWeeks, requiresGuide, requiresHotel, memberEquipment, memberQuantity))) {
 		    	  ViewUtils.makePopupWindow("Update Successful", name + " has been updated as a Member.");
 		    	  
 		    	  EmailTextField.setText("");
