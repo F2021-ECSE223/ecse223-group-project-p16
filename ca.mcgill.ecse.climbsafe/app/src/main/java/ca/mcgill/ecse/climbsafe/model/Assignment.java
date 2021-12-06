@@ -9,7 +9,7 @@ import ca.mcgill.ecse.climbsafe.model.Member.MemberStatus;
 /**
  * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
  */
-// line 107 "../../../../../ClimbSafePersistence.ump"
+// line 109 "../../../../../ClimbSafePersistence.ump"
 // line 3 "../../../../../ClimbSafeStates.ump"
 // line 94 "../../../../../ClimbSafe.ump"
 public class Assignment implements Serializable
@@ -699,7 +699,7 @@ public class Assignment implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 110 "../../../../../ClimbSafePersistence.ump"
+  // line 112 "../../../../../ClimbSafePersistence.ump"
   private static final long serialVersionUID = 11L ;
 
   

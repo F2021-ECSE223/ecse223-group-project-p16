@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
-import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
