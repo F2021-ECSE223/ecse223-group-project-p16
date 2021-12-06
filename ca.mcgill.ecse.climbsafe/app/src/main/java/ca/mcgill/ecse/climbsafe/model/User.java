@@ -5,8 +5,8 @@ package ca.mcgill.ecse.climbsafe.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 94 "../../../../../ClimbSafePersistence.ump"
-// line 21 "../../../../../ClimbSafe.ump"
+// line 16 "../../../../../ClimbSafePersistence.ump"
+// line 23 "../../../../../ClimbSafe.ump"
 public abstract class User implements Serializable
 {
 
@@ -93,19 +93,18 @@ public abstract class User implements Serializable
     usersByEmail.remove(getEmail());
   }
 
-  // line 100 "../../../../../ClimbSafePersistence.ump"
-   public static  void reinitializeUserByEmail(Administrator admin, List<Member> members, List<Guide> guides){
+  // line 22 "../../../../../ClimbSafePersistence.ump"
+   public static  void reinitializeUniqueEmail(Administrator admin, List<Guide> guides, List<Member> members){
     usersByEmail = new HashMap<String, User>();
-		usersByEmail.put(admin.getEmail(), admin);
-		for (Member member : members){
-			User user = (User) member;
-			usersByEmail.put(member.getEmail(), user);
-		}
-		
-		for (Guide guide: guides){
-			User user = (User) guide;
-			usersByEmail.put(guide.getEmail(), user);
-		}
+    if(admin != null){
+    	usersByEmail.put(admin.getEmail(), admin);
+    }
+    for (Guide guide : guides) {
+      usersByEmail.put(guide.getEmail(), guide);
+    }
+    for (Member member : members) {
+      usersByEmail.put(member.getEmail(), member);
+    }
   }
 
 
@@ -119,8 +118,8 @@ public abstract class User implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 97 "../../../../../ClimbSafePersistence.ump"
-  private static final long serialVersionUID = 8396063481655949380L ;
+  // line 19 "../../../../../ClimbSafePersistence.ump"
+  private static final long serialVersionUID = 2L ;
 
   
 }

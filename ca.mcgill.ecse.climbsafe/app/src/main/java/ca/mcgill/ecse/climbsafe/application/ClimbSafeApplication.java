@@ -3,9 +3,9 @@
  */
 package ca.mcgill.ecse.climbsafe.application;
 
-import java.sql.Date;
 import ca.mcgill.ecse.climbsafe.javafx.fxml.main.ClimbSafeFxmlView;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
+import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
 import javafx.application.Application;
 
 public class ClimbSafeApplication {
@@ -17,7 +17,6 @@ public class ClimbSafeApplication {
 
   public static void main(String[] args) {
     System.out.println(new ClimbSafeApplication().getGreeting());
-    
     Application.launch(ClimbSafeFxmlView.class, args);
     
   }
@@ -25,7 +24,7 @@ public class ClimbSafeApplication {
   public static ClimbSafe getClimbSafe() {
     if (climbSafe == null) {
       // these attributes are default, you should set them later with the setters
-      climbSafe = new ClimbSafe(new Date(0), 0, 0);
+      climbSafe = ClimbSafePersistence.load();
     }
     
     return climbSafe;

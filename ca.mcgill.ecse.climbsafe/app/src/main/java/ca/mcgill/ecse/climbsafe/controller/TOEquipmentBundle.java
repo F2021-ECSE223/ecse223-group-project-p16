@@ -3,8 +3,7 @@
 
 package ca.mcgill.ecse.climbsafe.controller;
 
-// line 28 "../../../../../ClimbSafeTransferObjects.ump"
-
+// line 38 "../../../../../ClimbSafeTransferObjects.ump"
 public class TOEquipmentBundle
 {
 
@@ -61,7 +60,7 @@ public class TOEquipmentBundle
 
 
   @Override
-  // line 29 "../../../../../ClimbSafeTransferObjects.ump"
+  // line 43 "../../../../../ClimbSafeTransferObjects.ump"
    public String toString(){
     return equipmentBundleName + " " + discount;
   }

@@ -8,9 +8,9 @@ import java.util.*;
 /**
  * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
  */
+// line 54 "../../../../../ClimbSafePersistence.ump"
 // line 230 "../../../../../ClimbSafeStates.ump"
-// line 29 "../../../../../ClimbSafePersistence.ump"
-// line 42 "../../../../../ClimbSafe.ump"
+// line 44 "../../../../../ClimbSafe.ump"
 public class Member extends NamedUser implements Serializable
 {
 
@@ -338,8 +338,8 @@ public class Member extends NamedUser implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 32 "../../../../../ClimbSafePersistence.ump"
-  private static final long serialVersionUID = -3900912597282882073L ;
+  // line 57 "../../../../../ClimbSafePersistence.ump"
+  private static final long serialVersionUID = 6L ;
 
   
 }

@@ -3,14 +3,15 @@
 
 package ca.mcgill.ecse.climbsafe.model;
 import java.io.Serializable;
+
 import ca.mcgill.ecse.climbsafe.model.Member.MemberStatus;
 
 /**
  * authors: Primarily Onyekachi Ezekwem, Rui Du, and Samuel Valentine, helped by Youssoff Mohamed, Yakir Bender, and Saif Shahin
  */
+// line 109 "../../../../../ClimbSafePersistence.ump"
 // line 3 "../../../../../ClimbSafeStates.ump"
-// line 36 "../../../../../ClimbSafePersistence.ump"
-// line 91 "../../../../../ClimbSafe.ump"
+// line 94 "../../../../../ClimbSafe.ump"
 public class Assignment implements Serializable
 {
 
@@ -698,8 +699,8 @@ public class Assignment implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 39 "../../../../../ClimbSafePersistence.ump"
-  private static final long serialVersionUID = 2315072607928790501L ;
+  // line 112 "../../../../../ClimbSafePersistence.ump"
+  private static final long serialVersionUID = 11L ;
 
   
 }
