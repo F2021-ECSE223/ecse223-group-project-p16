@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse.climbsafe.controller;
 
-// line 26 "../../../../../ClimbSafeTransferObjects.ump"
+// line 32 "../../../../../ClimbSafeTransferObjects.ump"
 public class TOBundleEquipment
 {
 
